@@ -1,0 +1,32 @@
+// 
+// German Language File for Etherpad LiteObject Plugin
+//
+
+<!-- language file start -->
+obj_xpdl#:#Etherpad
+objs_xpdl#:#Etherpads
+obj_xpdl_duplicate#:#Kopieren
+objs_xpdl_duplicate#:#Etherpad kopieren
+obj_xpdl_select#:#Etherpad auswählen
+xpdl_add#:#Etherpad hinzufügen
+xpdl_new#:#Neues Etherpadd hinzufügen
+xpdl_read#:#Lesezugriff auf Etherpad
+xpdl_write#:#Etherpad bearbeiten
+xpdl_delete#:#Etherpad löschen
+xpdl_visible#:#Etherpad ist sichtbar
+xpdl_edit_permission#:#Rechteeinstellungen bearbeiten
+crs_create_xpdl#:#Etherpad anlegen
+grp_create_xpdl#:#Etherpad anlegen
+fold_create_xpdl#:#Etherpad anlegen
+root_create_xpdl#:#Etherpad anlegen
+cat_create_xpdl#:#Etherpad anlegen
+content#:#Etherpad
+properties#:#Einstellungen
+edit_properties#:#Einstellungen Bearbeiten
+title#:#Titel
+description#:#Beschreibung
+save#:#Speichern
+cancel#:#Abbrechen
+edit#:#Bearbeiten
+status#:#Status
+offline#:#Offline

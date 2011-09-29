@@ -1,0 +1,447 @@
+<?php
+/*
+	+-----------------------------------------------------------------------------+
+	| ILIAS open source                                                           |
+	+-----------------------------------------------------------------------------+
+	| Copyright (c) 1998-2009 ILIAS open source, University of Cologne            |
+	|                                                                             |
+	| This program is free software; you can redistribute it and/or               |
+	| modify it under the terms of the GNU General Public License                 |
+	| as published by the Free Software Foundation; either version 2              |
+	| of the License, or (at your option) any later version.                      |
+	|                                                                             |
+	| This program is distributed in the hope that it will be useful,             |
+	| but WITHOUT ANY WARRANTY; without even the implied warranty of              |
+	| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               |
+	| GNU General Public License for more details.                                |
+	|                                                                             |
+	| You should have received a copy of the GNU General Public License           |
+	| along with this program; if not, write to the Free Software                 |
+	| Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
+	+-----------------------------------------------------------------------------+
+*/
+
+include_once("./Services/Repository/classes/class.ilObjectPlugin.php");
+require_once './Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/libs/etherpad-lite-client/etherpad-lite-client.php';
+
+
+
+/**
+* Application class for EtherpadLite repository object.
+*
+* @author Jan Rocho <jan@rocho.eu>
+*
+* $Id$
+*/
+class ilObjEtherpadLite extends ilObjectPlugin
+{
+	/**
+	* Constructor
+	*
+	* @access	public
+	*/
+	function __construct($a_ref_id = 0)
+	{
+		parent::__construct($a_ref_id);
+                
+                global $ilUser;
+                
+                $file = "./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/etherpadlite.ini.php";
+                $ini = new ilIniFile($file);
+                $ini->read();
+                
+                $this->setEtherpadLiteHost($ini->readVariable("etherpadlite", "host"));
+                $this->setEtherpadLitePort($ini->readVariable("etherpadlite", "port"));
+                $this->setEtherpadLiteApiKey($ini->readVariable("etherpadlite", "apikey"));
+                $this->setEtherpadLiteDefaultText($ini->readVariable("etherpadlite", "defaulttext"));
+                $this->setEtherpadLiteGroup($ini->readVariable("etherpadlite", "group"));
+                $this->setEtherpadLiteDomain($ini->readVariable("etherpadlite", "domain"));
+                
+                                // lets connect to the api
+                $this->setEtherpadLiteConnection(
+                        new EtherpadLiteClient($this->getEtherpadLiteApiKey(),
+							'http://'.$this->getEtherpadLiteHost().':'.$this->getEtherpadLitePort().'/api'));   
+                            
+                
+                //echo 'apikey:'.$this->getEtherpadLiteApiKey().'<br />';
+                
+                // get our mapped group
+                $this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor(
+                        $this->getEtherpadLiteGroup())); 
+                                
+                //echo "g:".$this->getEtherpadLiteGroupMapper().'<br />';
+                $this->setEtherpadLiteUserMapper($this->getEtherpadLiteConnection()->createAuthorIfNotExistsFor(
+                        $ilUser->id, $ilUser->firstname.' '.$ilUser->lastname)); 
+                
+                //echo 'u:'.$this->getEtherpadLiteUserMapper().'<br />';
+                
+                $validUntil = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); // One day in the future
+                $sessionID = $this->getEtherpadLiteConnection()->createSession(
+                        $this->getEtherpadLiteGroupMapper(), 
+                        $this->getEtherpadLiteUserMapper(), $validUntil);
+                
+                $sessionID = $sessionID->sessionID;
+                setcookie('sessionID', $sessionID, 0, '/', $this->getEtherpadLiteDomain()); 
+                
+                
+                
+                
+	}
+	
+
+	/**
+	* Get type.
+	*/
+	final function initType()
+	{
+		$this->setType("xpdl");
+	}
+	
+	/**
+	* Create object
+	*/
+	function doCreate()
+	{
+		global $ilDB;
+		
+                $tempID = $this->getEtherpadLiteConnection()->createGroupPad(
+                        $this->getEtherpadLiteGroupMapper(),$this->genRandomString(),$this->getEtherpadDefaultText());
+                
+                $this->setEtherpadLiteID($tempID->padID);
+                
+		$ilDB->manipulate("INSERT INTO rep_robj_xpdl_data ".
+			"(id, is_online, epadl_id) VALUES (".
+			$ilDB->quote($this->getId(), "integer").",".
+			$ilDB->quote(0, "integer").",".
+			$ilDB->quote($this->getEtherpadLiteID(), "text").
+			")");
+                
+                $this->getEtherpadLiteConnection()->setPublicStatus($this->getEtherpadLiteID(),0);
+	}
+	
+	/**
+	* Read data from db
+	*/
+	function doRead()
+	{
+		global $ilDB;
+		
+		$set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
+			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
+			);
+		while ($rec = $ilDB->fetchAssoc($set))
+		{
+			$this->setOnline($rec["is_online"]);
+			$this->setEtherpadLiteID($rec["epadl_id"]);
+		}
+                
+                //echo 'p:'.$this->getEtherpadLiteID().'<br />';
+
+	}
+	
+	/**
+	* Update data
+	*/
+	function doUpdate()
+	{
+		global $ilDB;
+		
+		$ilDB->manipulate($up = "UPDATE rep_robj_xpdl_data SET ".
+			" is_online = ".$ilDB->quote($this->getOnline(), "integer").",".
+			" epadl_id = ".$ilDB->quote($this->getEtherpadLiteID(), "text").
+			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
+			);
+	}
+	
+	/**
+	* Delete data from db
+	*/
+	function doDelete()
+	{
+		global $ilDB;
+		
+		$ilDB->manipulate("DELETE FROM rep_robj_xpdl_data WHERE ".
+			" id = ".$ilDB->quote($this->getId(), "integer")
+			);
+		
+	}
+	
+	/**
+	* Do Cloning
+	*/
+	function doClone($a_target_id,$a_copy_id,$new_obj)
+	{
+		global $ilDB;
+		
+		$new_obj->setOnline($this->getOnline());
+		//$new_obj->setEtherpadLiteID($this->GetEtherpadLiteID());		
+		$new_obj->update();
+                
+                // get old pad text
+                $oldPadText = $this->getEtherpadLiteConnection()->getText($this->GetEtherpadLiteID());
+                // write old pad text to new pad
+                $this->getEtherpadLiteConnection()->setText(
+                        $new_obj->getEtherpadLiteID(),
+                        $oldPadText->text);
+ 
+	}
+	
+//
+// Set/Get Methods for our example properties
+//
+
+	/**
+	* Set online
+	*
+	* @param	boolean		online
+	*/
+	function setOnline($a_val)
+	{
+		$this->online = $a_val;
+	}
+	
+	/**
+	* Get online
+	*
+	* @return	boolean		online
+	*/
+	function getOnline()
+	{
+		return $this->online;
+	}
+	
+	/**
+	* Set etherpad lite id
+	*
+	* @param	integer		etherpad lite id
+	*/
+	function setEtherpadLiteID($a_val)
+	{
+		$this->etherpadlite_id = $a_val;
+	}
+	
+	/**
+	* Get oetherpad lit id
+	*
+	* @return	integer		etherpad lite id
+	*/
+	function getEtherpadLiteID()
+	{
+		return $this->etherpadlite_id;
+	}
+	
+        /**
+        * Set EtherpadLiteHost
+        *
+        * Host of the EtherpadLite installation
+        *
+        * @param  string  $a_val  epadlhost
+        */
+        function setEtherpadLiteHost($a_val)
+        {
+            $this->epadlhost = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteHost
+        *
+        * @return string  epadlhost
+        */
+        function getEtherpadLiteHost()
+        {
+        return $this->epadlhost;
+        }
+
+        /**
+        * Set EtherpadLiteDomain
+        *
+        * Domain of the EtherpadLite installation
+        *
+        * @param  string  $a_val  epadldomain
+        */
+        function setEtherpadLiteDomain($a_val)
+        {
+            $this->epadldomain = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteDomain
+        *
+        * @return string  epadldomain
+        */
+        function getEtherpadLiteDomain()
+        {
+        return $this->epadldomain;
+        }
+        
+        /**
+        * Set EtherpadLitePort
+        *
+        * Port of the EtherpadLite installation
+        *
+        * @param  string  $a_val  epadlport
+        */
+        function setEtherpadLitePort($a_val)
+        {
+            $this->epadlport = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLitePort
+        *
+        * @return string  epadlport
+        */
+        function getEtherpadLitePort()
+        {
+        return $this->epadlport;
+        }
+        
+        /**
+        * Set EtherpadLiteApiKey
+        *
+        * API Key of the EtherpadLite installation
+        *
+        * @param  string  $a_val  epadlhost
+        */
+        function setEtherpadLiteApiKey($a_val)
+        {
+            $this->epadlapikey = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteApiKey
+        *
+        * @return string  epadlapikey
+        */
+        function getEtherpadLiteApiKey()
+        {
+        return $this->epadlapikey;
+        }
+        
+        /**
+        * Set EtherpadLiteDefaultText
+        *
+        * Default text for new pads
+        *
+        * @param  string  $a_val  epadldefaulttext
+        */
+        function setEtherpadLiteDefaultText($a_val)
+        {
+            $this->epadldefaulttext = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteDefaultText
+        *
+        * @return string  epadldefaulttext
+        */
+        function getEtherpadDefaultText()
+        {
+        return $this->epadldefaulttext;
+        }
+        
+        /**
+        * Set EtherpadLiteGroup
+        *
+        * Group for the ILIAS pads
+        *
+        * @param  string  $a_val  epadlgroup
+        */
+        function setEtherpadLiteGroup($a_val)
+        {
+            $this->epadlgroup = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteGroup
+        *
+        * @return string  epadlgroup
+        */
+        function getEtherpadLiteGroup()
+        {
+        return $this->epadlgroup;
+        }
+        
+        /**
+        * Set EtherpadLiteConnection
+        *
+        * Connection
+        *
+        * @param  string  $a_val  epadlconnect
+        */
+        function setEtherpadLiteConnection($a_val)
+        {
+            $this->epadlconnect = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteConnection
+        *
+        * @return string  epadlconnect
+        */
+        function getEtherpadLiteConnection()
+        {
+        return $this->epadlconnect;
+        }
+        
+        /**
+        * Set EtherpadLiteGroupMapper
+        *
+        * Mapped Group for the ILIAS pads
+        *
+        * @param  string  $a_val  epadlgroupmapper
+        */
+        function setEtherpadLiteGroupMapper($a_val)
+        {
+            $this->epadlgroupmapper = $a_val->groupID;
+        }
+        
+        /**
+        * Get EtherpadLiteGroupMapper
+        *
+        * @return string  epadlgroupmapper
+        */
+        function getEtherpadLiteGroupMapper()
+        {
+        return $this->epadlgroupmapper;
+        }
+        
+        /**
+        * Set EtherpadLiteUserMapper
+        *
+        * Mapped User for the ILIAS pads
+        *
+        * @param  string  $a_val  epadlusermapper
+        */
+        function setEtherpadLiteUserMapper($a_val)
+        {
+            $this->epadlusermapper = $a_val->authorID;
+        }
+        
+        /**
+        * Get EtherpadLiteUserMapper
+        *
+        * @return string  epadlusermapper
+        */
+        function getEtherpadLiteUserMapper()
+        {
+        return $this->epadlusermapper;
+        }
+        
+        
+        /**
+        * Generates random string for pad name
+        *
+        * @return string  random_pad_name
+        */
+        function genRandomString() {
+            $length = 20;
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $string = '';
+                for ($p = 0; $p < $length; $p++) {
+                  $string .= $characters[mt_rand(0, strlen($characters))];
+                }
+            return $string;
+        }
+}
+?>

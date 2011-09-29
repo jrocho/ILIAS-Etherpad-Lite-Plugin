@@ -1,0 +1,93 @@
+Etherpad Lite Plugin for ILIAS 4.1 & 4.2:
+=========================================
+
+How to install:
+
+1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
+
+   (please remember to install abiword if you want to enable Word/Openoffice/PDF import/export
+   
+2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite folder. It removes
+   the unnecessary/unused button from the Etherpad Lite control bar
+
+3. Copy the plugin files to Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/
+   in the directory structure of your ILIAS installation
+
+4. Edit the file "etherpadlite.ini.php.sample" and rename it to "etherpadlite.ini.php"
+
+
+        host = "pad.example.com"
+        
+        This is the host on which the Etherpad Lite server is running. Please note
+        that due to Security restrictions this a the be se same domain as the one
+        you're running your ILIAS installation on, or a subdomain thereof.
+
+        So if your ILIAS is running on example.com you can use pad.example.com for
+        your etherpad host. No IP address.
+
+        port = "9001"
+
+        Port on which the Etherpad Lite server is listening
+
+        apikey = ""
+
+        You API Key for Etherpad Lite. This is automatically generated when running
+        Etherpad Lite for the first time and can be found the the Etherpad Lite directory
+        in the file "APIKEY.TXT"
+
+        defaulttext = "Willkommen bei Etherpad Lite .."
+
+        Default Text for an Etherpad
+
+        group = "ilias"
+
+        You can leave this value as is. It just defines an internal group in which 
+        Etherpad Lite users are collected.
+
+        domain = ".example.com"
+
+        Set this to to top level domain with a leading dot. This is very important
+        for the session cookies to work.
+
+5. Edit the file "libs/etherpad-lite-jquery/js/etherpad.js":
+
+        Find the line 
+
+            'host'		 : 'http://pad.example.com:9001',
+
+        Edit this to match the host and port from the "etherpadlite.ini.php"
+        file.
+
+
+6. Login to your ILIAS installation as a administrator and visit
+   Administration -> Modules, Services and Plugins -> Administrate (on the
+   "RepositoryObject" row (the second column of that row should already list the
+    plugin as "EtherpadLite").
+
+    Click on "Update" and the on "Activate". The plugin should now be available
+    and you can start to add Etherpads in you courses. You might need to 
+    allow the creation of "Etherpad Lite" objects in your role administration.
+
+
+
+Contact/Responsible:
+
+Jan Rocho <jan@rocho.eu>
+
+
+
+This plugin uses/includes:
+
+Etherpad Lite PHP Client library from: 
+https://github.com/TomNomNom/etherpad-lite-client
+
+Etherpad Lite jQuery Plugin (modified) from:
+https://github.com/johnyma22/etherpad-lite-jquery-plugin
+
+jQuery 1.6.2 from:
+http://jquery.com/
+
+jQuery UI 1.8.16 from:
+http://jqueryui.com/home
+
+

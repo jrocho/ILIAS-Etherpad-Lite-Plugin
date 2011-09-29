@@ -1,0 +1,8 @@
+<?php exit; ?>
+[etherpadlite]
+host = "pad.example.com"
+port = "9001"
+apikey = "<your-api-key>"
+defaulttext = "Willkommen beim Etherpad Lite ILIAS Plugin ..."
+group = "ilias"
+domain = ".example.com"
