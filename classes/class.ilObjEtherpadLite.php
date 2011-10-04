@@ -56,25 +56,37 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 $this->setEtherpadLiteDefaultText($ini->readVariable("etherpadlite", "defaulttext"));
                 $this->setEtherpadLiteGroup($ini->readVariable("etherpadlite", "group"));
                 $this->setEtherpadLiteDomain($ini->readVariable("etherpadlite", "domain"));
-                
-                                // lets connect to the api
-                $this->setEtherpadLiteConnection(
+                $this->setEtherpadLiteHTTPS($ini->readVariable("etherpadlite", "https"));
+				
+                 // lets connect to the api
+                if(strlen($this->getEtherpadLiteHTTPS()) == 0)
+				{
+					$protocol = 'http';
+				}
+				else
+				{
+					switch($this->getEtherpadLiteHTTPS())
+					{
+						case 1:
+								$protocol = 'https';
+								break;
+						default:
+								$protocol = 'http';
+								
+					}
+				}
+				
+				$this->setEtherpadLiteConnection(
                         new EtherpadLiteClient($this->getEtherpadLiteApiKey(),
-							'http://'.$this->getEtherpadLiteHost().':'.$this->getEtherpadLitePort().'/api'));   
-                            
-                
-                //echo 'apikey:'.$this->getEtherpadLiteApiKey().'<br />';
-                
+							$protocol.'://'.$this->getEtherpadLiteHost().':'.$this->getEtherpadLitePort().'/api'));   
+
                 // get our mapped group
                 $this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor(
                         $this->getEtherpadLiteGroup())); 
                                 
-                //echo "g:".$this->getEtherpadLiteGroupMapper().'<br />';
                 $this->setEtherpadLiteUserMapper($this->getEtherpadLiteConnection()->createAuthorIfNotExistsFor(
                         $ilUser->id, $ilUser->firstname.' '.$ilUser->lastname)); 
-                
-                //echo 'u:'.$this->getEtherpadLiteUserMapper().'<br />';
-                
+                              
                 $validUntil = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); // One day in the future
                 $sessionID = $this->getEtherpadLiteConnection()->createSession(
                         $this->getEtherpadLiteGroupMapper(), 
@@ -82,10 +94,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 
                 $sessionID = $sessionID->sessionID;
                 setcookie('sessionID', $sessionID, 0, '/', $this->getEtherpadLiteDomain()); 
-                
-                
-                
-                
+   
 	}
 	
 
@@ -116,7 +125,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
 			$ilDB->quote($this->getEtherpadLiteID(), "text").
 			")");
                 
-                $this->getEtherpadLiteConnection()->setPublicStatus($this->getEtherpadLiteID(),0);
+        $this->getEtherpadLiteConnection()->setPublicStatus($this->getEtherpadLiteID(),0);
 	}
 	
 	/**
@@ -160,9 +169,24 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	{
 		global $ilDB;
 		
-		$ilDB->manipulate("DELETE FROM rep_robj_xpdl_data WHERE ".
+		$set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
+			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
+			);
+		while ($rec = $ilDB->fetchAssoc($set))
+		{
+			$this->setEtherpadLiteID($rec["epadl_id"]);
+		}
+		
+		if($this->getEtherpadLiteConnection()->deletePad($this->getEtherpadLiteID()))
+		{
+			$ilDB->manipulate("DELETE FROM rep_robj_xpdl_data WHERE ".
 			" id = ".$ilDB->quote($this->getId(), "integer")
 			);
+		}
+		else
+		{
+			return false;
+		}
 		
 	}
 	
@@ -428,6 +452,27 @@ class ilObjEtherpadLite extends ilObjectPlugin
         return $this->epadlusermapper;
         }
         
+		/**
+        * Set EtherpadLiteHTTPS
+        *
+        * check if we are using HTTPS
+        *
+        * @param  string  $a_val  epadlhttps
+        */
+        function setEtherpadLiteHTTPS($a_val)
+        {
+            $this->epadlhttps = $a_val;
+        }
+        
+        /**
+        * Get EtherpadLiteHTTPS
+        *
+        * @return string  epadlhttps
+        */
+        function getEtherpadLiteHTTPS()
+        {
+        return $this->epadlhttps;
+        }
         
         /**
         * Generates random string for pad name

@@ -5,7 +5,7 @@ How to install:
 
 1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
 
-   (please remember to install abiword if you want to enable Word/Openoffice/PDF import/export
+   (please remember to install abiword if you want to enable Word/Openoffice/PDF import/export)
    
 2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite folder. It removes
    the unnecessary/unused button from the Etherpad Lite control bar
@@ -49,6 +49,10 @@ How to install:
         Set this to to top level domain with a leading dot. This is very important
         for the session cookies to work.
 
+	https = "0"
+
+	Turn https on or of. To use https please set this to "1"
+
 5. Edit the file "libs/etherpad-lite-jquery/js/etherpad.js":
 
         Find the line 
@@ -58,6 +62,7 @@ How to install:
         Edit this to match the host and port from the "etherpadlite.ini.php"
         file.
 
+	Also replace the http with https if you're using https
 
 6. Login to your ILIAS installation as a administrator and visit
    Administration -> Modules, Services and Plugins -> Administrate (on the
