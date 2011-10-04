@@ -19,7 +19,7 @@ How to install:
         host = "pad.example.com"
         
         This is the host on which the Etherpad Lite server is running. Please note
-        that due to Security restrictions this a the be se same domain as the one
+        that due to Security restrictions this has to be the same domain as the one
         you're running your ILIAS installation on, or a subdomain thereof.
 
         So if your ILIAS is running on example.com you can use pad.example.com for
