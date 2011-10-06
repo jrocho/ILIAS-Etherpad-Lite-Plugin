@@ -4,10 +4,15 @@ Etherpad Lite Plugin for ILIAS 4.1 & 4.2:
 How to install:
 
 1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
-
-   (please remember to install abiword if you want to enable Word/Openoffice/PDF import/export)
    
-2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite folder. It removes
+   Some recommendations on this: place the Etherpad Lite server behind a reverse proxy, move it from 
+   SQLite to MySQL, setup an Init Script (to start the Etherpad Lite server automatically), install abiword
+   for PDF/Word/OpenOffice import/export. Everything is described in the Etherpad Lite wiki on GitHub.
+
+   I've tested this with Debian 5 (using the Debian 6 script) and Debian 6 with nginx and Apache reverse proxy
+   setups.   
+   
+2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite (server) folder. It removes
    the unnecessary/unused button from the Etherpad Lite control bar
 
 3. Copy the plugin files to Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/
