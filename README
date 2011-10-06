@@ -6,14 +6,14 @@ How to install:
 1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
    
    Some recommendations on this: place the Etherpad Lite server behind a reverse proxy, move it from 
-   SQLite to MySQL, setup an Init Script (to start the Etherpad Lite server automatically), install abiword
+   SQLite to MySQL, setup an Init script (to start the Etherpad Lite server automatically), install abiword
    for PDF/Word/OpenOffice import/export. Everything is described in the Etherpad Lite wiki on GitHub.
 
    I've tested this with Debian 5 (using the Debian 6 script) and Debian 6 with nginx and Apache reverse proxy
    setups.   
    
 2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite (server) folder. It removes
-   the unnecessary/unused button from the Etherpad Lite control bar
+   the unnecessary/unused buttons from the Etherpad Lite control bar
 
 3. Copy the plugin files to Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/
    in the directory structure of your ILIAS installation
@@ -24,15 +24,16 @@ How to install:
         host = "pad.example.com"
         
         This is the host on which the Etherpad Lite server is running. Please note
-        that due to Security restrictions this has to be the same domain as the one
-        you're running your ILIAS installation on, or a subdomain thereof.
+        that due to JavaScript/Cookie security restrictions this has to be the same domain 
+        as the one you're running your ILIAS installation on, or a subdomain thereof.
 
         So if your ILIAS is running on example.com you can use pad.example.com for
         your etherpad host. No IP address.
 
         port = "9001"
 
-        Port on which the Etherpad Lite server is listening
+        Port on which the Etherpad Lite server is listening. If you're running a reverse proxy setup
+        this will likely be port 80.
 
         apikey = ""
 
@@ -42,7 +43,7 @@ How to install:
 
         defaulttext = "Willkommen bei Etherpad Lite .."
 
-        Default Text for an Etherpad
+        Default text for an Etherpad
 
         group = "ilias"
 
@@ -56,7 +57,7 @@ How to install:
 
 	https = "0"
 
-	Turn https on or of. To use https please set this to "1"
+	Turn https on or off. To use https please set this to "1"
 
 5. Edit the file "libs/etherpad-lite-jquery/js/etherpad.js":
 
@@ -88,16 +89,22 @@ Jan Rocho <jan@rocho.eu>
 
 This plugin uses/includes:
 
-Etherpad Lite PHP Client library from: 
+Etherpad Lite PHP Client library (modified) from: 
 https://github.com/TomNomNom/etherpad-lite-client
+
+   Modified for HTTPS support
 
 Etherpad Lite jQuery Plugin (modified) from:
 https://github.com/johnyma22/etherpad-lite-jquery-plugin
 
-jQuery 1.6.2 from:
+   Bugfix for IE. Customization for ILIAS integration.
+
+jQuery 1.6.2 (modified) from:
 http://jquery.com/
 
-jQuery UI 1.8.16 from:
+   Fix to prevent double loading in ILIAS 4.2.
+
+jQuery UI 1.8.16 (modified) from:
 http://jqueryui.com/home
 
-
+   Fix to prevent double loading if another ILIAS plugin is already using jQuery UI. 
