@@ -9,7 +9,7 @@ obj_xpdl_duplicate#:#Kopieren
 objs_xpdl_duplicate#:#Etherpad kopieren
 obj_xpdl_select#:#Etherpad auswählen
 xpdl_add#:#Etherpad hinzufügen
-xpdl_new#:#Neues Etherpadd hinzufügen
+xpdl_new#:#Neues Etherpad hinzufügen
 xpdl_read#:#Lesezugriff auf Etherpad
 xpdl_write#:#Etherpad bearbeiten
 xpdl_delete#:#Etherpad löschen
@@ -30,3 +30,4 @@ cancel#:#Abbrechen
 edit#:#Bearbeiten
 status#:#Status
 offline#:#Offline
+xpdl_import#:#Etherpad importieren
