@@ -3,7 +3,14 @@ Etherpad Lite Plugin for ILIAS 4.1 & 4.2:
 
 How to install:
 
-1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
+1. Install Etherpad Lite according to the instructions at: https://github.com/Pita/etherpad-lite
+
+   You may use a fork of Etherpad Lite which is a version which has been tested with the
+   plugin instead of office Etherpad Lite. 
+   
+   The fork is available at: https://github.com/jrocho/etherpad-lite
+   
+   Changes from the main Etherpad Lite will be merged into the fork.
 
    IMPORTANT: Before you start the Etherpad Lite service turn of "minify" in the settings.json
    otherwise the the JavaScript modifications (see section 2 of this documentation) won't take effect.
