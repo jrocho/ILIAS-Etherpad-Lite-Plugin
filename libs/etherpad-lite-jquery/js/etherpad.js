@@ -2,7 +2,7 @@
 
   $.fn.pad = function( options ) {
     var settings = {
-      'host'		 : 'http://pad.example.com:9001',
+      'host'		 : 'http://pad.projectserver.eu',
       'baseUrl'		 : '/p/',
       'showControls'     : false,
       'showChat'	 : false,
