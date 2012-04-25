@@ -4,13 +4,24 @@ Etherpad Lite Plugin for ILIAS 4.1 & 4.2:
 How to install:
 
 1. Install Etherpad Lite according to: https://github.com/Pita/etherpad-lite
+
+   IMPORTANT: Before you start the Etherpad Lite service turn of "minify" in the settings.json
+   otherwise the the JavaScript modifications (see section 2 of this documentation) won't take effect.
    
    Some recommendations on this: place the Etherpad Lite server behind a reverse proxy, move it from 
    SQLite to MySQL, setup an Init script (to start the Etherpad Lite server automatically), install abiword
    for PDF/Word/OpenOffice import/export. Everything is described in the Etherpad Lite wiki on GitHub.
 
    I've tested this with Debian 5 (using the Debian 6 script) and Debian 6 with nginx and Apache reverse proxy
-   setups.   
+   setups. 
+   
+   If you want to only allow access to your pad server to ILIAS user with a session (no direct access to you pad domain)
+   set
+   
+   "requireSession" : true, 
+   
+   in the settings.json of Etherpad Lite
+   
    
 2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite (server) folder. It removes
    the unnecessary/unused buttons from the Etherpad Lite control bar
