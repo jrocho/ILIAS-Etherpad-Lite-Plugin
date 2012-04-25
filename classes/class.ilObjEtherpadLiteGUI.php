@@ -247,6 +247,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
                       "'showControls':'true',".
                       "'showLineNumbers':'true',".
                       "'showChat':'true',".
+                      "'height': 400,".
                       "'userName':'".$fullName."'});</script>\n";
                 
                 $tpl->setContent('<div id="etherpad-lite"></div>'.$js);
