@@ -29,6 +29,12 @@ How to install:
    
    in the settings.json of Etherpad Lite
    
+   Set the IP address in the settings.json to 0.0.0.0
+   
+   e.g.
+   
+   "ip": "0.0.0.0",
+   
    
 2. Copy the file pad.js.sample to "static/custom/pad.js" within your etherpad-lite (server) folder. It removes
    the unnecessary/unused buttons from the Etherpad Lite control bar
