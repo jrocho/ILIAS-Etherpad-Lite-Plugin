@@ -235,8 +235,9 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
                 $tpl->addCss("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/templates/css/ui-lightness/jquery-ui-1.8.16.custom.css");
 
                 $fullName = $ilUser->firstname.' '.$ilUser->lastname;
-                $fullName = rawurlencode(iconv('utf-8','iso-8859-1', addslashes($fullName)));
-                
+                //$fullName = rawurlencode(iconv('utf-8','iso-8859-1', addslashes($fullName)));
+		$fullName = rawurlencode($fullName);                
+ 
                 // build javascript required to load the pad
                 $js = "<script type=\"text/javascript\">".
                       "$(function() {".
