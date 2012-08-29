@@ -1,13 +1,10 @@
-function costumStart()
-{
-  //define your javascript here
-  //jquery is avaiable - except index.js
-  //you can load extra scripts with $.getScript http://api.jquery.com/jQuery.getScript/
+    function customStart()
+    {
+      //define your javascript here
+      //jquery is available - except index.js
+      //you can load extra scripts with $.getScript http://api.jquery.com/jQuery.getScript/
+            $("li[data-key='embed']").hide();
+     
+    }
 
-
-$('a#readonlylink').parent().hide();
-$('a#embedlink').parent().hide();
-$('a#exportwordlea').hide();
-
-}
 
