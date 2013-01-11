@@ -1,6 +1,12 @@
 Etherpad Lite Plugin for ILIAS 4.1 & 4.2:
 =========================================
 
+If you are using ILIAS 4.1 - 4.2 please use version 0.0.4 or the 'pre-43' branch: https://github.com/jrocho/ILIAS-Etherpad-Lite-Plugin/tags
+
+If you are using ILIAS 4.3 please use version 0.0.5 or the 'master' branch: https://github.com/jrocho/ILIAS-Etherpad-Lite-Plugin/tags
+
+
+
 How to install:
 
 1. Install Etherpad Lite according to the instructions at: https://github.com/Pita/etherpad-lite
@@ -79,9 +85,9 @@ How to install:
         Set this to to top level domain with a leading dot. This is very important
         for the session cookies to work.
 
-	https = "0"
-
-	Turn https on or off. To use https please set this to "1"
+		https = "0"
+	
+		Turn https on or off. To use https please set this to "1"
 
 5. Edit the file "libs/etherpad-lite-jquery/js/etherpad.js":
 
