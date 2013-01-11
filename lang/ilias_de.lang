@@ -31,3 +31,7 @@ edit#:#Bearbeiten
 status#:#Status
 offline#:#Offline
 xpdl_import#:#Etherpad importieren
+show_controls#:#Funktionsleiste anzeigen 
+show_lines#:#Zeilennummern einblenden
+show_chat#:#Chat anzeigen
+use_color#:#Farben für Autoren

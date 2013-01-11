@@ -124,7 +124,11 @@ class ilObjEtherpadLite extends ilObjectPlugin
 			"(id, is_online, epadl_id) VALUES (".
 			$ilDB->quote($this->getId(), "integer").",".
 			$ilDB->quote(0, "integer").",".
-			$ilDB->quote($this->getEtherpadLiteID(), "text").
+			$ilDB->quote($this->getEtherpadLiteID(), "text").",".
+			$ilDB->quote(1 ,"integer").",".
+			$ilDB->quote(1 ,"integer").",".
+			$ilDB->quote(1 ,"integer").",".
+			$ilDB->quote(1 ,"integer").
 			")");
                 
         $this->getEtherpadLiteConnection()->setPublicStatus($this->getEtherpadLiteID(),0);
@@ -144,10 +148,11 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		{
 			$this->setOnline($rec["is_online"]);
 			$this->setEtherpadLiteID($rec["epadl_id"]);
+			$this->setShowControls($rec["show_controls"]);
+			$this->setLineNum($rec["show_lines"]);
+			$this->setUseColor($rec["use_color"]);
+			$this->setChatVisible($rec["show_chat"]);
 		}
-                
-                //echo 'p:'.$this->getEtherpadLiteID().'<br />';
-
 	}
 	
 	/**
@@ -159,7 +164,11 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		
 		$ilDB->manipulate($up = "UPDATE rep_robj_xpdl_data SET ".
 			" is_online = ".$ilDB->quote($this->getOnline(), "integer").",".
-			" epadl_id = ".$ilDB->quote($this->getEtherpadLiteID(), "text").
+			" epadl_id = ".$ilDB->quote($this->getEtherpadLiteID(), "text").",".
+			" show_controls = ".$ilDB->quote($this->getShowControls(), "integer").",".
+			" show_lines = ".$ilDB->quote($this->getLineNum(), "integer").",".
+			" use_color = ".$ilDB->quote($this->getUseColor(), "integer").",".
+			" show_chat = ".$ilDB->quote($this->getChatVisible(), "integer").
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
 	}
@@ -200,6 +209,11 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		global $ilDB;
 		
 		$new_obj->setOnline($this->getOnline());
+		$new_obj->setShowControls($this->getShowControls());
+		$new_obj->setLineNum($this->getLineNum());
+		$new_obj->setUseColor($this->getUseColor());
+		$new_obj->setChatVisible($this->getChatVisible());
+		
 		//$new_obj->setEtherpadLiteID($this->GetEtherpadLiteID());		
 		$new_obj->update();
                 
@@ -496,6 +510,92 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	function getEtherpadLiteHTTPS()
 	{
 	return $this->epadlhttps;
+	}
+	
+	/**
+	* Set controls (visibility)
+	*
+	* @param	boolean		online
+	*/
+	function setShowControls($a_val)
+	{
+		$this->controls = $a_val;
+	}
+	
+	/**
+	* Get controls (visibility)
+	*
+	* @return	boolean		online
+	*/
+	function getShowControls()
+	{
+		return $this->controls;
+	}
+	
+	/**
+	* Set linenum
+	* Display / hide line numbers
+	*
+	* @param	boolean		online
+	*/
+	function setLineNum($a_val)
+	{
+		$this->linenum = $a_val;
+	}
+	
+	/**
+	* Get linenum
+	* Display / hide line numbers
+	*
+	* @return	boolean		online
+	*/
+	function getLineNum()
+	{
+		return $this->linenum;
+	}
+	
+	/**
+	* Set chatvisible
+	* Display / hide chat
+	*
+	* @param	boolean		online
+	*/
+	function setChatVisible($a_val)
+	{
+		$this->chatvisible = $a_val;
+	}
+	
+	/**
+	* Get chatvisible
+	* Display / hide chat
+	*
+	* @return	boolean		online
+	*/
+	function getChatVisible()
+	{
+		return $this->chatvisible;
+	}
+	
+	/**
+	* Set usecolor
+	* Use colors?
+	*
+	* @param	boolean		online
+	*/
+	function setUseColor($a_val)
+	{
+		$this->usecolor = $a_val;
+	}
+	
+	/**
+	* Get usecolor
+	* Use colors?
+	*
+	* @return	boolean		online
+	*/
+	function getUseColor()
+	{
+		return $this->usecolor;
 	}
 	
 	/**

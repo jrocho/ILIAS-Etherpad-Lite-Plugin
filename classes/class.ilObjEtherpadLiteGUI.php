@@ -163,7 +163,24 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		$cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
 		$this->form->addItem($cb);
                 
-                $epadlid_input = new ilHiddenInputGUI("epadl_id");
+        // controls
+        $cb = new ilCheckboxInputGUI($this->txt("show_controls"), "show_controls");
+        $this->form->addItem($cb);
+        
+        // line numbers
+        $cb = new ilCheckboxInputGUI($this->txt("show_lines"), "show_lines");
+        $this->form->addItem($cb);
+        
+        // chat visibility
+        $cb = new ilCheckboxInputGUI($this->txt("show_chat"), "show_chat");
+        $this->form->addItem($cb);
+        
+        // use colors
+        $cb = new ilCheckboxInputGUI($this->txt("use_color"), "use_color");
+        $this->form->addItem($cb);
+        
+        
+        $epadlid_input = new ilHiddenInputGUI("epadl_id");
 		//$format_input->setValue("epadl_id");
 		$this->form->addItem($epadlid_input);
 
@@ -182,6 +199,10 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		$values["desc"] = $this->object->getDescription();
 		$values["online"] = $this->object->getOnline();
 		$values["epadl_id"] = $this->object->getEtherpadLiteID();		
+		$values["show_controls"] = $this->object->getShowControls();
+		$values["show_lines"] = $this->object->getLineNum();
+		$values["show_chat"] = $this->object->getChatVisible();
+		$values["use_color"] = $this->object->getUseColor();
 		$this->form->setValuesByArray($values);
 	}
 	
@@ -199,6 +220,10 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 			$this->object->setDescription($this->form->getInput("desc"));
 			$this->object->setEtherpadLiteID($this->form->getInput("epadl_id"));
 			$this->object->setOnline($this->form->getInput("online"));
+			$this->object->setShowControls($this->form->getInput("show_controls"));
+			$this->object->setLineNum($this->form->getInput("show_lines"));
+			$this->object->setChatVisible($this->form->getInput("show_chat"));
+			$this->object->setUseColor($this->form->getInput("use_color"));
 			$this->object->update();
 			ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
 			$ilCtrl->redirect($this, "editProperties");
@@ -237,10 +262,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
                       "});".
                       "$('#etherpad-lite').pad({'padId':'".
                       $this->object->getEtherpadLiteID()."','showChat':'true',".
-                      "'showControls':'true',".
+                      "'showControls':'".($this->object->getShowControls() ? "true" : "false")."',".
+                      "'noColors':'".($this->object->getUseColor() ? "false" : "true")."',".
                       "'host':'".$this->object->getEtherpadLiteConnectionPlain()."',".
-                      "'showLineNumbers':'true',".
-                      "'showChat':'true',".
+                      "'showLineNumbers':'".($this->object->getLineNum() ? "true" : "false")."',".
+                      "'showChat':'".($this->object->getChatVisible() ? "true" : "false")."',".
                       "'height': 400,".
                       "'userName':'".$fullName."'});</script>\n";
                 
