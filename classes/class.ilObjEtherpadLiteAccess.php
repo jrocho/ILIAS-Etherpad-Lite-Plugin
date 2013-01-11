@@ -1,9 +1,9 @@
 <?php
 /*
 	+-----------------------------------------------------------------------------+
-	| ILIAS open source                                                           |
+	| EtherpadLite ILIAS Plugin                                                        |
 	+-----------------------------------------------------------------------------+
-	| Copyright (c) 1998-2001 ILIAS open source, University of Cologne            |
+	| Copyright (c) 2012-2013 Jan Rocho										      |
 	|                                                                             |
 	| This program is free software; you can redistribute it and/or               |
 	| modify it under the terms of the GNU General Public License                 |
@@ -25,9 +25,6 @@ include_once("./Services/Repository/classes/class.ilObjectPluginAccess.php");
 
 /**
 * Access/Condition checking for EtherpadLite object
-*
-* Please do not create instances of large application classes (like ilObjEtherpadLite)
-* Write small methods within this class to determin the status.
 *
 * @author 		Jan Rocho <jan@rocho.eu>
 * @version $Id$

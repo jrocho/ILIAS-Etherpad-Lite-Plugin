@@ -1,9 +1,9 @@
 <?php
 /*
 	+-----------------------------------------------------------------------------+
-	| ILIAS open source                                                           |
+	| EtherpadLite ILIAS Plugin                                                        |
 	+-----------------------------------------------------------------------------+
-	| Copyright (c) 1998-2009 ILIAS open source, University of Cologne            |
+	| Copyright (c) 2012-2013 Jan Rocho										      |
 	|                                                                             |
 	| This program is free software; you can redistribute it and/or               |
 	| modify it under the terms of the GNU General Public License                 |
@@ -211,7 +211,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	}
 	
 //
-// Set/Get Methods for our example properties
+// Set/Get Methods
 //
 
 	/**
@@ -254,239 +254,239 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		return $this->etherpadlite_id;
 	}
 	
-        /**
-        * Set EtherpadLiteHost
-        *
-        * Host of the EtherpadLite installation
-        *
-        * @param  string  $a_val  epadlhost
-        */
-        function setEtherpadLiteHost($a_val)
-        {
-            $this->epadlhost = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteHost
-        *
-        * @return string  epadlhost
-        */
-        function getEtherpadLiteHost()
-        {
-        return $this->epadlhost;
-        }
+	/**
+	* Set EtherpadLiteHost
+	*
+	* Host of the EtherpadLite installation
+	*
+	* @param  string  $a_val  epadlhost
+	*/
+	function setEtherpadLiteHost($a_val)
+	{
+		$this->epadlhost = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteHost
+	*
+	* @return string  epadlhost
+	*/
+	function getEtherpadLiteHost()
+	{
+	return $this->epadlhost;
+	}
 
-        /**
-        * Set EtherpadLiteDomain
-        *
-        * Domain of the EtherpadLite installation
-        *
-        * @param  string  $a_val  epadldomain
-        */
-        function setEtherpadLiteDomain($a_val)
-        {
-            $this->epadldomain = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteDomain
-        *
-        * @return string  epadldomain
-        */
-        function getEtherpadLiteDomain()
-        {
-        return $this->epadldomain;
-        }
-        
-        /**
-        * Set EtherpadLitePort
-        *
-        * Port of the EtherpadLite installation
-        *
-        * @param  string  $a_val  epadlport
-        */
-        function setEtherpadLitePort($a_val)
-        {
-            $this->epadlport = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLitePort
-        *
-        * @return string  epadlport
-        */
-        function getEtherpadLitePort()
-        {
-        return $this->epadlport;
-        }
-        
-        /**
-        * Set EtherpadLiteApiKey
-        *
-        * API Key of the EtherpadLite installation
-        *
-        * @param  string  $a_val  epadlhost
-        */
-        function setEtherpadLiteApiKey($a_val)
-        {
-            $this->epadlapikey = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteApiKey
-        *
-        * @return string  epadlapikey
-        */
-        function getEtherpadLiteApiKey()
-        {
-        return $this->epadlapikey;
-        }
-        
-        /**
-        * Set EtherpadLiteDefaultText
-        *
-        * Default text for new pads
-        *
-        * @param  string  $a_val  epadldefaulttext
-        */
-        function setEtherpadLiteDefaultText($a_val)
-        {
-            $this->epadldefaulttext = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteDefaultText
-        *
-        * @return string  epadldefaulttext
-        */
-        function getEtherpadDefaultText()
-        {
-        return $this->epadldefaulttext;
-        }
-        
-        /**
-        * Set EtherpadLiteGroup
-        *
-        * Group for the ILIAS pads
-        *
-        * @param  string  $a_val  epadlgroup
-        */
-        function setEtherpadLiteGroup($a_val)
-        {
-            $this->epadlgroup = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteGroup
-        *
-        * @return string  epadlgroup
-        */
-        function getEtherpadLiteGroup()
-        {
-        return $this->epadlgroup;
-        }
-        
-        /**
-        * Set EtherpadLiteConnection
-        *
-        * Connection
-        *
-        * @param  string  $a_val  epadlconnect
-        */
-        function setEtherpadLiteConnection($a_val)
-        {
-            $this->epadlconnect = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteConnection
-        *
-        * @return string  epadlconnect
-        */
-        function getEtherpadLiteConnection()
-        {
-        return $this->epadlconnect;
-        }
-        
-        /**
-        * Set EtherpadLiteGroupMapper
-        *
-        * Mapped Group for the ILIAS pads
-        *
-        * @param  string  $a_val  epadlgroupmapper
-        */
-        function setEtherpadLiteGroupMapper($a_val)
-        {
-            $this->epadlgroupmapper = $a_val->groupID;
-        }
-        
-        /**
-        * Get EtherpadLiteGroupMapper
-        *
-        * @return string  epadlgroupmapper
-        */
-        function getEtherpadLiteGroupMapper()
-        {
-        return $this->epadlgroupmapper;
-        }
-        
-        /**
-        * Set EtherpadLiteUserMapper
-        *
-        * Mapped User for the ILIAS pads
-        *
-        * @param  string  $a_val  epadlusermapper
-        */
-        function setEtherpadLiteUserMapper($a_val)
-        {
-            $this->epadlusermapper = $a_val->authorID;
-        }
-        
-        /**
-        * Get EtherpadLiteUserMapper
-        *
-        * @return string  epadlusermapper
-        */
-        function getEtherpadLiteUserMapper()
-        {
-        return $this->epadlusermapper;
-        }
-        
-		/**
-        * Set EtherpadLiteHTTPS
-        *
-        * check if we are using HTTPS
-        *
-        * @param  string  $a_val  epadlhttps
-        */
-        function setEtherpadLiteHTTPS($a_val)
-        {
-            $this->epadlhttps = $a_val;
-        }
-        
-        /**
-        * Get EtherpadLiteHTTPS
-        *
-        * @return string  epadlhttps
-        */
-        function getEtherpadLiteHTTPS()
-        {
-        return $this->epadlhttps;
-        }
-        
-        /**
-        * Generates random string for pad name
-        *
-        * @return string  random_pad_name
-        */
-        function genRandomString() {
-            $length = 20;
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-            $string = '';
-                for ($p = 0; $p < $length; $p++) {
-                  $string .= $characters[mt_rand(0, strlen($characters))];
-                }
-            return $string;
-        }
+	/**
+	* Set EtherpadLiteDomain
+	*
+	* Domain of the EtherpadLite installation
+	*
+	* @param  string  $a_val  epadldomain
+	*/
+	function setEtherpadLiteDomain($a_val)
+	{
+		$this->epadldomain = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteDomain
+	*
+	* @return string  epadldomain
+	*/
+	function getEtherpadLiteDomain()
+	{
+	return $this->epadldomain;
+	}
+	
+	/**
+	* Set EtherpadLitePort
+	*
+	* Port of the EtherpadLite installation
+	*
+	* @param  string  $a_val  epadlport
+	*/
+	function setEtherpadLitePort($a_val)
+	{
+		$this->epadlport = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLitePort
+	*
+	* @return string  epadlport
+	*/
+	function getEtherpadLitePort()
+	{
+	return $this->epadlport;
+	}
+	
+	/**
+	* Set EtherpadLiteApiKey
+	*
+	* API Key of the EtherpadLite installation
+	*
+	* @param  string  $a_val  epadlhost
+	*/
+	function setEtherpadLiteApiKey($a_val)
+	{
+		$this->epadlapikey = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteApiKey
+	*
+	* @return string  epadlapikey
+	*/
+	function getEtherpadLiteApiKey()
+	{
+	return $this->epadlapikey;
+	}
+	
+	/**
+	* Set EtherpadLiteDefaultText
+	*
+	* Default text for new pads
+	*
+	* @param  string  $a_val  epadldefaulttext
+	*/
+	function setEtherpadLiteDefaultText($a_val)
+	{
+		$this->epadldefaulttext = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteDefaultText
+	*
+	* @return string  epadldefaulttext
+	*/
+	function getEtherpadDefaultText()
+	{
+	return $this->epadldefaulttext;
+	}
+	
+	/**
+	* Set EtherpadLiteGroup
+	*
+	* Group for the ILIAS pads
+	*
+	* @param  string  $a_val  epadlgroup
+	*/
+	function setEtherpadLiteGroup($a_val)
+	{
+		$this->epadlgroup = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteGroup
+	*
+	* @return string  epadlgroup
+	*/
+	function getEtherpadLiteGroup()
+	{
+	return $this->epadlgroup;
+	}
+	
+	/**
+	* Set EtherpadLiteConnection
+	*
+	* Connection
+	*
+	* @param  string  $a_val  epadlconnect
+	*/
+	function setEtherpadLiteConnection($a_val)
+	{
+		$this->epadlconnect = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteConnection
+	*
+	* @return string  epadlconnect
+	*/
+	function getEtherpadLiteConnection()
+	{
+	return $this->epadlconnect;
+	}
+	
+	/**
+	* Set EtherpadLiteGroupMapper
+	*
+	* Mapped Group for the ILIAS pads
+	*
+	* @param  string  $a_val  epadlgroupmapper
+	*/
+	function setEtherpadLiteGroupMapper($a_val)
+	{
+		$this->epadlgroupmapper = $a_val->groupID;
+	}
+	
+	/**
+	* Get EtherpadLiteGroupMapper
+	*
+	* @return string  epadlgroupmapper
+	*/
+	function getEtherpadLiteGroupMapper()
+	{
+	return $this->epadlgroupmapper;
+	}
+	
+	/**
+	* Set EtherpadLiteUserMapper
+	*
+	* Mapped User for the ILIAS pads
+	*
+	* @param  string  $a_val  epadlusermapper
+	*/
+	function setEtherpadLiteUserMapper($a_val)
+	{
+		$this->epadlusermapper = $a_val->authorID;
+	}
+	
+	/**
+	* Get EtherpadLiteUserMapper
+	*
+	* @return string  epadlusermapper
+	*/
+	function getEtherpadLiteUserMapper()
+	{
+	return $this->epadlusermapper;
+	}
+	
+	/**
+	* Set EtherpadLiteHTTPS
+	*
+	* check if we are using HTTPS
+	*
+	* @param  string  $a_val  epadlhttps
+	*/
+	function setEtherpadLiteHTTPS($a_val)
+	{
+		$this->epadlhttps = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteHTTPS
+	*
+	* @return string  epadlhttps
+	*/
+	function getEtherpadLiteHTTPS()
+	{
+	return $this->epadlhttps;
+	}
+	
+	/**
+	* Generates random string for pad name
+	*
+	* @return string  random_pad_name
+	*/
+	function genRandomString() {
+		$length = 20;
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		$string = '';
+			for ($p = 0; $p < $length; $p++) {
+			  $string .= $characters[mt_rand(0, strlen($characters))];
+			}
+		return $string;
+	}
 }
 ?>

@@ -1,9 +1,9 @@
 <?php
 /*
 	+-----------------------------------------------------------------------------+
-	| ILIAS open source                                                           |
+	| EtherpadLite ILIAS Plugin                                                        |
 	+-----------------------------------------------------------------------------+
-	| Copyright (c) 1998-2009 ILIAS open source, University of Cologne            |
+	| Copyright (c) 2012-2013 Jan Rocho										      |
 	|                                                                             |
 	| This program is free software; you can redistribute it and/or               |
 	| modify it under the terms of the GNU General Public License                 |

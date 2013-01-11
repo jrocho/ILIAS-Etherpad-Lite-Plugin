@@ -1,9 +1,9 @@
 <?php
 /*
 	+-----------------------------------------------------------------------------+
-	| ILIAS open source                                                           |
+	| EtherpadLite ILIAS Plugin                                                        |
 	+-----------------------------------------------------------------------------+
-	| Copyright (c) 1998-2009 ILIAS open source, University of Cologne            |
+	| Copyright (c) 2012-2013 Jan Rocho										      |
 	|                                                                             |
 	| This program is free software; you can redistribute it and/or               |
 	| modify it under the terms of the GNU General Public License                 |
@@ -43,9 +43,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 	*/
 	protected function afterConstructor()
 	{
-		// anything needed after object has been constructed
-		// - example: append my_id GET parameter to each request
-		//   $ilCtrl->saveParameter($this, array("my_id"));
+
 	}
 	
 	/**
@@ -65,14 +63,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		{
 			case "editProperties":		// list all commands that need write permission here
 			case "updateProperties":
-			//case "...":
 				$this->checkPermission("write");
 				$this->$cmd();
 				break;
 			
 			case "showContent":			// list all commands that need read permission here
-			//case "...":
-			//case "...":
 				$this->checkPermission("read");
 				$this->$cmd();
 				break;
@@ -125,10 +120,6 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		$this->addPermissionTab();
 	}
 	
-
-// THE FOLLOWING METHODS IMPLEMENT SOME EXAMPLE COMMANDS WITH COMMON FEATURES
-// YOU MAY REMOVE THEM COMPLETELY AND REPLACE THEM WITH YOUR OWN METHODS.
-
 //
 // Edit properties form
 //
@@ -236,7 +227,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
                 $fullName = $ilUser->firstname.' '.$ilUser->lastname;
                 //$fullName = rawurlencode(iconv('utf-8','iso-8859-1', addslashes($fullName)));
-		$fullName = rawurlencode($fullName);                
+				$fullName = rawurlencode($fullName);                
  
                 // build javascript required to load the pad
                 $js = "<script type=\"text/javascript\">".
