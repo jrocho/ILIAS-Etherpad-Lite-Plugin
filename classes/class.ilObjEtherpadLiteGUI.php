@@ -34,6 +34,7 @@ include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 *
 * @ilCtrl_isCalledBy ilObjEtherpadLiteGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
 * @ilCtrl_Calls ilObjEtherpadLiteGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI
+* @ilCtrl_Calls ilObjEtherpadLiteGUI: ilCommonActionDispatcherGUI
 *
 */
 class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
