@@ -229,7 +229,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
                 $fullName = $ilUser->firstname.' '.$ilUser->lastname;
                 //$fullName = rawurlencode(iconv('utf-8','iso-8859-1', addslashes($fullName)));
 				$fullName = rawurlencode($fullName);                
- 
+ 				
                 // build javascript required to load the pad
                 $js = "<script type=\"text/javascript\">".
                       "$(function() {".
@@ -238,6 +238,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
                       "$('#etherpad-lite').pad({'padId':'".
                       $this->object->getEtherpadLiteID()."','showChat':'true',".
                       "'showControls':'true',".
+                      "'host':'".$this->object->getEtherpadLiteConnectionPlain()."',".
                       "'showLineNumbers':'true',".
                       "'showChat':'true',".
                       "'height': 400,".

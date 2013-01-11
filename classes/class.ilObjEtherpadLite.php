@@ -76,6 +76,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
 					}
 				}
 				
+				$this->setEtherpadLiteConnectionPlain($protocol.'://'.$this->getEtherpadLiteHost().':'.$this->getEtherpadLitePort());
+				
 				$this->setEtherpadLiteConnection(
                         new EtherpadLiteClient($this->getEtherpadLiteApiKey(),
 							$protocol.'://'.$this->getEtherpadLiteHost().':'.$this->getEtherpadLitePort().'/api'));   
@@ -406,6 +408,28 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	function getEtherpadLiteConnection()
 	{
 	return $this->epadlconnect;
+	}
+	
+	/**
+	* Set EtherpadLiteConnectionPlain
+	*
+	* Connection
+	*
+	* @param  string  $a_val  epadlconnectplain
+	*/
+	function setEtherpadLiteConnectionPlain($a_val)
+	{
+		$this->epadlconnectplain = $a_val;
+	}
+	
+	/**
+	* Get EtherpadLiteConnectionPlain
+	*
+	* @return string  epadlconnectplain
+	*/
+	function getEtherpadLiteConnectionPlain()
+	{
+	return $this->epadlconnectplain;
 	}
 	
 	/**
