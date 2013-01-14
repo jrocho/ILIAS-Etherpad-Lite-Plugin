@@ -121,7 +121,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 $this->setEtherpadLiteID($tempID->padID);
                 
 		$ilDB->manipulate("INSERT INTO rep_robj_xpdl_data ".
-			"(id, is_online, epadl_id) VALUES (".
+			"(id, is_online, epadl_id, show_controls, show_lines, use_color, show_chat) VALUES (".
 			$ilDB->quote($this->getId(), "integer").",".
 			$ilDB->quote(0, "integer").",".
 			$ilDB->quote($this->getEtherpadLiteID(), "text").",".
