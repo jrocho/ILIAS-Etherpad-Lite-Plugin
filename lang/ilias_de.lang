@@ -35,3 +35,80 @@ show_controls#:#Funktionsleiste anzeigen
 show_lines#:#Zeilennummern einblenden
 show_chat#:#Chat anzeigen
 use_color#:#Farben für Autoren
+
+<!-- Administration -->
+configuration#:#Konfiguration von Etherpad-Lite
+host#:#Host
+info_host#:#Host auf welchem Etherpad-Lite installiert wurde. Beispiel: etherpad.example.com (Achtung, wegen Cookie Restriktionen müssen der Etherpad-Lite Server und Ilias innerhalb der selben Domain oder Subdomain liegen)
+port#:#Port
+info_port#:#Port auf welchen Etherpad-Lite hört. Standard: 9001
+apikey#:#Apikey
+info_apikey#:#Der Apikey wird automatisch erstellt, wenn Etherpad-Lite das erste Mal gestartet wird. Er wird im Hauptverzeichnis von Etherpad-Lite in der Datei APIKEY.txt gespeichert.
+domain#:#Domain
+info_domain#:#Domain von Etherpadlite. Die Domain ist wichtig im die Gültigkeit der Session-Cookies sicherzustellen. Beispiel: .example.com (Achtung der führende Punkt ist wichtig, um die Gültigkeit der Sesseion-Cookies zu gewährleisten)
+https#:#Https
+info_https#:#Https ein oder ausschalten.
+defaulttext#:#Standardtext
+info_defaulttext#:#Dieser Text wird angezeigt, wenn ein neues Etherpad erstellt wird.
+info_old_group#:#Benutzergruppe (Deprecated seit 0.2.0), bei alten Installationen belassen.
+old_group#:#Benutzergruppe
+
+default_show_chat#:#Chat standardmässig anzeigen
+info_default_show_chat#:#Die Chatfunktion für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
+conf_show_chat#:#Chatanzeige individuell konfigurierbar
+info_conf_show_chat#:#Bei aktivierung, kann für jedes einzelne Etherpadobjekt die Chatfunktion aktiviert oder deaktiviert werden.
+
+default_line_numbers#:#Zeilenzahlen standardmässig anzeigen
+info_default_line_numbers#:#Die Zeilenzahlen für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
+conf_line_numbers#:#Zeilenzahlen individuell konfigurierbar
+info_conf_line_numbers#:#Bei aktivierung, können für jedes einzelne Etherpadobjekt die Zeilenzahlen aktiviert oder deaktiviert werden.
+
+default_monospace_font#:#Monospaceschrift standardmässig aktivieren
+info_default_monospace_font#:#Die Monospaceschrift (alle Buchstaben haben die selbe Breite) für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
+conf_monospace_font#:#Monospaceschrift individuell konfigurierbar
+info_conf_monospace_font#:#Bei aktivierung, kann für jedes einzelne Etherpadobjekt die Monospaceschrift aktiviert oder deaktiviert werden.
+
+default_show_colors#:#Autorenfarben standardmässig anzeigen
+info_default_show_colors#:#Die Auterenfarbe für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
+conf_show_colors#:#Autorenfarbe individuell konfigurierbar
+info_conf_show_colors#:#Bei aktivierung, kann für jedes einzelne Etherpadobjekt die Autorenfarbe aktiviert oder deaktiviert werden.
+
+default_show_controls#:#Kontrollelemente standardmässig anzeigen
+info_default_show_controls#:#Die Kontrollemente für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
+conf_show_controls#:#Anzeige der Kontollelemente individuell konfigurierbar
+info_conf_show_controls#:#Bei aktivierung, können für jedes einzelne Etherpadobjekt die Kontrollelemente aktiviert oder deaktiviert werden.
+
+default_show_controls_default_show_style#:#Schriftformantierungselemente ein- oder ausblenden.
+info_default_show_style#:#Schriftformantierungselemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_style#:#Schriftformantierungselemente individuell konfigurierbar.
+info_conf_show_style#:#Schriftformantierungselemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_list#:#Listenformantierungselemente ein- oder ausblenden.
+info_default_show_list#:#Listenformantierungselemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_list#:#Listenformantierungselemente individuell konfigurierbar.
+info_conf_show_list#:#Listenformantierungselemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_redo#:#Undo- Redoelemente ein- oder ausblenden.
+info_default_show_redo#:#Undo- Redoelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_redo#:#Undo- Redoelemente individuell konfigurierbar.
+info_conf_show_redo#:#Undo- Redoelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_coloring#:#Farbsteuerelement ein- oder ausblenden.
+info_default_show_coloring#:#Farbsteuerelement für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_coloring#:#Farbsteuerelement individuell konfigurierbar.
+info_conf_show_coloring#:#Farbsteuerelement kann für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_heading#:#Titelelemente ein- oder ausblenden.
+info_default_show_heading#:#Titelelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_heading#:#Titelelemente individuell konfigurierbar.
+info_conf_show_heading#:#Titelelemente kann für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_import_export#:#Import- Exportelemente ein- oder ausblenden.
+info_default_show_import_export#:#Import- Exportelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_import_export#:#Import- Exportelemente individuell konfigurierbar.
+info_conf_show_import_export#:#Import- Exportelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+
+default_show_controls_default_show_timeline#:#Timeline ein- oder ausblenden.
+info_default_show_timeline#:#Timeline für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_timeline#:#Timeline individuell konfigurierbar.
+info_conf_show_timeline#:#Timeline kann für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
