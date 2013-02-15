@@ -120,10 +120,6 @@ if($ilDB->tableColumnExists("rep_robj_xpdl_data", "use_color"))
 	{
         $ilDB->addTableColumn("rep_robj_xpdl_data","show_timeline",array("type"=>"boolean"));
     }
-    if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','created'))
-	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","created",array("type"=>"timestamp"));
-    }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','old_pad'))
 	{
         $ilDB->addTableColumn("rep_robj_xpdl_data","old_pad",array("type"=>"boolean"));
