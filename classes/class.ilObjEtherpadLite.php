@@ -91,13 +91,15 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     protected function isOldEtherpad()
     {
+    	global $ilDB;
+    
     	$r = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
 		
 		if ($r->numRows() == 1)
 		{
-			$rec = $ilDB->fetchRow($r);
+			$rec = $r->fetchRow();
 			return $rec["old_pad"];
 		}
 		
@@ -116,7 +118,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $pad = $this->getEtherpadLiteConnection()->listPads($this->getEtherpadLiteGroupMapper());
             if($pad->padIDs==null)
             {
-                throw new ilCtrlException("This pad can not be found in database. Please contact your ILIAS helpdesk at ilias@ilub.unibe.ch.");
+                throw new ilCtrlException("This pad can not be found in database.");
             }
             //check if valid Session for this user in this group already exists
             $sessionID = null;
@@ -420,23 +422,6 @@ class ilObjEtherpadLite extends ilObjectPlugin
     public function getEtherpadLiteUserMapper()
     {
         return $this->epadlusermapper;
-    }
-
-    /**
-     * Generates random string for pad name
-     *
-     * @return string  random_pad_name
-     */
-    public function genRandomString()
-    {
-        $length     = 20;
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-        $string     = '';
-        for ($p = 0; $p < $length; $p++)
-        {
-            $string .= $characters[mt_rand(0, strlen($characters))];
-        }
-        return $string;
     }
 
     /**
