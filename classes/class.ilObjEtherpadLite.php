@@ -228,6 +228,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setShowTimeline($rec["show_timeline"]);
             $this->setOldEtherpad($rec["old_pad"]);
         }
+        
     }
 	
 	/**
@@ -283,7 +284,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		}
 		
 	}
-	
+		
 	
 //
 // Set/Get Methods
@@ -701,6 +702,26 @@ class ilObjEtherpadLite extends ilObjectPlugin
     public function getOldEtherpad()
     {
         return $this->oldEtherpad;
+    }
+    
+    /**
+     * Set text of Etherpad
+     *
+     * @param  string  $a_val 
+     */
+    public function setEtherpadText($a_val)
+    {
+        $this->EtherpadText = ($_val);
+    }
+
+    /**
+     * Get text of Etherpad
+     *
+     * @return string  EtherpadText
+     */
+    public function getEtherpadText()
+    {
+        return $this->EtherpadText;
     }
 	
 	/**

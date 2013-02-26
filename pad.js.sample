@@ -1,0 +1,78 @@
+/**
+ * Some Customizations for the pad in ilias
+ *
+ * @author  Timon Amstutz <timon.amstutz@ilub.unibe.ch>
+ *
+ * **/
+
+ function customStart()
+{
+    /** Get Params from URL **/
+    var parameters = getUrlVars();
+
+    /** Set language via cookie **/
+    document.cookie = "language="+parameters["language"]+"; path=/";
+
+    /** Get rid of error in view if language is german **/
+    $("#mycolorpickersave").css({"padding":"2px","min-width":"70px"});
+    $("#mycolorpickercancel").css({"padding":"2px","min-width":"70px"});
+    /** Always hide Button for embedLinks (direct Link in Ilias should be used instaed) **/
+    $("#embedlink").hide();
+    /** Hide Settings Button (Settings are made in Ilias with tab settings) **/
+    $("#settingslink").hide();
+    /** Hide export doku wiki (comment this out if this is wanted) **/
+    $("#exportdokuwiki").hide();
+    $("#importexportlink").removeClass("grouped-left");
+    $("#timesliderlink").removeClass("grouped-middle").addClass("grouped-left");
+    $("li[data-key='import_export']").after("<li class='separator'></li><li class='separator'></li>");
+
+    if(parameters["showStyleBlock"] != "true")
+    {
+        $("#bold").hide();
+        $("#italic").hide();
+        $("#underline").hide();
+        $("#strikethrough").hide();
+    }
+    if(parameters["showListBlock"] != "true")
+    {
+        $("#oderedlist").hide();
+        $("#unoderedlist").hide();
+        $("#indent").hide();
+        $("#outdent").hide();
+    }
+    if(parameters["showRedoBlock"] != "true")
+    {
+        $("#undo").hide();
+        $("#redo").hide();
+    }
+    if(parameters["showColorBlock"] != "true")
+    {
+        $("#clearAuthorship").hide();
+    }
+    if(parameters["showHeadingBlock"] != "true")
+    {
+        $("#heading-selection").hide();
+    }
+    if(parameters["showImportExportBlock"] != "true")
+    {
+        $("#importexportlink").hide();
+    }
+    if(parameters["showTimelineBlock"] != "true")
+    {
+        $("#timesliderlink").hide();
+        $("#revisionlink").hide();
+    }
+}
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
