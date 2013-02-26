@@ -31,10 +31,35 @@ edit#:#Edit
 status#:#Status
 offline#:#Offline
 xpdl_import#:#Import Etherpad
+load_error#:#An error occured while loading the etherpad. Message:
+
+show_chat#:#Show Chat
+info_show_chat#:#
+show_line_numbers#:#Show Line Numbers
+info_show_line_numbers#:#
+monospace_font#:#Activate Monospace Font
+info_monospace_font#:#Monospace font gives all letters the same width.
+show_colors#:#Show Coloring of Authors
+info_show_colors#:#
 show_controls#:#Show Controls
-show_lines#:#Display line numbers
-show_chat#:#Enable Chat
-use_color#:#Author Colors
+info_show_controls#:#
+show_style#:#Show Style Controls
+info_show_style#:#With style controls text can be underlined etc.
+show_list#:#Show List Controls
+info_show_list#:#With list controls ordered and unordered lists can be created.
+show_redo#:#Show Undo/Redo Controls
+info_show_redo#:#
+show_coloring#:#Show Coloring Controls
+info_show_coloring#:#With coloring controls the coloring of the author of the text can be deleted.
+show_heading#:#Show Heading Controls
+info_show_heading#:#With heading controls headings for paragraphs can be created.
+show_import_export#:#Show Import/Export Controls
+info_show_import_export#:#Use with care: Import and Export may not work as expected. Text may also be moved with the ctrl+c/cmd+c command.
+show_timeline#:#Show Timeline
+info_show_timeline#:#With the timeline the chronological sequence of the Etherpad can be shown.
+enter_fullscreen#:#Activate Fullscreen
+leave_fullscreen#:#Deactivate Fullscreen
+
 
 <!-- Administration -->
 configuration#:#Konfiguration von Etherpad-Lite

@@ -31,10 +31,34 @@ edit#:#Bearbeiten
 status#:#Status
 offline#:#Offline
 xpdl_import#:#Etherpad importieren
-show_controls#:#Funktionsleiste anzeigen 
-show_lines#:#Zeilennummern einblenden
+load_error#:#Beim Laden des Etherpads ist ein Fehler aufgetreten. Fehlermeldung:
+
 show_chat#:#Chat anzeigen
-use_color#:#Farben für Autoren
+info_show_chat#:#
+show_line_numbers#:#Zeilennumern anzeigen
+info_show_line_numbers#:#
+monospace_font#:#Monospaceschrift aktivieren
+info_monospace_font#:#In Monospaceschrift haben alle Buchstaben die selbe Breite.
+show_colors#:#Autorenfarbe anzeigen
+info_show_colors#:#
+show_controls#:#Kontrollelemente anzeigen
+info_show_controls#:#
+show_style#:#Schriftformatierungselemente anzeigen
+info_show_style#:#Schriftformatierungselemente werden benötigt, um Text hervorzuheben, zu unterstrichen etc.
+show_list#:#Listenformatierungselemente anzeigen
+info_show_list#:#Mit Listenformatierungselemente können nummerierte und ungeordnete Listen erstelltn werden.
+show_redo#:#Rückgängig- /Wiederherstellen - Elemente anzeigen
+info_show_redo#:#
+show_coloring#:#Farbsteuerelemente anzeigen
+info_show_coloring#:#Mit den Farbsteuerelementen können die Autorenfarben gelöscht werden.
+show_heading#:#Titelelemente anzeigen
+info_show_heading#:#Mit Titelelementen können Überschriften für Absätze erzeugt werden.
+show_import_export#:#Import- Exportelemente ein- oder ausblenden
+info_show_import_export#:#Achtung diese Funktionen kann zu unbeabsichtigten Ergebnissen führen. Falls das Importieren/Exportieren nicht wie gewünscht funktiert, kann der Inhalt des Etherpads auch durch die Zwischenablage (ctrl+c/cmd+c) verschoben werden.
+show_timeline#:#Timeline ein- oder ausblenden
+info_show_timeline#:#Mit der Timeline kann der zeitliche Verlauf des Etherpads analysiert werden.
+enter_fullscreen#:#Vollbildmodus aktivieren
+leave_fullscreen#:#Vollbildmodus deaktivieren
 
 <!-- Administration -->
 configuration#:#Konfiguration von Etherpad-Lite

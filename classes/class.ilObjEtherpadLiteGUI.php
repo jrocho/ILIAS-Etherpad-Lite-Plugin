@@ -34,116 +34,120 @@ include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 *
 *
 * @ilCtrl_isCalledBy ilObjEtherpadLiteGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
-* @ilCtrl_Calls ilObjEtherpadLiteGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI ilCommonActionDispatcherGUI
+* @ilCtrl_Calls ilObjEtherpadLiteGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
 *
 */
 class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 {
-	/**
-	* Initialisation
-	*/
-	protected function afterConstructor()
-	{
+    /**
+     * Initialisation
+     */
+    protected function afterConstructor()
+    {
 
-	}
-	
-	/**
-	* Get type.
-	*/
-	final function getType()
-	{
-		return "xpdl";
-	}
-	
-	/**
-	* Handles all commmands of this class, centralizes permission checks
-	*/
-	function performCommand($cmd)
-	{
-		switch ($cmd)
-		{
-			case "editProperties":		// list all commands that need write permission here
-			case "updateProperties":
-				$this->checkPermission("write");
-				$this->$cmd();
-				break;
-			
-			case "showContent":			// list all commands that need read permission here
-				$this->checkPermission("read");
-				$this->$cmd();
-				break;
-		}
-	}
+    }
 
-	/**
-	* After object has been created -> jump to this command
-	*/
-	function getAfterCreationCmd()
-	{
-		return "editProperties";
-	}
+    /**
+     * Get type.
+     */
+    final function getType()
+    {
+        return "xpdl";
+    }
 
-	/**
-	* Get standard command
-	*/
-	function getStandardCmd()
-	{
-		return "showContent";
-	}
-	
+    /**
+     * Handles all commmands of this class, centralizes permission checks
+     */
+    function performCommand($cmd)
+    {
+        switch ($cmd)
+        {
+            case "editProperties": // list all commands that need write permission here
+            case "updateProperties":
+                //case "...":
+                $this->checkPermission("write");
+                $this->$cmd();
+                break;
+
+            case "showContent": // list all commands that need read permission here
+                //case "...":
+                //case "...":
+                $this->checkPermission("read");
+                $this->$cmd();
+                break;
+        }
+    }
+
+    /**
+     * After object has been created -> jump to this command
+     */
+    function getAfterCreationCmd()
+    {
+        return "editProperties";
+    }
+
+    /**
+     * Get standard command
+     */
+    function getStandardCmd()
+    {
+        return "showContent";
+    }
+
 //
 // DISPLAY TABS
 //
-	
-	/**
-	* Set tabs
-	*/
-	function setTabs()
-	{
-		global $ilTabs, $ilCtrl, $ilAccess;
-		
-		// tab for the "show content" command
-		if ($ilAccess->checkAccess("read", "", $this->object->getRefId()))
-		{
-			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, "showContent"));
-		}
 
-		// standard info screen tab
-		$this->addInfoTab();
+    /**
+     * Set tabs
+     */
+    function setTabs()
+    {
+        global $ilTabs, $ilCtrl, $ilAccess;
 
-		// a "properties" tab
-		if ($ilAccess->checkAccess("write", "", $this->object->getRefId()))
-		{
-			$ilTabs->addTab("properties", $this->txt("properties"), $ilCtrl->getLinkTarget($this, "editProperties"));
-		}
+        // tab for the "show content" command
+        if ($ilAccess->checkAccess("read", "", $this->object->getRefId()))
+        {
+            $ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, "showContent"));
+        }
 
-		// standard epermission tab
-		$this->addPermissionTab();
-	}
-	
+        // standard info screen tab
+        $this->addInfoTab();
+
+        // a "properties" tab
+        if ($ilAccess->checkAccess("write", "", $this->object->getRefId()))
+        {
+            $ilTabs->addTab("properties", $this->txt("properties"), $ilCtrl->getLinkTarget($this, "editProperties"));
+        }
+
+        // standard epermission tab
+        $this->addPermissionTab();
+    }
+
+
 //
 // Edit properties form
 //
 
-	/**
-	* Edit Properties. This commands uses the form class to display an input form.
-	*/
-	function editProperties()
-	{
-		global $tpl, $ilTabs;
-		
-		$ilTabs->activateTab("properties");
-		$this->initPropertiesForm();
-		$this->getPropertiesValues();
-		$tpl->setContent($this->form->getHTML());
-	}
-	
-	/**
-	* Init  form.
-	*
-	* @param        int        $a_mode        Edit Mode
-	*/
-	public function initPropertiesForm()
+    /**
+     * Edit Properties. This commands uses the form class to display an input form.
+     */
+    function editProperties()
+    {
+        global $tpl, $ilTabs;
+
+        $ilTabs->activateTab("properties");
+        $this->initPropertiesForm();
+        $this->getPropertiesValues();
+        $tpl->setContent($this->form->getHTML());
+    }
+
+    /**
+     * Init  form.
+     *
+     * @param        int        $a_mode        Edit Mode
+     */
+    public function initPropertiesForm()
     {
 
         global $ilCtrl;
@@ -285,11 +289,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $this->form->setTitle($this->txt("edit_properties"));
         $this->form->setFormAction($ilCtrl->getFormAction($this));
     }
-	
-	/**
-	* Get values for edit properties form
-	*/
-	function getPropertiesValues()
+
+    /**
+     * Get values for edit properties form
+     */
+    function getPropertiesValues()
     {
         $values["title"]    = $this->object->getTitle();
         $values["desc"]     = $this->object->getDescription();
@@ -313,11 +317,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
         $this->form->setValuesByArray($values);
     }
-	
-	/**
-	* Update properties
-	*/
-	public function updateProperties()
+
+    /**
+     * Update properties
+     */
+    public function updateProperties()
     {
         global $tpl, $lng, $ilCtrl;
 
@@ -349,17 +353,17 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $this->form->setValuesByPost();
         $tpl->setContent($this->form->getHtml());
     }
-	
+
 //
 // Show content
 //
 
-	/**
-	* Show content
-	*/
-	function showContent()
-	{
-		global $tpl, $ilTabs, $ilUser, $lng;
+    /**
+     * Show content
+     */
+    function showContent()
+    {
+        global $tpl, $ilTabs, $ilUser, $lng;
         try
         {
 
@@ -408,9 +412,9 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $ilTabs->activateTab("content");
             $tpl->setContent($this->txt("load_error")." ".$e->getMessage());
         }
-                
-	}
-	
+
+
+    }
 
 }
 ?>

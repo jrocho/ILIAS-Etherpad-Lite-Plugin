@@ -68,10 +68,12 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setEtherpadLiteConnection(new EtherpadLiteClient($this->adminSettings->getValue("apikey"), ($this->adminSettings->getValue("https") ? "https" : "http"). '://' . $this->adminSettings->getValue("host") . ':' . $this->adminSettings->getValue("port") . '/api'));
             if($this->isOldEtherpad())
             {
+            	echo "old pad";
             	$this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor($this->adminSettings->getValue("old_group")));	
 			}
 			else
-			{            
+			{
+				echo "new pad";            
             	$this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor($this->getId()));
             }
             $this->setEtherpadLiteUserMapper($this->getEtherpadLiteConnection()->createAuthorIfNotExistsFor($ilUser->id, $ilUser->firstname . ' ' . $ilUser->lastname));
@@ -97,11 +99,14 @@ class ilObjEtherpadLite extends ilObjectPlugin
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
 		
+		echo $this->getId();
+		
 		if ($r->numRows() == 1)
 		{
-			$rec = $r->fetchRow();
-			return $rec["old_pad"];
+			$rec = $r->fetchRow(DB_FETCHMODE_OBJECT);
+			return $rec->old_pad;
 		}
+		
 		
 		return false;
     }
@@ -175,7 +180,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
         $tempID = $this->getEtherpadLiteConnection()->createGroupPad($this->getEtherpadLiteGroupMapper(), $this->genRandomString(), $this->adminSettings->getValue("defaulttext"));
         $this->setEtherpadLiteID($tempID->padID);
 
-        $ilDB->manipulate("INSERT INTO rep_robj_xpdl_data (id, is_online, epadl_id,show_controls,line_numbers,show_colors,show_chat,monospace_font,show_style,show_list,show_redo,show_coloring,show_heading,show_import_export, show_timeline,created,old_pad) VALUES (" .
+        $ilDB->manipulate("INSERT INTO rep_robj_xpdl_data (id, is_online, epadl_id,show_controls,line_numbers,show_colors,show_chat,monospace_font,show_style,show_list,show_redo,show_coloring,show_heading,show_import_export, show_timeline,old_pad) VALUES (" .
             $ilDB->quote($this->getId(), "integer") . "," .
             $ilDB->quote(0, "integer") . "," .
             $ilDB->quote($this->getEtherpadLiteID(), "text") . "," .
