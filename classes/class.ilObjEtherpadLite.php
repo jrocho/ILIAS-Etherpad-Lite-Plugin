@@ -68,12 +68,10 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setEtherpadLiteConnection(new EtherpadLiteClient($this->adminSettings->getValue("apikey"), ($this->adminSettings->getValue("https") ? "https" : "http"). '://' . $this->adminSettings->getValue("host") . ':' . $this->adminSettings->getValue("port") . '/api'));
             if($this->isOldEtherpad())
             {
-            	echo "old pad";
             	$this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor($this->adminSettings->getValue("old_group")));	
 			}
 			else
 			{
-				echo "new pad";            
             	$this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor($this->getId()));
             }
             $this->setEtherpadLiteUserMapper($this->getEtherpadLiteConnection()->createAuthorIfNotExistsFor($ilUser->id, $ilUser->firstname . ' ' . $ilUser->lastname));
@@ -99,8 +97,6 @@ class ilObjEtherpadLite extends ilObjectPlugin
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
 		
-		echo $this->getId();
-		
 		if ($r->numRows() == 1)
 		{
 			$rec = $r->fetchRow(DB_FETCHMODE_OBJECT);
@@ -115,7 +111,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
      * Sets a valid Session. First it checks if already a valid session exists, if not one will be created and if there is an expired one, it will be deleted
      */
     protected function setSession()
-    {
+    {    	
         include_once("./Services/UICore/exceptions/class.ilCtrlException.php");
         try
         {
@@ -123,7 +119,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $pad = $this->getEtherpadLiteConnection()->listPads($this->getEtherpadLiteGroupMapper());
             if($pad->padIDs==null)
             {
-                throw new ilCtrlException("This pad can not be found in database.");
+                throw new ilCtrlException($this->txt("error_not_found_in_db"));
             }
             //check if valid Session for this user in this group already exists
             $sessionID = null;
@@ -244,18 +240,18 @@ class ilObjEtherpadLite extends ilObjectPlugin
         $ilDB->manipulate($up = "UPDATE rep_robj_xpdl_data SET " .
                 " is_online = " . $ilDB->quote($this->getOnline(), "integer") . "," .
                 " epadl_id = " . $ilDB->quote($this->getEtherpadLiteID(), "text") . "," .
-                " show_controls = " . $ilDB->quote($this->getShowControls(), "boolean"). "," .
-                " line_numbers = " . $ilDB->quote($this->getLineNumbers(), "boolean"). "," .
-                " show_colors = " . $ilDB->quote($this->getShowColors(), "boolean"). "," .
-                " show_chat = " . $ilDB->quote($this->getShowChat(), "boolean"). "," .
-                " monospace_font = " . $ilDB->quote($this->getMonospaceFont(), "boolean"). "," .
-                " show_style = " . $ilDB->quote($this->getShowStyle(), "boolean"). "," .
-                " show_list = " . $ilDB->quote($this->getShowList(), "boolean"). "," .
-                " show_redo = " . $ilDB->quote($this->getShowRedo(), "boolean"). "," .
-                " show_coloring = " . $ilDB->quote($this->GetShowColoring(), "boolean"). "," .
-                " show_heading = " . $ilDB->quote($this->getShowHeading(), "boolean"). "," .
-                " show_import_export = " . $ilDB->quote($this->getShowImportExport(), "boolean"). "," .
-                " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "boolean").
+                " show_controls = " . $ilDB->quote($this->getShowControls(), "integer"). "," .
+                " line_numbers = " . $ilDB->quote($this->getLineNumbers(), "integer"). "," .
+                " show_colors = " . $ilDB->quote($this->getShowColors(), "integer"). "," .
+                " show_chat = " . $ilDB->quote($this->getShowChat(), "integer"). "," .
+                " monospace_font = " . $ilDB->quote($this->getMonospaceFont(), "integer"). "," .
+                " show_style = " . $ilDB->quote($this->getShowStyle(), "integer"). "," .
+                " show_list = " . $ilDB->quote($this->getShowList(), "integer"). "," .
+                " show_redo = " . $ilDB->quote($this->getShowRedo(), "integer"). "," .
+                " show_coloring = " . $ilDB->quote($this->GetShowColoring(), "integer"). "," .
+                " show_heading = " . $ilDB->quote($this->getShowHeading(), "integer"). "," .
+                " show_import_export = " . $ilDB->quote($this->getShowImportExport(), "integer"). "," .
+                " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "integer").
                 " WHERE id = " . $ilDB->quote($this->getId(), "integer")
         );
     }
@@ -288,37 +284,6 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		
 	}
 	
-	/**
-	* Do Cloning
-	*/
-	function doClone($a_target_id,$a_copy_id,$new_obj)
-	{
-		global $ilDB;
-		
-		$new_obj->setOnline($this->getOnline());
-		$new_obj->setShowControls($this->getShowControls());
-		$new_obj->setLineNumbers($this->getLineNumbers());
-		$new_obj->setShowColors($this->getShowColors());
-		$new_obj->setShowChat($this->getShowChat());
-		$new_obj->setMonospaceFont($this->getMonospaceFont());
-		$new_obj->setShowStyle($this->getShowStyle());
-		$new_obj->setShowList($this->getShowList());
-		$new_obj->setShowRedo($this->getShowRedo());
-		$new_obj->setShowColoring($this->getShowColoring());
-		$new_obj->setShowHeading($this->getShowHeading());
-		$new_obj->setShowImportExport($this->getShowImportExport());
-		$new_obj->setShowTimeline($this->getShowTimeLine());
-	
-		$new_obj->update();
-                
-                // get old pad text
-                $oldPadText = $this->getEtherpadLiteConnection()->getText($this->GetEtherpadLiteID());
-                // write old pad text to new pad
-                $this->getEtherpadLiteConnection()->setText(
-                        $new_obj->getEtherpadLiteID(),
-                        $oldPadText->text);
- 
-	}
 	
 //
 // Set/Get Methods

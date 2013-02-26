@@ -32,6 +32,7 @@ status#:#Status
 offline#:#Offline
 xpdl_import#:#Etherpad importieren
 load_error#:#Beim Laden des Etherpads ist ein Fehler aufgetreten. Fehlermeldung:
+error_not_found_in_db#:#Dieses Etherpad konnte in der Datenbank nicht gefunden werden.
 
 show_chat#:#Chat anzeigen
 info_show_chat#:#
@@ -69,7 +70,7 @@ info_port#:#Port auf welchen Etherpad-Lite hört. Standard: 9001
 apikey#:#Apikey
 info_apikey#:#Der Apikey wird automatisch erstellt, wenn Etherpad-Lite das erste Mal gestartet wird. Er wird im Hauptverzeichnis von Etherpad-Lite in der Datei APIKEY.txt gespeichert.
 domain#:#Domain
-info_domain#:#Domain von Etherpadlite. Die Domain ist wichtig im die Gültigkeit der Session-Cookies sicherzustellen. Beispiel: .example.com (Achtung der führende Punkt ist wichtig, um die Gültigkeit der Sesseion-Cookies zu gewährleisten)
+info_domain#:#Domain von Etherpad-Lite. Die Domain ist wichtig im die Gültigkeit der Session-Cookies sicherzustellen. Beispiel: .example.com (Achtung der führende Punkt ist wichtig, um die Gültigkeit der Session-Cookies zu gewährleisten)
 https#:#Https
 info_https#:#Https ein oder ausschalten.
 defaulttext#:#Standardtext

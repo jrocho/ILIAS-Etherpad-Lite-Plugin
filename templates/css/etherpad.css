@@ -33,3 +33,11 @@
 {
     overflow:hidden;
 }
+
+img.etherpad-FullScreen-Enter {
+	padding:5px 0px 5px 5px;
+}
+
+img.etherpad-FullScreen-Leave {
+	padding:5px;
+}
