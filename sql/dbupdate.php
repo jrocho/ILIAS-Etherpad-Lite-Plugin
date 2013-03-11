@@ -138,7 +138,7 @@ if(file_exists($file))
 	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'port','".$ini->readVariable("etherpadlite", "port")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'port');";
 	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'apikey','".$ini->readVariable("etherpadlite", "apikey")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'apikey');";
 	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'domain','".$ini->readVariable("etherpadlite", "domain")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'domain');";
-	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'https',".$ini->readVariable("etherpadlite", "https")." FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'https');";
+	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'https','".$ini->readVariable("etherpadlite", "https")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'https');";
 	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'defaulttext','".$ini->readVariable("etherpadlite", "defaulttext")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'defaulttext');";
 	$sql[] = "INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'old_group','".$ini->readVariable("etherpadlite", "group")."' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'old_group');";
 } else {
