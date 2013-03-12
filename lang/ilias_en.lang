@@ -77,7 +77,7 @@ https#:#Https
 info_https#:#Enable or disable HTTPS.
 defaulttext#:#Standardtext
 info_defaulttext#:#This text will be displayed when a new etherpad is created.
-info_old_group#:#Group (deprecated since 0.2.0), keep this value for old installations.
+info_old_group#:#Group (deprecated since 1.0.0), keep this value for old installations.
 old_group#:#Group
 
 default_show_chat#:#Show chat by default
