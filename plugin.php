@@ -4,7 +4,7 @@
 $id = "xpdl";
  
 // code version; must be changed for all code changes
-$version = "0.1.3";
+$version = "1.0.0";
  
 // ilias min and max version; must always reflect the versions that should
 // run with the plugin
@@ -13,5 +13,5 @@ $ilias_max_version = "4.3.999";
  
 // optional, but useful: Add one or more responsible persons and a contact email
 $responsible = "Jan Rocho";
-$responsible_mail = "jan@rocho.eu";
+$responsible_mail = "jan.rocho@fh-dortmund.de";
 ?>
