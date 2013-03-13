@@ -20,6 +20,7 @@ grp_create_xpdl#:#Etherpad anlegen
 fold_create_xpdl#:#Etherpad anlegen
 root_create_xpdl#:#Etherpad anlegen
 cat_create_xpdl#:#Etherpad anlegen
+rbac_create_xpdl#:#Etherpad anlegen
 content#:#Etherpad
 properties#:#Einstellungen
 edit_properties#:#Einstellungen Bearbeiten
