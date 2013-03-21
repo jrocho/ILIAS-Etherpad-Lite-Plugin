@@ -73,11 +73,11 @@ to see if the configuration is set to your needs.
 
 Please be sure to update the settings.json of Etherpad-Lite and add
 
-<code>
+<pre><code>
   // Session Key, used for reconnecting user sessions
   // Set this to a secure string at least 10 characters long.  Do not share this value.
   "sessionKey" : "",
-</code>
+</code></pre>
 
 if you are updating from a EtherpadLite version pre v1.27. You of course need to add a random string.
 
