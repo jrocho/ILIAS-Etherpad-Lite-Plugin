@@ -195,3 +195,20 @@ foreach($sql as $s)
 	}
 ?>
 <#8>
+
+<#9>
+<?php
+	// tables which need to be updated
+	$update_tables = array(
+						'show_controls',
+						'line_numbers',
+						'show_colors',
+						'show_chat');
+						
+	foreach($update_tables as $table)
+	{
+		$res = $ilDB->query('ALTER TABLE `rep_robj_xpdl_data` CHANGE `'.$table.'` `'.$table.'` TINYINT( 1 ) NULL DEFAULT NULL');
+	}
+	
+?>
+

@@ -71,7 +71,26 @@ possible via the ILIAS administration panel.
 After updating to a v1.0.0+ version you are free to delete the old *etherpadlite.ini.php*. Please also check the individual configuration options in the ILIAS administration page for this plugin
 to see if the configuration is set to your needs.
 
+Please be sure to update the settings.json of Etherpad-Lite and add
+
+<code>
+  // Session Key, used for reconnecting user sessions
+  // Set this to a secure string at least 10 characters long.  Do not share this value.
+  "sessionKey" : "",
+</code>
+
+if you are updating from a EtherpadLite version pre v1.27. You of course need to add a random string.
+
+
+As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.27
+
 ## Changelog ##
+
+### v1.0.1 ###
+
+* patches the API library for EtherpadLite v1.27
+* fixed database bug when creating Etherpads with the chat function disabled
+* added language variables
 
 ### v1.0.0 ###
 

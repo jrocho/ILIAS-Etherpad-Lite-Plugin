@@ -1,4 +1,9 @@
 <?php
+/********************************************
+ ** Patched for Etherpad Lite v1.27 API    **
+ ** by Jan Rocho <jan.rocho@fh-dortmund.de **
+ ********************************************/
+
 class EtherpadLiteClient {
 
   const API_VERSION             = 1;
@@ -37,6 +42,7 @@ class EtherpadLiteClient {
     if ($method !== 'POST'){
       $url .=  "?".$arguments;
     }
+    
     // use curl of it's available
     if (function_exists('curl_init')){
       $c = curl_init($url);
@@ -101,19 +107,19 @@ class EtherpadLiteClient {
   
   // creates a new group 
   public function createGroup(){
-    return $this->post("createGroup");
+    return $this->get("createGroup");
   }
 
   // this functions helps you to map your application group ids to etherpad lite group ids 
   public function createGroupIfNotExistsFor($groupMapper){
-    return $this->post("createGroupIfNotExistsFor", array(
+    return $this->get("createGroupIfNotExistsFor", array(
       "groupMapper" => $groupMapper
     ));
   }
 
   // deletes a group 
   public function deleteGroup($groupID){
-    return $this->post("deleteGroup", array(
+    return $this->get("deleteGroup", array(
       "groupID" => $groupID
     ));
   }
@@ -127,7 +133,7 @@ class EtherpadLiteClient {
 
   // creates a new pad in this group 
   public function createGroupPad($groupID, $padName, $text){
-    return $this->post("createGroupPad", array(
+    return $this->get("createGroupPad", array(
       "groupID" => $groupID,
       "padName" => $padName,
       "text"    => $text
@@ -139,14 +145,14 @@ class EtherpadLiteClient {
 
   // creates a new author 
   public function createAuthor($name){
-    return $this->post("createAuthor", array(
+    return $this->get("createAuthor", array(
       "name" => $name
     ));
   }
 
   // this functions helps you to map your application author ids to etherpad lite author ids 
   public function createAuthorIfNotExistsFor($authorMapper, $name){
-    return $this->post("createAuthorIfNotExistsFor", array(
+    return $this->get("createAuthorIfNotExistsFor", array(
       "authorMapper" => $authorMapper,
       "name"         => $name
     ));
@@ -166,7 +172,7 @@ class EtherpadLiteClient {
 
   // creates a new session 
   public function createSession($groupID, $authorID, $validUntil){
-    return $this->post("createSession", array(
+    return $this->get("createSession", array(
       "groupID"    => $groupID,
       "authorID"   => $authorID,
       "validUntil" => $validUntil
@@ -175,7 +181,7 @@ class EtherpadLiteClient {
 
   // deletes a session 
   public function deleteSession($sessionID){
-    return $this->post("deleteSession", array(
+    return $this->get("deleteSession", array(
       "sessionID" => $sessionID
     ));
   }
@@ -224,7 +230,7 @@ class EtherpadLiteClient {
 
   // sets the text of a pad 
   public function setText($padID, $text){
-    return $this->post("setText", array(
+    return $this->get("setText", array(
       "padID" => $padID, 
       "text"  => $text
     ));
@@ -232,7 +238,7 @@ class EtherpadLiteClient {
 
   // sets the html text of a pad 
   public function setHTML($padID, $html){
-    return $this->post("setHTML", array(
+    return $this->get("setHTML", array(
       "padID" => $padID, 
       "html"  => $html
     ));
@@ -245,7 +251,7 @@ class EtherpadLiteClient {
 
   // creates a new pad
   public function createPad($padID, $text){
-    return $this->post("createPad", array(
+    return $this->get("createPad", array(
       "padID" => $padID, 
       "text"  => $text
     ), 'POST');
@@ -274,7 +280,7 @@ class EtherpadLiteClient {
 
   // deletes a pad 
   public function deletePad($padID){
-    return $this->post("deletePad", array(
+    return $this->get("deletePad", array(
       "padID" => $padID
     ));
   }
@@ -298,7 +304,7 @@ class EtherpadLiteClient {
     if (is_bool($publicStatus)) {
       $publicStatus = $publicStatus ? "true" : "false";
     }
-    return $this->post("setPublicStatus", array(
+    return $this->get("setPublicStatus", array(
       "padID"        => $padID,
       "publicStatus" => $publicStatus
     ));
@@ -313,7 +319,7 @@ class EtherpadLiteClient {
 
   // returns ok or a error message 
   public function setPassword($padID, $password){
-    return $this->post("setPassword", array(
+    return $this->get("setPassword", array(
       "padID"    => $padID,
       "password" => $password
     ));
