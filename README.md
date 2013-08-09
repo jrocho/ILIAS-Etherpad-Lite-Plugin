@@ -86,6 +86,12 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.0.2 ###
+
+* removed old .svn directory from templates/default
+* hide EtherpadLite object from course members when it is set to offline
+* setting default text for EtherpadLite fixed 
+
 ### v1.0.1 ###
 
 * patches the API library for EtherpadLite v1.27

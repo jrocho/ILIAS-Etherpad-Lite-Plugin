@@ -711,7 +711,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     public function setEtherpadText($a_val)
     {
-        $this->EtherpadText = ($_val);
+        $this->EtherpadText = ($a_val);
     }
 
     /**
