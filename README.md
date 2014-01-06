@@ -86,6 +86,10 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.0.3 ###
+
+* Updated for ILIAS 4.4
+
 ### v1.0.2 ###
 
 * removed old .svn directory from templates/default
