@@ -124,6 +124,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             //check if valid Session for this user in this group already exists
             $sessionID = null;
             $sessionList = $this->getEtherpadLiteConnection()->listSessionsOfGroup($this->getEtherpadLiteGroupMapper());
+            
             if (isset($sessionList))
             {
                 foreach ($sessionList as $sessionKey => $sessionData)
@@ -262,7 +263,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	*/
 	function doDelete()
 	{
-		global $ilDB;
+		global $ilDB,$ilLog;
+		$this->connectToEtherpad();
+		
 		
 		$set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
@@ -271,6 +274,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		{
 			$this->setEtherpadLiteID($rec["epadl_id"]);
 		}
+		
+		//echo $this->getEtherpadLiteID();
+		$ilLog->write("Delete Pad ID: ".$this->getEtherpadLiteID());
 		
 		if($this->getEtherpadLiteConnection()->deletePad($this->getEtherpadLiteID()))
 		{
