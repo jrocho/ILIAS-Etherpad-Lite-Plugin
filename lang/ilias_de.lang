@@ -72,6 +72,8 @@ apikey#:#Apikey
 info_apikey#:#Der Apikey wird automatisch erstellt, wenn Etherpad-Lite das erste Mal gestartet wird. Er wird im Hauptverzeichnis von Etherpad-Lite in der Datei APIKEY.txt gespeichert.
 domain#:#Domain
 info_domain#:#Domain von Etherpad-Lite. Die Domain ist wichtig im die Gültigkeit der Session-Cookies sicherzustellen. Beispiel: .example.com (Achtung der führende Punkt ist wichtig, um die Gültigkeit der Session-Cookies zu gewährleisten)
+path#:#Pfad
+info_path#:#Pfad when Etherpad-Lite einem nicht-standard Unterverzeichnis auf dem Webserver liegt, z.B. /p/padname -> /subdirectory/p/padname  sollte hier /subdirectory eingetragen werden. Andernfalls dieses Feld frei lassen (default).
 https#:#Https
 info_https#:#Https ein oder ausschalten.
 defaulttext#:#Standardtext

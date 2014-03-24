@@ -383,6 +383,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("PROTOCOL",($this->adminSettings->getValue("https") ? "https" : "http"));
             $pad->setVariable("HOST",($this->adminSettings->getValue("host")));
             $pad->setVariable("PORT",($this->adminSettings->getValue("port")));
+            $pad->setVariable("PATH",($this->adminSettings->getValue("path")));
             $pad->setVariable("ETHERPADLITE_ID",$this->object->getEtherpadLiteID());
             $pad->setVariable("USER_NAME",rawurlencode($ilUser->firstname . ' ' . $ilUser->lastname));
             $pad->setVariable("ETHERPADLITE_ID",$this->object->getEtherpadLiteID());

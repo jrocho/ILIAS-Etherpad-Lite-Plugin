@@ -74,6 +74,8 @@ apikey#:#Apikey
 info_apikey#:#The Apikey is automatically generated when Etherpad-Lite is started for the first time. The key can be found in the main directory of Etherpad-Lite in the file APIKEY.txt.
 domain#:#Domain
 info_domain#:#Domain of Etherpad-Lite. The domain is important to secure the validity of the session-cookies. Example: .example.com (Attention the leading point is important to secure the validity of the session-cookies)
+path#:#Path
+info_path#:#Path when Etherpad-Lite is located in a non-standard sub-directory of the webserver, e.g. /p/padname -> /subdirectory/p/padname then enter "/subdirectory" here. Otherwise leave blank (default).
 https#:#Https
 info_https#:#Enable or disable HTTPS.
 defaulttext#:#Standardtext

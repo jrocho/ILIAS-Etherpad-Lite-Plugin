@@ -65,7 +65,10 @@ class ilObjEtherpadLite extends ilObjectPlugin
 
         try
         {
-            $this->setEtherpadLiteConnection(new EtherpadLiteClient($this->adminSettings->getValue("apikey"), ($this->adminSettings->getValue("https") ? "https" : "http"). '://' . $this->adminSettings->getValue("host") . ':' . $this->adminSettings->getValue("port") . '/api'));
+            $this->setEtherpadLiteConnection(new EtherpadLiteClient($this->adminSettings->getValue("apikey"), 
+            	($this->adminSettings->getValue("https") ? "https" : "http"). '://' . $this->adminSettings->getValue("host") . ':' . 
+            	$this->adminSettings->getValue("port") . $this->adminSettings->getValue("path") . '/api'));
+            	
             if($this->isOldEtherpad())
             {
             	$this->setEtherpadLiteGroupMapper($this->getEtherpadLiteConnection()->createGroupIfNotExistsFor($this->adminSettings->getValue("old_group")));	

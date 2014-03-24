@@ -207,8 +207,12 @@ foreach($sql as $s)
 						
 	foreach($update_tables as $table)
 	{
-		$res = $ilDB->query('ALTER TABLE `rep_robj_xpdl_data` CHANGE `'.$table.'` `'.$table.'` TINYINT( 1 ) NULL DEFAULT NULL');
+		$res = $ilDB->query('ALTER TABLE `rep_robj_xpdl_data` CHANGE `'.$table.'` `'.$table.'` TINYINT( 1 ) NULL DEFAULT NULL');		
 	}
 	
 ?>
 
+<#10>
+<?php
+	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'path',NULL FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'path');");
+?>

@@ -22,6 +22,7 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         "apikey"                    => array("type"=>"ilTextInputGUI","info"=>"info_apikey","subelements"=>null),
         "domain"                    => array("type"=>"ilTextInputGUI","info"=>"info_domain","subelements"=>null),
         "https"                     => array("type"=>"ilCheckboxInputGUI","info"=>"info_https","subelements"=>null),
+        "path"                  	=> array("type"=>"ilTextInputGUI","info"=>"info_path","subelements"=>null),
         "defaulttext"               => array("type"=>"ilTextAreaInputGUI","info"=>"info_defaulttext","subelements"=>null),
         "old_group"       	        => array("type"=>"ilTextInputGUI","info"=>"info_old_group","subelements"=>null),
 
