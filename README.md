@@ -86,6 +86,9 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.0.6 ###
+* added option to disable HTTP certificate verification
+
 ### v1.0.5 ###
 
 * added path as a configuration option, if the EtherpadLite is in a sub-directory of the server.
