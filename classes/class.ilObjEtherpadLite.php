@@ -67,7 +67,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
         {
             $this->setEtherpadLiteConnection(new EtherpadLiteClient($this->adminSettings->getValue("apikey"), 
             	($this->adminSettings->getValue("https") ? "https" : "http"). '://' . $this->adminSettings->getValue("host") . ':' . 
-            	$this->adminSettings->getValue("port") . $this->adminSettings->getValue("path") . '/api'));
+            	$this->adminSettings->getValue("port") . $this->adminSettings->getValue("path") . '/api',
+            	$this->adminSettings->getValue("https_validate_curl")));
             	
             if($this->isOldEtherpad())
             {

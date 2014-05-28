@@ -76,6 +76,9 @@ path#:#Pfad
 info_path#:#Pfad when Etherpad-Lite einem nicht-standard Unterverzeichnis auf dem Webserver liegt, z.B. /p/padname -> /subdirectory/p/padname  sollte hier /subdirectory eingetragen werden. Andernfalls dieses Feld frei lassen (default).
 https#:#Https
 info_https#:#Https ein oder ausschalten.
+https_validate_curl#:#Gültiges SSL Zertifikat
+validate_curl#:#Gültiges SSL Zertifikat
+info_validate_curl#:#Prüfen, ob die Gegenstelle ein valides SSL Zertifikat hat.
 defaulttext#:#Standardtext
 info_defaulttext#:#Dieser Text wird angezeigt, wenn ein neues Etherpad erstellt wird.
 info_old_group#:#Benutzergruppe (Deprecated seit 1.0.0), bei alten Installationen belassen.

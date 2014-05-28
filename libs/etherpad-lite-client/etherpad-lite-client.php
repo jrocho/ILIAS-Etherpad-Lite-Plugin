@@ -16,9 +16,11 @@ class EtherpadLiteClient {
 
   protected $apiKey = "";
   protected $baseUrl = "http://localhost:9001/api";
+  protected $validateCurl = 1;
   
-  public function __construct($apiKey, $baseUrl = null){
+  public function __construct($apiKey, $baseUrl = null, $validateCurl){
     $this->apiKey  = $apiKey;
+    $this->validateCurl = $validateCurl;
     if (isset($baseUrl)){
       $this->baseUrl = $baseUrl;
     }
@@ -46,6 +48,10 @@ class EtherpadLiteClient {
     // use curl of it's available
     if (function_exists('curl_init')){
       $c = curl_init($url);
+      if(!$this->validateCurl)
+      	 curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+      
+      curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
       curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($c, CURLOPT_TIMEOUT, 20);
       if ($method === 'POST'){

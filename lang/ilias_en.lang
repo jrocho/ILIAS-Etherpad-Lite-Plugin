@@ -78,6 +78,9 @@ path#:#Path
 info_path#:#Path when Etherpad-Lite is located in a non-standard sub-directory of the webserver, e.g. /p/padname -> /subdirectory/p/padname then enter "/subdirectory" here. Otherwise leave blank (default).
 https#:#Https
 info_https#:#Enable or disable HTTPS.
+https_validate_curl#:#Valid SSL Cert
+validate_curl#:#Valid SSL Cert
+info_validate_curl#:#Check for valid SSL certificate at peer.
 defaulttext#:#Standardtext
 info_defaulttext#:#This text will be displayed when a new etherpad is created.
 info_old_group#:#Group (deprecated since 1.0.0), keep this value for old installations.
