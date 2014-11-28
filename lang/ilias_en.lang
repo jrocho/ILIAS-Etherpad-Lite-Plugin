@@ -34,7 +34,10 @@ offline#:#Offline
 xpdl_import#:#Import Etherpad
 load_error#:#An error occured while loading the etherpad. Message:
 error_not_found_in_db#:#This pad can not be found in the database.
-
+read_only#:#Revoke write permission
+read_only_notice#:#This Etherpad is write protected.
+allow_read_only#:#Activate write protection for Etherpads
+info_allow_read_only#:#Allow an Etherpad to be set to read only mode in the settings.
 
 show_chat#:#Show Chat
 info_show_chat#:#

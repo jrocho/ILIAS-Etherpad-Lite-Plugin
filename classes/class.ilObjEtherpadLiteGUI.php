@@ -171,10 +171,17 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         // online
         $cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
         $this->form->addItem($cb);
-
+        
         // Show Elements depending on settings in the administration of the plugin
         include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
         $this->adminSettings = new ilEtherpadLiteConfig();
+
+        if($this->adminSettings->getValue("allow_read_only"))
+        {
+			$ro = new ilCheckboxInputGUI($this->txt("read_only"), "read_only");
+			$this->form->addItem($ro);
+		}
+
 
         // show Chat
         if($this->adminSettings->getValue("conf_show_chat"))
@@ -311,9 +318,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $values["show_heading"]= $this->object->getShowHeading();
         $values["show_import_export"]= $this->object->getShowImportExport();
         $values["show_timeline"]= $this->object->getShowTimeline();
-        $values[";"]= $this->object->getShowChat();
-
-
+        $values["read_only"]= $this->object->getReadOnly();
 
         $this->form->setValuesByArray($values);
     }
@@ -344,6 +349,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setShowHeading($this->form->getInput("show_heading"));
             $this->object->setShowImportExport($this->form->getInput("show_import_export"));
             $this->object->setShowTimeline($this->form->getInput("show_timeline"));
+            $this->object->setReadOnly($this->form->getInput("read_only"));
 
             $this->object->update();
             ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
@@ -376,6 +382,17 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
             $this->adminSettings = new ilEtherpadLiteConfig();
 
+			if($this->object->getReadOnly()) 
+			{ 
+				$padID = $this->object->getReadOnlyID(); 
+			} 
+			else 
+			{
+				$padID = $this->object->getEtherpadLiteID(); 
+			}
+			
+		    //$pad->setVariable("ETHERPADLITEID", $padID);
+
             // build javascript required to load the pad
             $pad = new ilTemplate("tpl.pad.html", true, true, "Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite");
             $pad->setVariable("ENTER_FULLSCREEN",$this->txt("enter_fullscreen"));
@@ -384,9 +401,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("HOST",($this->adminSettings->getValue("host")));
             $pad->setVariable("PORT",($this->adminSettings->getValue("port")));
             $pad->setVariable("PATH",($this->adminSettings->getValue("path")));
-            $pad->setVariable("ETHERPADLITE_ID",$this->object->getEtherpadLiteID());
+            $pad->setVariable("ETHERPADLITE_ID",$padID);
             $pad->setVariable("USER_NAME",rawurlencode($ilUser->firstname . ' ' . $ilUser->lastname));
-            $pad->setVariable("ETHERPADLITE_ID",$this->object->getEtherpadLiteID());
             $pad->setVariable("SHOW_CONTROLS",($this->object->getShowControls() ? "true" : "false"));
             $pad->setVariable("SHOW_CHAT",($this->object->getShowChat() ? "true" : "false"));
             $pad->setVariable("SHOW_LINE_NUMBERS",($this->object->getLineNumbers() ? "true" : "false"));
@@ -400,7 +416,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("SHOW_IMPORT_EXPORT_BLOCK",($this->object->getShowImportExport()? "true" : "false"));
             $pad->setVariable("SHOW_TIMELINE_BLOCK",($this->object->getShowTimeline()? "true" : "false"));
             $pad->setVariable("LANGUAGE",$lng->getUserLanguage());
-
+			ilUtil::sendInfo($this->txt("read_only_notice"), true);
             $tpl->setContent($pad->get());
 
 

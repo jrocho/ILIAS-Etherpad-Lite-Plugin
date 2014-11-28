@@ -34,6 +34,10 @@ offline#:#Offline
 xpdl_import#:#Etherpad importieren
 load_error#:#Beim Laden des Etherpads ist ein Fehler aufgetreten. Fehlermeldung:
 error_not_found_in_db#:#Dieses Etherpad konnte in der Datenbank nicht gefunden werden.
+read_only#:#Schreibrechte entziehen
+read_only_notice#:#Diese Etherpad ist schreibgeschützt.
+allow_read_only#:#Schreibschutz für Etherpads zulassen
+info_allow_read_only#:#In den Einstellungen des Etherpads die Möglichkeit anbieten einen Schreibschutz zu aktivieren.
 
 show_chat#:#Chat anzeigen
 info_show_chat#:#

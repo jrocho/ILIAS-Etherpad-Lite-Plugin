@@ -219,5 +219,58 @@ foreach($sql as $s)
 
 <#11>
 <?php
-	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'https_validate_curl',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'validate_curl');");
+	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'https_validate_curl',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'https_validate_curl');");
+?>
+
+<#12>
+<?php
+    if(!$ilDB->tableColumnExists("rep_robj_xpdl_data", "read_only_id"))
+    {
+	$query = "ALTER TABLE  `rep_robj_xpdl_data` ADD  `read_only_id` VARCHAR( 128 ) NOT NULL";
+	$res = $ilDB->query($query);
+    }
+
+    if(!$ilDB->tableColumnExists("rep_robj_xpdl_data", "read_only"))
+    {
+	$query = "ALTER TABLE  `rep_robj_xpdl_data` ADD  `read_only` TINYINT ( 1 )  NOT NULL";
+	$res = $ilDB->query($query);
+    }
+?>
+
+<#13>
+<?php
+    include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
+    require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/libs/etherpad-lite-client/etherpad-lite-client.php");
+    
+    $adminSettings = new ilEtherpadLiteConfig();
+		
+    try
+    {
+	
+	$query = "SELECT id, epadl_id FROM rep_robj_xpdl_data WHERE read_only_id = ''";
+	$ids = $ilDB->query($query)->fetchAll();
+	
+	$epCon = new EtherpadLiteClient($adminSettings->getValue("apikey"), ($adminSettings->getValue("https") ? "https" : "http"). '://' . 
+			$adminSettings->getValue("host") . ':' . $adminSettings->getValue("port") . $adminSettings->getValue("path") . '/api',
+            		$adminSettings->getValue("https_validate_curl"));
+
+        foreach ($ids as $id) {
+    	    $roid_a = $epCon->getReadOnlyID($id["1"]);
+    	    $roid = $roid_a->readOnlyID;
+    	    $rid = $id["0"];
+    
+    	    $query = "UPDATE rep_robj_xpdl_data SET read_only_id = '$roid' WHERE id = '$rid'";
+    	    $res = $ilDB->query($query);
+        }
+            		
+    }
+    catch (Exception $e)
+    {
+        include_once("./Services/UICore/exceptions/class.ilCtrlException.php");
+        throw new ilCtrlException($e->getMessage());
+    }
+    
+<#14>
+<?php
+	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'allow_read_only',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'allow_read_only');");
 ?>

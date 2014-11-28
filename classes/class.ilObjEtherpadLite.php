@@ -180,8 +180,11 @@ class ilObjEtherpadLite extends ilObjectPlugin
         $this->connectToEtherpad();
         $tempID = $this->getEtherpadLiteConnection()->createGroupPad($this->getEtherpadLiteGroupMapper(), $this->genRandomString(), $this->adminSettings->getValue("defaulttext"));
         $this->setEtherpadLiteID($tempID->padID);
+        
+        $readOnlyID =  $this->getEtherpadLiteConnection()->getReadOnlyID($this->getEtherpadLiteID());
+		$this->setReadOnlyID($readOnlyID->readOnlyID);
 
-        $ilDB->manipulate("INSERT INTO rep_robj_xpdl_data (id, is_online, epadl_id,show_controls,line_numbers,show_colors,show_chat,monospace_font,show_style,show_list,show_redo,show_coloring,show_heading,show_import_export, show_timeline,old_pad) VALUES (" .
+        $ilDB->manipulate("INSERT INTO rep_robj_xpdl_data (id, is_online, epadl_id,show_controls,line_numbers,show_colors,show_chat,monospace_font,show_style,show_list,show_redo,show_coloring,show_heading,show_import_export, show_timeline,old_pad, read_only_id, read_only) VALUES (" .
             $ilDB->quote($this->getId(), "integer") . "," .
             $ilDB->quote(0, "integer") . "," .
             $ilDB->quote($this->getEtherpadLiteID(), "text") . "," .
@@ -197,6 +200,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_heading"), "boolean") . "," .
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_import_export"), "boolean") . "," .
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_timeline"), "boolean") . "," .
+            $ilDB->quote(0, "boolean") . "," . 
+            $ilDB->quote($this->getReadonlyID(), "text") . "," . 
             $ilDB->quote(0, "boolean") .
             ")");
 
@@ -232,6 +237,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setShowImportExport($rec["show_import_export"]);
             $this->setShowTimeline($rec["show_timeline"]);
             $this->setOldEtherpad($rec["old_pad"]);
+            $this->setReadOnlyID($rec["read_only_id"]); 
+            $this->setReadOnly($rec["read_only"]);
         }
         
     }
@@ -257,7 +264,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 " show_coloring = " . $ilDB->quote($this->GetShowColoring(), "integer"). "," .
                 " show_heading = " . $ilDB->quote($this->getShowHeading(), "integer"). "," .
                 " show_import_export = " . $ilDB->quote($this->getShowImportExport(), "integer"). "," .
-                " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "integer").
+                " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "integer"). "," . 
+                " read_only_id = " . $ilDB->quote($this->getReadOnlyID(), "text"). "," . 
+                " read_only = " . $ilDB->quote($this->getReadOnly(), "integer").
                 " WHERE id = " . $ilDB->quote($this->getId(), "integer")
         );
     }
@@ -732,6 +741,46 @@ class ilObjEtherpadLite extends ilObjectPlugin
     public function getEtherpadText()
     {
         return $this->EtherpadText;
+    }
+    
+    /**
+     * Set readonly of Etherpad
+     *
+     * @param  boolean  $a_val 
+     */
+    public function setReadOnly($a_val)
+    {
+		$this->ReadOnly = $a_val;
+    }
+    
+    /**
+     * Get readonly-link of Etherpad
+     *
+     * @return boolean ReadOnly
+     */
+    public function getReadOnly()
+    {
+		return $this->ReadOnly;
+    }
+    
+    /**
+     * Set readonlyID of Etherpad
+     *
+     * @param  boolean  $a_val 
+     */
+    public function setReadOnlyID($a_val)
+    {
+		$this->ReadOnlyID = $a_val;
+    }
+    
+    /**
+     * Get readonlyID of Etherpad
+     *
+     * @return boolean ReadOnlyID
+     */
+    public function getReadOnlyID()
+    {
+		return $this->ReadOnlyID;
     }
 	
 	/**
