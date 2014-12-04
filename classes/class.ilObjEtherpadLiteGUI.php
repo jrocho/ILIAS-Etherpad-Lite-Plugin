@@ -385,6 +385,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 			if($this->object->getReadOnly()) 
 			{ 
 				$padID = $this->object->getReadOnlyID(); 
+				ilUtil::sendInfo($this->txt("read_only_notice"), true);
 			} 
 			else 
 			{
@@ -415,8 +416,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("SHOW_HEADING_BLOCK",($this->object->getShowHeading()? "true" : "false"));
             $pad->setVariable("SHOW_IMPORT_EXPORT_BLOCK",($this->object->getShowImportExport()? "true" : "false"));
             $pad->setVariable("SHOW_TIMELINE_BLOCK",($this->object->getShowTimeline()? "true" : "false"));
-            $pad->setVariable("LANGUAGE",$lng->getUserLanguage());
-			ilUtil::sendInfo($this->txt("read_only_notice"), true);
+            $pad->setVariable("LANGUAGE",$lng->getUserLanguage());			
+            $pad->setVariable("EPADL_VERSION",($this->adminSettings->getValue("epadl_version")));
             $tpl->setContent($pad->get());
 
 

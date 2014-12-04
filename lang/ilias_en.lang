@@ -38,6 +38,8 @@ read_only#:#Revoke write permission
 read_only_notice#:#This Etherpad is write protected.
 allow_read_only#:#Activate write protection for Etherpads
 info_allow_read_only#:#Allow an Etherpad to be set to read only mode in the settings.
+epadl_version#:#Etherpad Lite Version
+info_epadl_version#:#Please select which Etherpad Lite server version you are using on the server.
 
 show_chat#:#Show Chat
 info_show_chat#:#

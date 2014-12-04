@@ -13,54 +13,59 @@ include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
  */
 class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
 {
+
     /**
      * @var array
      */
     protected $fields = array(
-        "host"                      => array("type"=>"ilTextInputGUI","info"=>"info_host","subelements"=>null),
-        "port"                      => array("type"=>"ilTextInputGUI","info"=>"info_port","subelements"=>null),
-        "apikey"                    => array("type"=>"ilTextInputGUI","info"=>"info_apikey","subelements"=>null),
-        "domain"                    => array("type"=>"ilTextInputGUI","info"=>"info_domain","subelements"=>null),
-        "https"                     => array("type"=>"ilCheckboxInputGUI","info"=>"info_https","subelements"=>array(
-    				"validate_curl"        => array("type"=>"ilCheckboxInputGUI","info"=>"info_validate_curl"))
+        "host"                      => array("type"=>"ilTextInputGUI","info"=>"info_host","options"=>null,"subelements"=>null),
+        "port"                      => array("type"=>"ilTextInputGUI","info"=>"info_port","options"=>null,"subelements"=>null),
+        "apikey"                    => array("type"=>"ilTextInputGUI","info"=>"info_apikey","options"=>null,"subelements"=>null),
+        "domain"                    => array("type"=>"ilTextInputGUI","info"=>"info_domain","options"=>null,"subelements"=>null),
+        "https"                     => array("type"=>"ilCheckboxInputGUI","info"=>"info_https","options"=>null,"subelements"=>array(
+    				"validate_curl"        => array("type"=>"ilCheckboxInputGUI","info"=>"info_validate_curl","options"=>null))
         ),
-        "path"                  	=> array("type"=>"ilTextInputGUI","info"=>"info_path","subelements"=>null),
-        "defaulttext"               => array("type"=>"ilTextAreaInputGUI","info"=>"info_defaulttext","subelements"=>null),
-        "old_group"       	        => array("type"=>"ilTextInputGUI","info"=>"info_old_group","subelements"=>null),
+        "epadl_version"				=> array("type"=>"ilSelectInputGUI","info"=>"info_epadl_version","options"=>array(
+        			"130" => "<= v1.3.0",
+        			"140" => ">= v1.4.0"
+        ),"subelements"=>null),
+        "path"                  	=> array("type"=>"ilTextInputGUI","info"=>"info_path","options"=>null,"subelements"=>null),
+        "defaulttext"               => array("type"=>"ilTextAreaInputGUI","info"=>"info_defaulttext","options"=>null,"subelements"=>null),
+        "old_group"       	        => array("type"=>"ilTextInputGUI","info"=>"info_old_group","options"=>null,"subelements"=>null),
 
-        "default_show_chat"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_chat","subelements"=>null),
-        "conf_show_chat"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_chat","subelements"=>null),
+        "default_show_chat"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_chat","options"=>null,"subelements"=>null),
+        "conf_show_chat"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_chat","options"=>null,"subelements"=>null),
 
-        "default_line_numbers"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_line_numbers","subelements"=>null),
-        "conf_line_numbers"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_line_numbers","subelements"=>null),
+        "default_line_numbers"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_line_numbers","options"=>null,"subelements"=>null),
+        "conf_line_numbers"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_line_numbers","options"=>null,"subelements"=>null),
 
-        "default_monospace_font"    => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_monospace_font","subelements"=>null),
-        "conf_monospace_font"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_monospace_font","subelements"=>null),
+        "default_monospace_font"    => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_monospace_font","options"=>null,"subelements"=>null),
+        "conf_monospace_font"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_monospace_font","options"=>null,"subelements"=>null),
 
-        "default_show_colors"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_colors","subelements"=>null),
-        "conf_show_colors"          => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_colors","subelements"=>null),
+        "default_show_colors"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_colors","options"=>null,"subelements"=>null),
+        "conf_show_colors"          => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_colors","options"=>null,"subelements"=>null),
         
-        "allow_read_only"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_allow_read_only","subelements"=>null),
+        "allow_read_only"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_allow_read_only","options"=>null,"subelements"=>null),
 
-        "default_show_controls"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_controls","subelements"=>array(
-                    "default_show_style"        => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_style"),
-                    "default_show_list"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_list"),
-                    "default_show_redo"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_redo"),
-                    "default_show_coloring"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_coloring"),
-                    "default_show_heading"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_heading"),
-                    "default_show_import_export"=> array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_import_export"),
-                    "default_show_timeline"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_timeline"),
+        "default_show_controls"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_controls","options"=>null,"subelements"=>array(
+                    "default_show_style"        => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_style","options"=>null),
+                    "default_show_list"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_list","options"=>null),
+                    "default_show_redo"         => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_redo","options"=>null),
+                    "default_show_coloring"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_coloring","options"=>null),
+                    "default_show_heading"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_heading","options"=>null),
+                    "default_show_import_export"=> array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_import_export","options"=>null),
+                    "default_show_timeline"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_timeline","options"=>null),
             ),
         ),
 
-        "conf_show_controls"        => array("type"=>"ilCheckboxInputGUI","info"=>"conf_show_controls","subelements"=>array(
-                "conf_show_style"               => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_style"),
-                "conf_show_list"                => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_list"),
-                "conf_show_redo"                => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_redo"),
-                "conf_show_coloring"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_coloring"),
-                "conf_show_heading"             => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_heading"),
-                "conf_show_import_export"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_import_export"),
-                "conf_show_timeline"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_timeline"),
+        "conf_show_controls"        => array("type"=>"ilCheckboxInputGUI","info"=>"conf_show_controls","options"=>null,"subelements"=>array(
+                "conf_show_style"               => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_style","options"=>null),
+                "conf_show_list"                => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_list","options"=>null),
+                "conf_show_redo"                => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_redo","options"=>null),
+                "conf_show_coloring"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_coloring","options"=>null),
+                "conf_show_heading"             => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_heading","options"=>null),
+                "conf_show_import_export"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_import_export","options"=>null),
+                "conf_show_timeline"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_timeline","options"=>null),
             ),
         ),
     );
@@ -132,6 +137,11 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         {
             $field = new $item["type"]($this->plugin_object->txt($key), $key);
             $field->setInfo($this->plugin_object->txt($item["info"]));
+            if(is_array($item["options"]))
+            {
+            	$field->setOptions($item["options"]);
+            }
+            
             if(is_array($item["subelements"]))
             {
                 foreach($item["subelements"] as $subkey => $subitem)
@@ -139,6 +149,10 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
                     $subfield = new $subitem["type"]($this->plugin_object->txt($key . "_" . $subkey), $key . "_" . $subkey);
                     $subfield->setInfo($this->plugin_object->txt($subitem["info"]));
                     $field->addSubItem($subfield);
+                    if(is_array($subitem["options"]))
+					{
+						$field->setOptions($subitem["options"]);
+					}
                 }
             }
 

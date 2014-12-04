@@ -36,8 +36,12 @@
 
 img.etherpad-FullScreen-Enter {
 	padding:5px 0px 5px 5px;
+	width:16px;
+	height:16px;
+	box-sizing: content-box;
 }
 
 img.etherpad-FullScreen-Leave {
 	padding:5px;
+	box-sizing: content-box;
 }
