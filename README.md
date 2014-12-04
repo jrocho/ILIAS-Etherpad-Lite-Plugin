@@ -81,14 +81,25 @@ Please be sure to update the settings.json of Etherpad-Lite and add
 
 if you are updating from a EtherpadLite version pre v1.27. You of course need to add a random string.
 
+### Updating to Etherpad Lite Server to >v1.4 ###
+
+Please replace your <EtherpadLiteServer>/src/static/custom/pad.js with the one provided in pad.js.sample. Otherwise the hiding/showing of buttons in the toolbar will not work anymore.
+
+As of Plugin v1.1.1 there is a new setting in the administration which sets the version of the Etherpad-Lite Server. Please choose the right version.
 
 As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.27
 
 ## Changelog ##
 
+### v1.1.1 ###
+* New Version of pad.js.sample (compatible with Etherpad-Lite Server >= v1.4)
+* New Setting in plugins administration for the Etherpad-Lite server version (please set it accordingly)
+* CSS fix for ILIAS 5.0
+
 ### v1.1.0 ###
 * Write protection for Etherpads. There is a new setting in the administration which gives administrators of Etherpads the possibility to enable write protection for in individual Etherpads. This feature is turned on by default. Feature thanks to Eric Laubmeyer, Hochschule RheinMain.
 * Updated for ILIAS 5.0
+
 
 ### v1.0.6 ###
 * added option to disable HTTP certificate verification
