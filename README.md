@@ -91,6 +91,11 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.1.2 ###
+* further CSS fix for 5.0
+* SVG Icons for ILIAS 5.0
+* fix for Mantis report http://ilias.de/mantis/view.php?id=14209
+
 ### v1.1.1 ###
 * New Version of pad.js.sample (compatible with Etherpad-Lite Server >= v1.4)
 * New Setting in plugins administration for the Etherpad-Lite server version (please set it accordingly)
