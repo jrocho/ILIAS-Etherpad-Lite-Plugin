@@ -198,7 +198,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_redo"), "boolean") . "," .
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_coloring"), "boolean") . "," .
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_heading"), "boolean") . "," .
-            $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_import_export"), "boolean") . "," .
+            $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_imp_exp"), "boolean") . "," .
             $ilDB->quote($this->adminSettings->getValue("default_show_controls_default_show_timeline"), "boolean") . "," .
             $ilDB->quote(0, "boolean") . "," . 
             $ilDB->quote($this->getReadonlyID(), "text") . "," . 
@@ -674,7 +674,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
     {
         if(!$this->adminSettings->getValue("conf_show_controls_conf_show_import_export"))
         {
-            return $this->adminSettings->getValue("default_show_controls_default_show_import_export");
+            return $this->adminSettings->getValue("default_show_controls_default_show_imp_exp");
         }
         return $this->showImportExport;
     }

@@ -279,3 +279,9 @@ foreach($sql as $s)
 <?php
 	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'epadl_version',130 FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'epadl_version');");	
 ?>
+
+<#16>
+<?php
+	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'en'");	
+	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_imp_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'de'");	
+?>

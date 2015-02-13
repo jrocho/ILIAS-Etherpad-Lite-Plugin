@@ -141,10 +141,10 @@ info_default_show_heading#:#Enable or disable the heading controls for all Ether
 conf_show_controls_conf_show_heading#:#Allow individual display of heading controls
 info_conf_show_heading#:#When activated it is possible to enable or disable the heading controls for each individual Etherpad.
 
-default_show_controls_default_show_import_export#:#Show import and export functions by default.
-info_default_show_import_export#:#Enable or disable the import and export functions for all Etherpad objects by default.
-conf_show_controls_conf_show_import_export#:#Allow individual display of import and export functions
-info_conf_show_import_export#:#When activated it is possible to enable or disable the export functions for each individual Etherpad.
+default_show_controls_default_show_imp_exp#:#Show import and export functions by default.
+info_default_show_imp_exp#:#Enable or disable the import and export functions for all Etherpad objects by default.
+conf_show_controls_conf_show_imp_exp#:#Allow individual display of import and export functions
+info_conf_show_imp_exp#:#When activated it is possible to enable or disable the export functions for each individual Etherpad.
 
 default_show_controls_default_show_timeline#:#Show timeline by default.
 info_default_show_timeline#:#Enable or disable timeline for all Etherpad objects by default.

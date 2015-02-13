@@ -71,7 +71,7 @@ leave_fullscreen#:#Vollbildmodus deaktivieren
 <!-- Administration -->
 configuration#:#Konfiguration von Etherpad-Lite
 host#:#Host
-info_host#:#Host auf welchem Etherpad-Lite installiert wurde. Beispiel: etherpad.example.com (Achtung, wegen Cookie Restriktionen müssen der Etherpad-Lite Server und Ilias innerhalb der selben Domain oder Subdomain liegen)
+info_host#:#Host auf welchem Etherpad-Lite installiert wurde. Beispiel: etherpad.example.com (Achtung, wegen Cookie Restriktionen müssen der Etherpad-Lite Server und ILIAS innerhalb der selben Domain oder Subdomain liegen)
 port#:#Port
 info_port#:#Port auf welchen Etherpad-Lite hört. Standard: 9001
 apikey#:#Apikey
@@ -140,10 +140,10 @@ info_default_show_heading#:#Titelelemente für alle Etherpadelemente standardmä
 conf_show_controls_conf_show_heading#:#Titelelemente individuell konfigurierbar.
 info_conf_show_heading#:#Titelelemente kann für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
 
-default_show_controls_default_show_import_export#:#Import- Exportelemente ein- oder ausblenden.
-info_default_show_import_export#:#Import- Exportelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
-conf_show_controls_conf_show_import_export#:#Import- Exportelemente individuell konfigurierbar.
-info_conf_show_import_export#:#Import- Exportelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+default_show_controls_default_show_imp_exp#:#Import- Exportelemente ein- oder ausblenden.
+info_default_show_imp_exp#:#Import- Exportelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
+conf_show_controls_conf_show_imp_exp#:#Import- Exportelemente individuell konfigurierbar.
+info_conf_show_imp_exp#:#Import- Exportelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
 
 default_show_controls_default_show_timeline#:#Timeline ein- oder ausblenden.
 info_default_show_timeline#:#Timeline für alle Etherpadelemente standardmässig ein- oder ausblenden.
