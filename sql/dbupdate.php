@@ -285,3 +285,21 @@ foreach($sql as $s)
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'en'");	
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_imp_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'de'");	
 ?>
+
+
+<#17>
+<?php
+/**
+ * mod for <c.t.> (2nd stage) at University of Passau
+ * on 2015-03-31
+ * by Christoph Becker
+ */
+	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','author_visibility'))
+	{
+		$ilDB->addTableColumn("rep_robj_xpdl_data","author_visibility",array("type"=>"text", "length" => "24", "default" => "Fullname", "notnull" => true));
+
+		// $query = "ALTER TABLE  `rep_robj_xpdl_data` ADD  `author_visibility` TINYINT( 1 ) NOT NULL DEFAULT '1'";
+		// $res = $ilDB->query($query);
+	}
+	
+?>

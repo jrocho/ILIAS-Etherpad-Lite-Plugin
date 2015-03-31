@@ -41,6 +41,14 @@ info_allow_read_only#:#Allow an Etherpad to be set to read only mode in the sett
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Please select which Etherpad Lite server version you are using on the server.
 
+author_visibility#:#Autorenbezeichnung
+info_author_visibility#:#
+fullname#:#full name
+info_fullname#:#(e.g. John Q. Public)
+username#:#Ilias user name
+info_username#:#(e.g. public99)
+info_udf#:#(user defined text field)
+
 show_chat#:#Show Chat
 info_show_chat#:#
 show_line_numbers#:#Show Line Numbers

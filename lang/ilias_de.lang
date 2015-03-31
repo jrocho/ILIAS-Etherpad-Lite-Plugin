@@ -41,6 +41,14 @@ info_allow_read_only#:#In den Einstellungen des Etherpads die Möglichkeit anbie
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Die verwendete Etherpad Lite Version auf dem Server
 
+author_visibility#:#Autorenbezeichnung
+info_author_visibility#:#
+fullname#:#Name voll ausgeschrieben
+info_fullname#:#(z.B. Max Muster)
+username#:#Ilias-Nutzername
+info_username#:#(z.B. muster99)
+info_udf#:#(Benutzerdefiniertes Textfeld)
+
 show_chat#:#Chat anzeigen
 info_show_chat#:#
 show_line_numbers#:#Zeilennumern anzeigen

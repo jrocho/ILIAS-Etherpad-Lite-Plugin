@@ -167,7 +167,38 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         // description
         $ta = new ilTextAreaInputGUI($this->txt("description"), "desc");
         $this->form->addItem($ta);
-
+        
+		/**
+		 * mod for <c.t.> (2nd stage) at University of Passau
+		 * on 2015-03-31
+		 * by Christoph Becker
+		 * 
+         * to do: translation
+         */
+        // author visibility (radio group)
+        	$av = new ilRadioGroupInputGUI($this->txt("author_visibility"), "author_visibility");
+        	
+	        // first radio option
+	        $av->addOption(new ilRadioOption($this->txt("fullname"),"Fullname", $this->txt("info_fullname")));
+	        
+	        // second radio option
+	        $av->addOption(new ilRadioOption($this->txt("username"),"Username", $this->txt("info_username")));
+	        
+	        // more radio options from user defined text fields       
+	        include_once '/Services/User/classes/class.ilUserDefinedFields.php';
+	        $user_defined_fields =& ilUserDefinedFields::_getInstance();
+	        $field_definitions = $user_defined_fields->getVisibleDefinitions();        
+			if($field_definitions) {		
+		        foreach ($field_definitions as $key => $definition){
+		        	if($definition['field_type']==1) 
+		        		// $avListValues[$definition['field_id']] = rawurldecode($definition['field_name']);
+		        		$av->addOption(new ilRadioOption($definition['field_name'],"UserDefinedFieldId:".$definition['field_id'], $this->txt("info_udf")));
+		        }
+			}
+			
+			// add radio section
+	        $this->form->addItem($av);
+        
         // online
         $cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
         $this->form->addItem($cb);
@@ -319,7 +350,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $values["show_import_export"]= $this->object->getShowImportExport();
         $values["show_timeline"]= $this->object->getShowTimeline();
         $values["read_only"]= $this->object->getReadOnly();
-
+        $values["author_visibility"]     = $this->object->getAuthorVisibility();
+        
         $this->form->setValuesByArray($values);
     }
 
@@ -336,7 +368,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setTitle($this->form->getInput("title"));
             $this->object->setDescription($this->form->getInput("desc"));
             $this->object->setEtherpadLiteID($this->form->getInput("epadl_id"));
-            $this->object->setOnline($this->form->getInput("online"));
+            $this->object->setOnline($this->form->getInput("online"));            
             $this->object->setShowChat($this->form->getInput("show_chat"));
             $this->object->setLineNumbers($this->form->getInput("show_line_numbers"));
             $this->object->setMonospaceFont($this->form->getInput("monospace_font"));
@@ -350,6 +382,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setShowImportExport($this->form->getInput("show_import_export"));
             $this->object->setShowTimeline($this->form->getInput("show_timeline"));
             $this->object->setReadOnly($this->form->getInput("read_only"));
+            $this->object->setAuthorVisibility($this->form->getInput("author_visibility"));
 
             $this->object->update();
             ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
@@ -403,7 +436,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("PORT",($this->adminSettings->getValue("port")));
             $pad->setVariable("PATH",($this->adminSettings->getValue("path")));
             $pad->setVariable("ETHERPADLITE_ID",$padID);
-            $pad->setVariable("USER_NAME",rawurlencode($ilUser->firstname . ' ' . $ilUser->lastname));
+            $pad->setVariable("USER_NAME",$this->buildUsername($this->object->getAuthorVisibility()));            
             $pad->setVariable("SHOW_CONTROLS",($this->object->getShowControls() ? "true" : "false"));
             $pad->setVariable("SHOW_CHAT",($this->object->getShowChat() ? "true" : "false"));
             $pad->setVariable("SHOW_LINE_NUMBERS",($this->object->getLineNumbers() ? "true" : "false"));
@@ -434,5 +467,32 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
     }
 
+    /**
+     * new function for <c.t.> (2nd stage) at University of Passau
+ 	 * on 2015-03-31
+ 	 * by Christoph Becker
+ 	 * 
+ 	 */
+    function buildUsername($type){
+    	global $ilUser;
+    	
+		switch (true)
+		{     
+			case stripos($type,'Username') !== false:
+      			return rawurlencode($ilUser->getPublicName());
+      			break;
+
+      		case stripos($type,'UserDefinedField') !== false:  			
+    			$field_id = substr($type, strpos($type, ":")+1);
+    			$user_defined_data = $ilUser->getUserDefinedData();
+				return $user_defined_data['f_'.$field_id] ? $user_defined_data['f_'.$field_id] : 'kein Name gesetzt';
+    			break;
+    		
+    		case stripos($type,'Fullname') !== false:
+    		default:
+    			return rawurlencode($ilUser->getFullname());
+    			break;
+    	}
+    }    
 }
 ?>
