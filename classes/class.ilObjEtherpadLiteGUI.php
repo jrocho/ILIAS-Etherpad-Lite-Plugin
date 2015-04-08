@@ -173,16 +173,19 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		 * on 2015-03-31
 		 * by Christoph Becker
 		 * 
-         * to do: translation
          */
         // author visibility (radio group)
         	$av = new ilRadioGroupInputGUI($this->txt("author_visibility"), "author_visibility");
         	
 	        // first radio option
-	        $av->addOption(new ilRadioOption($this->txt("fullname"),"Fullname", $this->txt("info_fullname")));
+        	$option1 = new ilRadioOption($this->txt("fullname"),"Fullname", $this->txt("info_fullname"));	
+        	if(stripos($this->object->getAuthorVisibility(),'UDF') !== false) $option1->setDisabled(true);
+	        $av->addOption($option1);
 	        
 	        // second radio option
-	        $av->addOption(new ilRadioOption($this->txt("username"),"Username", $this->txt("info_username")));
+	        $option2 = new ilRadioOption($this->txt("username"),"Username", $this->txt("info_username"));
+	        if(stripos($this->object->getAuthorVisibility(),'UDF') !== false) $option2->setDisabled(true);
+	        $av->addOption($option2);
 	        
 	        // more radio options from user defined text fields       
 	        include_once '/Services/User/classes/class.ilUserDefinedFields.php';
@@ -190,15 +193,19 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 	        $field_definitions = $user_defined_fields->getVisibleDefinitions();        
 			if($field_definitions) {		
 		        foreach ($field_definitions as $key => $definition){
-		        	if($definition['field_type']==1) 
-		        		// $avListValues[$definition['field_id']] = rawurldecode($definition['field_name']);
-		        		$av->addOption(new ilRadioOption($definition['field_name'],"UserDefinedFieldId:".$definition['field_id'], $this->txt("info_udf")));
+		        	
+		        	// field_type: 1 = TEXT
+		        	if($definition['field_type']==1){
+		        		// UDF:<<field_id>>         		
+		        		$av->addOption(new ilRadioOption($definition['field_name'],"UDF:".$definition['field_id'], $this->txt("info_udf")));
+		        	}
 		        }
 			}
 			
 			// add radio section
 	        $this->form->addItem($av);
-        
+	        
+	        
         // online
         $cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
         $this->form->addItem($cb);
@@ -423,6 +430,19 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 			else 
 			{
 				$padID = $this->object->getEtherpadLiteID(); 
+				
+				// no name set ?
+				$authorVisibilityType = $this->object->getAuthorVisibility();
+				$field_id = substr($authorVisibilityType, strpos($authorVisibilityType, ":")+1);
+				if (stripos($authorVisibilityType,'UDF') !== false && !$this->getUDFValue($field_id)){	
+					include_once '/Services/User/classes/class.ilUserDefinedFields.php';
+					$user_defined_fields =& ilUserDefinedFields::_getInstance();
+					$field_definition = $user_defined_fields->getDefinition($field_id);
+					$profileSettingsLink = "<a href='ilias.php?baseClass=ilPersonalDesktopGUI&cmd=jumpToProfile'>".$lng->txt("personal_profile")."</a>";
+					$noNameMsg = $this->txt("no_name_set")."! ";
+					$noNameMsg .= $lng->txt("form_empty_fields")." <i>".$field_definition["field_name"]."</i> ".$this->txt("at")." $profileSettingsLink.";
+					ilUtil::sendFailure($noNameMsg, true);
+				}
 			}
 			
 		    //$pad->setVariable("ETHERPADLITEID", $padID);
@@ -473,7 +493,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
  	 * by Christoph Becker
  	 * 
  	 */
-    function buildUsername($type){
+    private function buildUsername($type){
     	global $ilUser;
     	
 		switch (true)
@@ -482,11 +502,10 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
       			return rawurlencode($ilUser->getPublicName());
       			break;
 
-      		case stripos($type,'UserDefinedField') !== false:  			
+      		case stripos($type,'UDF') !== false:  			
     			$field_id = substr($type, strpos($type, ":")+1);
-    			$user_defined_data = $ilUser->getUserDefinedData();
-				return $user_defined_data['f_'.$field_id] ? $user_defined_data['f_'.$field_id] : 'kein Name gesetzt';
-    			break;
+    			return $this->getUDFValue($field_id) ? rawurlencode($this->getUDFValue($field_id)) : $this->txt("no_name_set");
+				break;
     		
     		case stripos($type,'Fullname') !== false:
     		default:
@@ -494,5 +513,33 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     			break;
     	}
     }    
+    
+    private function getUDFValue($field_id){
+    	global $ilUser;
+    	$user_defined_data = $ilUser->getUserDefinedData();
+    	
+    	return $user_defined_data['f_'.$field_id] ? $user_defined_data['f_'.$field_id] : false;
+    }
+    
+    /**
+     * mod for <c.t.> (2nd stage) at University of Passau
+     * on 2015-04-01
+     * by Christoph Becker
+     *
+     * add hint to creation form
+     */
+    public function initCreateForm($a_new_type)
+    {
+    	$form = parent::initCreateForm($a_new_type);
+    	 
+    	// author visibility hint
+    	$av = new ilCustomInputGUI("", "");
+    	$av->setHtml($this->txt("info_author_visibility"));
+    	$form->addItem($av);
+   
+    	return $form;
+    }
+    
+
 }
 ?>

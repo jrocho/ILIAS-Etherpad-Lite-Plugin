@@ -42,12 +42,14 @@ epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Die verwendete Etherpad Lite Version auf dem Server
 
 author_visibility#:#Autorenbezeichnung
-info_author_visibility#:#
+info_author_visibility#:#Hinweis: Die Teilnehmer schreiben in der Standardeinstellung unter ihrem vollem Namen.  
 fullname#:#Name voll ausgeschrieben
 info_fullname#:#(z.B. Max Muster)
 username#:#Ilias-Nutzername
 info_username#:#(z.B. muster99)
-info_udf#:#(Benutzerdefiniertes Textfeld)
+info_udf#:#Benutzerdefiniertes Textfeld. Achtung: Einmal gewählt, ist keine Re-Identifizierung (Optionen 1 und 2) mehr möglich!
+no_name_set#:#kein Name vergeben
+at#:#unter
 
 show_chat#:#Chat anzeigen
 info_show_chat#:#
