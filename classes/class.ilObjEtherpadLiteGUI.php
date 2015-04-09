@@ -178,25 +178,22 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         	$av = new ilRadioGroupInputGUI($this->txt("author_visibility"), "author_visibility");
         	
 	        // first radio option
-        	$option1 = new ilRadioOption($this->txt("fullname"),"Fullname", $this->txt("info_fullname"));	
+        	$option1 = new ilRadioOption($this->txt("fullname"),"fullname", $this->txt("info_fullname"));	
         	if(stripos($this->object->getAuthorVisibility(),'UDF') !== false) $option1->setDisabled(true);
 	        $av->addOption($option1);
 	        
 	        // second radio option
-	        $option2 = new ilRadioOption($this->txt("username"),"Username", $this->txt("info_username"));
+	        $option2 = new ilRadioOption($this->txt("username"),"username", $this->txt("info_username"));
 	        if(stripos($this->object->getAuthorVisibility(),'UDF') !== false) $option2->setDisabled(true);
 	        $av->addOption($option2);
 	        
-	        // more radio options from user defined text fields       
+	        // more radio options: changeable user defined text fields       
 	        include_once '/Services/User/classes/class.ilUserDefinedFields.php';
 	        $user_defined_fields =& ilUserDefinedFields::_getInstance();
 	        $field_definitions = $user_defined_fields->getVisibleDefinitions();        
 			if($field_definitions) {		
 		        foreach ($field_definitions as $key => $definition){
-		        	
-		        	// field_type: 1 = TEXT
-		        	if($definition['field_type']==1){
-		        		// UDF:<<field_id>>         		
+		        	if($definition['field_type']==UDF_TYPE_TEXT && $definition['changeable']){
 		        		$av->addOption(new ilRadioOption($definition['field_name'],"UDF:".$definition['field_id'], $this->txt("info_udf")));
 		        	}
 		        }
@@ -456,7 +453,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("PORT",($this->adminSettings->getValue("port")));
             $pad->setVariable("PATH",($this->adminSettings->getValue("path")));
             $pad->setVariable("ETHERPADLITE_ID",$padID);
-            $pad->setVariable("USER_NAME",$this->buildUsername($this->object->getAuthorVisibility()));            
+            $pad->setVariable("USER_NAME",$this->buildAuthorName($this->object->getAuthorVisibility()));            
             $pad->setVariable("SHOW_CONTROLS",($this->object->getShowControls() ? "true" : "false"));
             $pad->setVariable("SHOW_CHAT",($this->object->getShowChat() ? "true" : "false"));
             $pad->setVariable("SHOW_LINE_NUMBERS",($this->object->getLineNumbers() ? "true" : "false"));
@@ -493,24 +490,23 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
  	 * by Christoph Becker
  	 * 
  	 */
-    private function buildUsername($type){
+    private function buildAuthorName($type){
     	global $ilUser;
     	
 		switch (true)
 		{     
-			case stripos($type,'Username') !== false:
-      			return rawurlencode($ilUser->getPublicName());
-      			break;
-
       		case stripos($type,'UDF') !== false:  			
     			$field_id = substr($type, strpos($type, ":")+1);
     			return $this->getUDFValue($field_id) ? rawurlencode($this->getUDFValue($field_id)) : $this->txt("no_name_set");
 				break;
+			
+			case $type === 'Username':
+				return rawurlencode($ilUser->getPublicName());
+				break;    		
     		
-    		case stripos($type,'Fullname') !== false:
+    		case $type === 'Fullname':
     		default:
     			return rawurlencode($ilUser->getFullname());
-    			break;
     	}
     }    
     

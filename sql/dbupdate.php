@@ -296,10 +296,9 @@ foreach($sql as $s)
  */
 	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','author_visibility'))
 	{
-		$ilDB->addTableColumn("rep_robj_xpdl_data","author_visibility",array("type"=>"text", "length" => "24", "default" => "Fullname", "notnull" => true));
-
-		// $query = "ALTER TABLE  `rep_robj_xpdl_data` ADD  `author_visibility` TINYINT( 1 ) NOT NULL DEFAULT '1'";
-		// $res = $ilDB->query($query);
+		$ilDB->addTableColumn("rep_robj_xpdl_data","author_visibility",array("type"=>"text", "length" => "24", "default" => "fullname", "notnull" => true));
 	}
+	
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'show_author_visibility_in_list',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'show_author_visibility_in_list');");
 	
 ?>

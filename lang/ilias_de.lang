@@ -120,6 +120,9 @@ info_default_show_colors#:#Die Auterenfarbe f체r alle Etherpadobjekte standardm�
 conf_show_colors#:#Autorenfarbe individuell konfigurierbar
 info_conf_show_colors#:#Bei aktivierung, kann f체r jedes einzelne Etherpadobjekt die Autorenfarbe aktiviert oder deaktiviert werden.
 
+show_author_visibility_in_list#:#Autorensichtbarkeitseinstellung in der Liste anzeigen
+info_show_author_visibility_in_list#:#Die Autorensichtbarkeitseinstellung in der Liste der Etherpad-Objekte anzeigen.
+
 default_show_controls#:#Kontrollelemente standardm채ssig anzeigen
 info_default_show_controls#:#Die Kontrollemente f체r alle Etherpadobjekte standardm채ssig ein- oder ausgeblenden.
 conf_show_controls#:#Anzeige der Kontollelemente individuell konfigurierbar

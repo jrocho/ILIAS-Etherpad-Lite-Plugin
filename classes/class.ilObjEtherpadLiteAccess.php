@@ -85,6 +85,20 @@ class ilObjEtherpadLiteAccess extends ilObjectPluginAccess
 		return (boolean) $rec["is_online"];
 	}
 	
+	
+	/**
+	 * Return author visibility setting
+	 */
+	static function getAuthorVisibility($a_id)
+	{
+		global $ilDB;
+		
+		$set = $ilDB->query("SELECT author_visibility FROM rep_robj_xpdl_data ".
+				" WHERE id = ".$ilDB->quote($a_id, "integer")
+		);
+		$rec  = $ilDB->fetchAssoc($set);
+		return $rec["author_visibility"];
+	}
 }
 
 ?>

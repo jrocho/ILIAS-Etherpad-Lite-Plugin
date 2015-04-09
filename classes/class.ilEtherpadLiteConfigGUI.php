@@ -45,6 +45,8 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         "default_show_colors"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_colors","options"=>null,"subelements"=>null),
         "conf_show_colors"          => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_colors","options"=>null,"subelements"=>null),
         
+        "show_author_visibility_in_list"	    => array("type"=>"ilCheckboxInputGUI","info"=>"info_show_author_visibility_in_list","options"=>null,"subelements"=>null),
+        
         "allow_read_only"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_allow_read_only","options"=>null,"subelements"=>null),
 
         "default_show_controls"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_controls","options"=>null,"subelements"=>array(

@@ -85,8 +85,38 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 		$this->plugin->includeClass("class.ilObjEtherpadLiteAccess.php");
 		if (!ilObjEtherpadLiteAccess::checkOnline($this->obj_id))
 		{
-			$props[] = array("alert" => true, "property" => $this->txt("status"),
+			$props[] = array(
+				"alert" => true, 
+				"property" => $this->txt("status"),
 				"value" => $this->txt("offline"));
+		}
+		
+	    /**
+	     * new option for <c.t.> (2nd stage) at University of Passau
+	 	 * on 2015-04-09
+	 	 * by Christoph Becker
+	 	 * 
+ 	 	*/
+		$this->plugin->includeClass("class.ilEtherpadLiteConfig.php");
+		if (ilEtherpadLiteConfig::getValue("show_author_visibility_in_list"))
+		{
+			$type = ilObjEtherpadLiteAccess::getAuthorVisibility($this->obj_id);
+			$field_id = substr($type, strpos($type, ":")+1);
+			if(stripos($type,'UDF') !== false)
+			{
+				include_once '/Services/User/classes/class.ilUserDefinedFields.php';
+				$user_defined_fields =& ilUserDefinedFields::_getInstance();
+				$udfDefinition = $user_defined_fields->getDefinition($field_id);
+				$value = $udfDefinition['field_name']."-Feld";
+			} 
+			else
+				$value = $this->txt($type);				
+			
+			$props[] = array(
+					"alert" => true,
+					"property" => $this->txt("author_visibility"),
+					"value" => $value,
+					"newline" => true);
 		}
 
 		return $props;
