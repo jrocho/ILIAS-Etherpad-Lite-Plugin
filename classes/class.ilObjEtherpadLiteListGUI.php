@@ -104,7 +104,7 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 			$field_id = substr($type, strpos($type, ":")+1);
 			if(stripos($type,'UDF') !== false)
 			{
-				include_once '/Services/User/classes/class.ilUserDefinedFields.php';
+				include_once './Services/User/classes/class.ilUserDefinedFields.php';
 				$user_defined_fields =& ilUserDefinedFields::_getInstance();
 				$udfDefinition = $user_defined_fields->getDefinition($field_id);
 				$value = $udfDefinition['field_name']."-Feld";
