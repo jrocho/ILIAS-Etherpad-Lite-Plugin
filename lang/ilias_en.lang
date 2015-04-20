@@ -41,14 +41,15 @@ info_allow_read_only#:#Allow an Etherpad to be set to read only mode in the sett
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Please select which Etherpad Lite server version you are using on the server.
 
-author_visibility#:#Author visibility
-info_author_visibility#:#Note: Participants write under their full name by default.
+author_identification#:#Author identification
+info_author_identification#:#NOTE: Participants write under their full name by default.
+info_author_identification_selectable#:#This can be changed in the pad settings on the following page.
 fullname#:#full name
 info_fullname#:#(e.g. John Q. Public)
 username#:#Ilias user name
 info_username#:#(e.g. public99)
-info_udf#:#(user defined text field)
-no_name_set#:#no name set
+info_udf#:#user defined text field
+no_name_set#:#Missing value
 at#:#at
 
 show_chat#:#Show Chat
@@ -121,8 +122,14 @@ info_default_show_colors#:#Enable or disable the author colors for all Etherpad 
 conf_show_colors#:#Allow individual author color configuration
 info_conf_show_colors#:#When activated it is possible to enable or disable the display of author colors for each individual Etherpad.
 
-show_author_visibility_in_list#:#Show author visibility setting in list
-info_show_author_visibility_in_list#:#Enable or disable the author visibility setting for all Etherpad objects in list.
+author_identification_conf#:#Make the author identification in the administration panel selectable
+info_author_identification_conf#:#Upon activation, the author identification (naming of authors) can be selected within the pad administration panel. (Feature since 1.1.3) Upon activation, the full name from the user's profile will be shown by default.
+
+author_identification_conf_author_identification_show_in_list#:#Show author identification setting in relation to objects
+info_author_identification_show_in_list#:#Show or hide the author identication setting in relation to etherpad objects.
+
+author_identification_conf_author_identification_no_re-identification#:#Prevent re-identification
+info_author_identification_no_re-identification#:#Upon activation, a selected 'user defined field' (UDF) as a source for the author identification can not be reseted. Between UDFs, however, can be switched.
 
 default_show_controls#:#Show control bar by default
 info_default_show_controls#:#Enable or disable the control bar for all Etherpad objects by default.

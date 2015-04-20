@@ -289,16 +289,14 @@ foreach($sql as $s)
 
 <#17>
 <?php
-/**
- * mod for <c.t.> (2nd stage) at University of Passau
- * on 2015-03-31
- * by Christoph Becker
- */
-	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','author_visibility'))
-	{
-		$ilDB->addTableColumn("rep_robj_xpdl_data","author_visibility",array("type"=>"text", "length" => "24", "default" => "fullname", "notnull" => true));
-	}
+	/**
+	 * Feature: selectable author identification
+	 */
+	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','author_identification'))
+		$ilDB->addTableColumn("rep_robj_xpdl_data","author_identification",array("type"=>"text", "length" => "24", "default" => "fullname", "notnull" => true));
 	
-	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'show_author_visibility_in_list',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'show_author_visibility_in_list');");
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf');");
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf_author_identification_show_in_list',NULL FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf_author_identification_show_in_list');");
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf_author_identification_no_re-identification',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf_author_identification_no_re-identification');");
 	
 ?>

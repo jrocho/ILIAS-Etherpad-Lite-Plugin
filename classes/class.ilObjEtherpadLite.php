@@ -239,7 +239,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setOldEtherpad($rec["old_pad"]);
             $this->setReadOnlyID($rec["read_only_id"]); 
             $this->setReadOnly($rec["read_only"]);
-            $this->setAuthorVisibility($rec["author_visibility"]);
+            $this->setAuthorIdentification($rec["author_identification"]);
         }
     }
 	
@@ -267,7 +267,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "integer"). "," . 
                 " read_only_id = " . $ilDB->quote($this->getReadOnlyID(), "text"). "," . 
                 " read_only = " . $ilDB->quote($this->getReadOnly(), "integer"). "," . 
-        		" author_visibility = " . $ilDB->quote($this->getAuthorVisibility(), "text").
+        		" author_identification = " . $ilDB->quote($this->getAuthorIdentification(), "text").
                 " WHERE id = " . $ilDB->quote($this->getId(), "integer")
         );
     }
@@ -330,23 +330,23 @@ class ilObjEtherpadLite extends ilObjectPlugin
     }
     
     /**
-     * Set author visibility
+     * Set author identification
      *
-     * @param    string			author visibility
+     * @param    string			author identification
      */
-    public function setAuthorVisibility($a_val)
+    public function setAuthorIdentification($a_val)
     {
-    	$this->author_visibility = $a_val;
+    	$this->author_identification = $a_val;
     }
     
     /**
-     * Get author visibility
+     * Get author identification
      *
-     * @return    string		author visibility
+     * @return    string		author identification
      */
-    public function getAuthorVisibility()
+    public function getAuthorIdentification()
     {
-    	return $this->author_visibility;
+    	return $this->author_identification;
     }
 
     

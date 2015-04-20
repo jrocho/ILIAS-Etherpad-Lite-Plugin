@@ -21,7 +21,7 @@
 	+-----------------------------------------------------------------------------+
 */
 
-include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
+include_once("./Services/Repository/classes/class.ilObjectPluginListGUI.php");
 
 /**
 * ListGUI implementation for EtherpadLite object plugin. This one
@@ -83,6 +83,10 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 		$props = array();
 		
 		$this->plugin->includeClass("class.ilObjEtherpadLiteAccess.php");
+		
+		/**
+		 * offline?
+		 */
 		if (!ilObjEtherpadLiteAccess::checkOnline($this->obj_id))
 		{
 			$props[] = array(
@@ -91,20 +95,19 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 				"value" => $this->txt("offline"));
 		}
 		
-	    /**
-	     * new option for <c.t.> (2nd stage) at University of Passau
-	 	 * on 2015-04-09
-	 	 * by Christoph Becker
-	 	 * 
- 	 	*/
+
+		/**
+		 * author identification, if "author_identification_show_in_list" is set
+		 */
 		$this->plugin->includeClass("class.ilEtherpadLiteConfig.php");
-		if (ilEtherpadLiteConfig::getValue("show_author_visibility_in_list"))
+		if (ilEtherpadLiteConfig::getValue("author_identification_conf") && 
+				ilEtherpadLiteConfig::getValue("author_identification_conf_author_identification_show_in_list"))
 		{
-			$type = ilObjEtherpadLiteAccess::getAuthorVisibility($this->obj_id);
+			$type = ilObjEtherpadLiteAccess::getAuthorIdentificationFromDB($this->obj_id);
 			$field_id = substr($type, strpos($type, ":")+1);
 			if(stripos($type,'UDF') !== false)
 			{
-				include_once './Services/User/classes/class.ilUserDefinedFields.php';
+				include_once("./Services/User/classes/class.ilUserDefinedFields.php");
 				$user_defined_fields =& ilUserDefinedFields::_getInstance();
 				$udfDefinition = $user_defined_fields->getDefinition($field_id);
 				$value = $udfDefinition['field_name']."-Feld";
@@ -114,7 +117,7 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 			
 			$props[] = array(
 					"alert" => true,
-					"property" => $this->txt("author_visibility"),
+					"property" => $this->txt("author_identification"),
 					"value" => $value,
 					"newline" => true);
 		}
