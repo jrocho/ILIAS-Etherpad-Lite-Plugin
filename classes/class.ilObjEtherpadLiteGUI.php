@@ -149,10 +149,9 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     public function initPropertiesForm()
     {
-
         global $ilCtrl;
 
-        include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
+        include_once("./Services/Form/classes/class.ilPropertyFormGUI.php");
         $this->form = new ilPropertyFormGUI();
 
         // hidden Inputfield for ID
@@ -167,7 +166,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         // description
         $ta = new ilTextAreaInputGUI($this->txt("description"), "desc");
         $this->form->addItem($ta);
-
+	        
         // online
         $cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
         $this->form->addItem($cb);
@@ -175,47 +174,86 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         // Show Elements depending on settings in the administration of the plugin
         include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
         $this->adminSettings = new ilEtherpadLiteConfig();
+        
+	        // author identification (radio group)
+        	if($this->adminSettings->getValue("author_identification_conf"))
+        	{
+		        $av = new ilRadioGroupInputGUI($this->txt("author_identification"), "author_identification");
+		         
+		        // default radio options
+		        $option1 = new ilRadioOption($this->txt("fullname"),"fullname", $this->txt("info_fullname"));
+		        $option2 = new ilRadioOption($this->txt("username"),"username", $this->txt("info_username"));
+		        
+		        // disable re-identification if the conditions are met
+		        if($this->adminSettings->getValue("author_identification_conf_author_identification_no_re-identification")
+		        		&& stripos($this->object->getAuthorIdentification(),'UDF') !== false) 
+		        {
+		        	$option1->setDisabled(true);
+		        	$option2->setDisabled(true);
+		        }
+		        
+		        // add default radio options
+		        $av->addOption($option1);
+		        $av->addOption($option2);
+		        
+		        // more radio options: changeable user defined text fields
+		        include_once("./Services/User/classes/class.ilUserDefinedFields.php");
+		        $user_defined_fields =& ilUserDefinedFields::_getInstance();
+		        $field_definitions = $user_defined_fields->getVisibleDefinitions();
+		        if($field_definitions) 
+		        {
+		        	foreach ($field_definitions as $key => $definition)
+		        	{
+		        		if($definition['field_type']==UDF_TYPE_TEXT && $definition['changeable'])
+		        			$av->addOption(new ilRadioOption($definition['field_name'],"UDF:".$definition['field_id'], $this->txt("info_udf")));
+		        	}
+		        }
+		        	
+		        // add radio section
+		        $this->form->addItem($av);
+        	}
 
-        if($this->adminSettings->getValue("allow_read_only"))
-        {
-			$ro = new ilCheckboxInputGUI($this->txt("read_only"), "read_only");
-			$this->form->addItem($ro);
-		}
+			// read only
+		        if($this->adminSettings->getValue("allow_read_only"))
+		        {
+					$ro = new ilCheckboxInputGUI($this->txt("read_only"), "read_only");
+					$this->form->addItem($ro);
+				}
 
 
-        // show Chat
-        if($this->adminSettings->getValue("conf_show_chat"))
-        {
+	        // show Chat
+		        if($this->adminSettings->getValue("conf_show_chat"))
+		        {
+		
+		            $chat = new ilCheckboxInputGUI($this->txt("show_chat"), "show_chat");
+		            //$chat->setInfo($this->txt("info_show_chat"));
+		            $this->form->addItem($chat);
+		        }
 
-            $chat = new ilCheckboxInputGUI($this->txt("show_chat"), "show_chat");
-            //$chat->setInfo($this->txt("info_show_chat"));
-            $this->form->addItem($chat);
-        }
+        	// show line number
+		        if($this->adminSettings->getValue("conf_line_numbers"))
+		        {
+		            $line = new ilCheckboxInputGUI($this->txt("show_line_numbers"), "show_line_numbers");
+		            //$line->setInfo($this->txt("info_show_line_numbers"));
+		            $this->form->addItem($line);
+		        }
 
-        // show line number
-        if($this->adminSettings->getValue("conf_line_numbers"))
-        {
-            $line = new ilCheckboxInputGUI($this->txt("show_line_numbers"), "show_line_numbers");
-            //$line->setInfo($this->txt("info_show_line_numbers"));
-            $this->form->addItem($line);
-        }
-
-        // monospace font
-        if($this->adminSettings->getValue("conf_monospace_font"))
-        {
-            $font = new ilCheckboxInputGUI($this->txt("monospace_font"), "monospace_font");
-            $font->setInfo($this->txt("info_monospace_font"));
-            $this->form->addItem($font);
-        }
+        	// monospace font
+		        if($this->adminSettings->getValue("conf_monospace_font"))
+		        {
+		            $font = new ilCheckboxInputGUI($this->txt("monospace_font"), "monospace_font");
+		            $font->setInfo($this->txt("info_monospace_font"));
+		            $this->form->addItem($font);
+		        }
 
 
-        // show colors
-        if($this->adminSettings->getValue("conf_show_colors"))
-        {
-            $colors = new ilCheckboxInputGUI($this->txt("show_colors"), "show_colors");
-            //$colors->setInfo($this->txt("info_show_colors"));
-            $this->form->addItem($colors);
-        }
+       		// show colors
+		        if($this->adminSettings->getValue("conf_show_colors"))
+		        {
+		            $colors = new ilCheckboxInputGUI($this->txt("show_colors"), "show_colors");
+		            //$colors->setInfo($this->txt("info_show_colors"));
+		            $this->form->addItem($colors);
+		        }
 
 
         // show controls
@@ -319,7 +357,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $values["show_import_export"]= $this->object->getShowImportExport();
         $values["show_timeline"]= $this->object->getShowTimeline();
         $values["read_only"]= $this->object->getReadOnly();
-
+        $values["author_identification"]     = $this->object->getAuthorIdentification();
+        
         $this->form->setValuesByArray($values);
     }
 
@@ -336,7 +375,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setTitle($this->form->getInput("title"));
             $this->object->setDescription($this->form->getInput("desc"));
             $this->object->setEtherpadLiteID($this->form->getInput("epadl_id"));
-            $this->object->setOnline($this->form->getInput("online"));
+            $this->object->setOnline($this->form->getInput("online"));            
             $this->object->setShowChat($this->form->getInput("show_chat"));
             $this->object->setLineNumbers($this->form->getInput("show_line_numbers"));
             $this->object->setMonospaceFont($this->form->getInput("monospace_font"));
@@ -350,6 +389,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setShowImportExport($this->form->getInput("show_import_export"));
             $this->object->setShowTimeline($this->form->getInput("show_timeline"));
             $this->object->setReadOnly($this->form->getInput("read_only"));
+            $this->object->setAuthorIdentification($this->form->getInput("author_identification"));
 
             $this->object->update();
             ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
@@ -370,9 +410,9 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     function showContent()
     {
         global $tpl, $ilTabs, $ilUser, $lng;
+        
         try
         {
-
             $this->object->init();
             $ilTabs->activateTab("content");
             $tpl->addCss("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/templates/css/etherpad.css");
@@ -390,9 +430,22 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 			else 
 			{
 				$padID = $this->object->getEtherpadLiteID(); 
+				
+				// UDF selected by admin, but no value was set by user?
+				if ($this->adminSettings->getValue("author_identification_conf")){
+					$authorVisibilityType = $this->object->getAuthorIdentification();
+					$field_id = substr($authorVisibilityType, strpos($authorVisibilityType, ":")+1);
+					if (stripos($authorVisibilityType,'UDF') !== false && !$this->getUDFValue($field_id)){	
+						include_once("./Services/User/classes/class.ilUserDefinedFields.php");
+						$user_defined_fields =& ilUserDefinedFields::_getInstance();
+						$field_definition = $user_defined_fields->getDefinition($field_id);
+						$profileSettingsLink = "<a href='ilias.php?baseClass=ilPersonalDesktopGUI&cmd=jumpToProfile'>".$lng->txt("personal_profile")."</a>";
+						$noNameMsg = $this->txt("no_name_set")."! ";
+						$noNameMsg .= $lng->txt("form_empty_fields")." <i>".$field_definition["field_name"]."</i> ".$this->txt("at")." $profileSettingsLink.";
+						ilUtil::sendFailure($noNameMsg, true);
+					}
+				}
 			}
-			
-		    //$pad->setVariable("ETHERPADLITEID", $padID);
 
             // build javascript required to load the pad
             $pad = new ilTemplate("tpl.pad.html", true, true, "Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite");
@@ -403,7 +456,10 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("PORT",($this->adminSettings->getValue("port")));
             $pad->setVariable("PATH",($this->adminSettings->getValue("path")));
             $pad->setVariable("ETHERPADLITE_ID",$padID);
-            $pad->setVariable("USER_NAME",rawurlencode($ilUser->firstname . ' ' . $ilUser->lastname));
+                       
+            // if "author_identification_conf" is'nt set, write full name of authors. Otherwise construct identifier based on object setting from DB.
+            $pad->setVariable("USER_NAME",(!$this->adminSettings->getValue("author_identification_conf") ? rawurlencode($ilUser->getFullname()) : $this->constructAuthorIdentification($this->object->getAuthorIdentification())));
+            
             $pad->setVariable("SHOW_CONTROLS",($this->object->getShowControls() ? "true" : "false"));
             $pad->setVariable("SHOW_CHAT",($this->object->getShowChat() ? "true" : "false"));
             $pad->setVariable("SHOW_LINE_NUMBERS",($this->object->getLineNumbers() ? "true" : "false"));
@@ -420,9 +476,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $pad->setVariable("EPADL_VERSION",($this->adminSettings->getValue("epadl_version")));
             $tpl->setContent($pad->get());
 
-
             // Add Permalink
-            include_once './Services/PermanentLink/classes/class.ilPermanentLinkGUI.php';
+            include_once("./Services/PermanentLink/classes/class.ilPermanentLinkGUI.php");
             $permalink = new ilPermanentLinkGUI('xpdl', $this->object->getRefId());
             $this->tpl->setVariable('PRMLINK', $permalink->getHTML());
         } catch (Exception $e)
@@ -430,8 +485,47 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $ilTabs->activateTab("content");
             $tpl->setContent($this->txt("load_error")." ".$e->getMessage());
         }
+    }
 
 
+    private function constructAuthorIdentification($type)
+    {
+    	global $ilUser;
+    	switch (true)
+    	{
+    		case stripos($type,'UDF') !== false:
+    			$field_id = substr($type, strpos($type, ":")+1);
+    			return $this->getUDFValue($field_id) ? rawurlencode($this->getUDFValue($field_id)) : $this->txt("no_name_set"); break;			
+    		case $type === 'username':
+    			return rawurlencode($ilUser->getPublicName()); break;
+    		case $type === 'fullname':
+    		default:
+    			return rawurlencode($ilUser->getFullname());
+    	}
+    }    
+    
+    private function getUDFValue($field_id)
+    {
+    	global $ilUser;
+    	$user_defined_data = $ilUser->getUserDefinedData();
+    	return $user_defined_data['f_'.$field_id] ? $user_defined_data['f_'.$field_id] : false;
+    }
+    
+
+    public function initCreateForm($a_new_type)
+    {
+    	$form = parent::initCreateForm($a_new_type);
+
+    	include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
+    	$this->adminSettings = new ilEtherpadLiteConfig();
+    	if($this->adminSettings->getValue("author_identification_conf")) 
+    	{
+    		$av = new ilCustomInputGUI("", "");
+    		$av->setHtml($this->txt("info_author_identification") . " " . $this->txt("info_author_identification_selectable"));
+    		$form->addItem($av);
+    	}
+
+    	return $form;
     }
 
 }

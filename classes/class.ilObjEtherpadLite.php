@@ -239,8 +239,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
             $this->setOldEtherpad($rec["old_pad"]);
             $this->setReadOnlyID($rec["read_only_id"]); 
             $this->setReadOnly($rec["read_only"]);
+            $this->setAuthorIdentification($rec["author_identification"]);
         }
-        
     }
 	
 	/**
@@ -266,7 +266,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 " show_import_export = " . $ilDB->quote($this->getShowImportExport(), "integer"). "," .
                 " show_timeline = " . $ilDB->quote($this->getShowTimeline(), "integer"). "," . 
                 " read_only_id = " . $ilDB->quote($this->getReadOnlyID(), "text"). "," . 
-                " read_only = " . $ilDB->quote($this->getReadOnly(), "integer").
+                " read_only = " . $ilDB->quote($this->getReadOnly(), "integer"). "," . 
+        		" author_identification = " . $ilDB->quote($this->getAuthorIdentification(), "text").
                 " WHERE id = " . $ilDB->quote($this->getId(), "integer")
         );
     }
@@ -327,7 +328,28 @@ class ilObjEtherpadLite extends ilObjectPlugin
     {
         return $this->online;
     }
+    
+    /**
+     * Set author identification
+     *
+     * @param    string			author identification
+     */
+    public function setAuthorIdentification($a_val)
+    {
+    	$this->author_identification = $a_val;
+    }
+    
+    /**
+     * Get author identification
+     *
+     * @return    string		author identification
+     */
+    public function getAuthorIdentification()
+    {
+    	return $this->author_identification;
+    }
 
+    
     /**
      * Set etherpad lite id
      *

@@ -285,3 +285,18 @@ foreach($sql as $s)
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'en'");	
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_imp_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'de'");	
 ?>
+
+
+<#17>
+<?php
+	/**
+	 * Feature: selectable author identification
+	 */
+	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','author_identification'))
+		$ilDB->addTableColumn("rep_robj_xpdl_data","author_identification",array("type"=>"text", "length" => "24", "default" => "fullname", "notnull" => true));
+	
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf');");
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf_author_identification_show_in_list',NULL FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf_author_identification_show_in_list');");
+	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf_author_identification_no_re-identification',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf_author_identification_no_re-identification');");
+	
+?>

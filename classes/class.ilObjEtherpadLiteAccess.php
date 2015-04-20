@@ -85,6 +85,19 @@ class ilObjEtherpadLiteAccess extends ilObjectPluginAccess
 		return (boolean) $rec["is_online"];
 	}
 	
+	
+	/**
+	 * Return author identification value
+	 */
+	static function getAuthorIdentificationFromDB($a_id)
+	{
+		global $ilDB;
+		
+		$set = $ilDB->query("SELECT author_identification FROM rep_robj_xpdl_data ".
+				" WHERE id = ".$ilDB->quote($a_id, "integer"));
+		$rec  = $ilDB->fetchAssoc($set);
+		return $rec["author_identification"];
+	}
 }
 
 ?>

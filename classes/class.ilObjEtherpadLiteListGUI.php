@@ -21,7 +21,7 @@
 	+-----------------------------------------------------------------------------+
 */
 
-include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
+include_once("./Services/Repository/classes/class.ilObjectPluginListGUI.php");
 
 /**
 * ListGUI implementation for EtherpadLite object plugin. This one
@@ -83,10 +83,43 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 		$props = array();
 		
 		$this->plugin->includeClass("class.ilObjEtherpadLiteAccess.php");
+		
+		/**
+		 * offline?
+		 */
 		if (!ilObjEtherpadLiteAccess::checkOnline($this->obj_id))
 		{
-			$props[] = array("alert" => true, "property" => $this->txt("status"),
+			$props[] = array(
+				"alert" => true, 
+				"property" => $this->txt("status"),
 				"value" => $this->txt("offline"));
+		}
+		
+
+		/**
+		 * author identification, if "author_identification_show_in_list" is set
+		 */
+		$this->plugin->includeClass("class.ilEtherpadLiteConfig.php");
+		if (ilEtherpadLiteConfig::getValue("author_identification_conf") && 
+				ilEtherpadLiteConfig::getValue("author_identification_conf_author_identification_show_in_list"))
+		{
+			$type = ilObjEtherpadLiteAccess::getAuthorIdentificationFromDB($this->obj_id);
+			$field_id = substr($type, strpos($type, ":")+1);
+			if(stripos($type,'UDF') !== false)
+			{
+				include_once("./Services/User/classes/class.ilUserDefinedFields.php");
+				$user_defined_fields =& ilUserDefinedFields::_getInstance();
+				$udfDefinition = $user_defined_fields->getDefinition($field_id);
+				$value = $udfDefinition['field_name']."-Feld";
+			} 
+			else
+				$value = $this->txt($type);				
+			
+			$props[] = array(
+					"alert" => true,
+					"property" => $this->txt("author_identification"),
+					"value" => $value,
+					"newline" => true);
 		}
 
 		return $props;
