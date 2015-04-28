@@ -50,7 +50,10 @@
     
 	$( "li[data-key='settings']" ).addClass("settings");
     
-	$( "#myusernameedit" ).prop('readonly', true);
+	// replace name input field
+	var span = $('<span />', {'id': 'myusernameedit'}).css({'display' : 'block'});
+	$("#myusernameedit").parent().append($(span).html(decodeURIComponent(parameters["userName"])));
+	$("#myusernameedit").remove();
 
 
 
