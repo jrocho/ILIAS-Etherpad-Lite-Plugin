@@ -495,7 +495,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     	{
     		case stripos($type,'UDF') !== false:
     			$field_id = substr($type, strpos($type, ":")+1);
-    			return $this->getUDFValue($field_id) ? rawurlencode($this->getUDFValue($field_id)) : $this->txt("no_name_set"); break;			
+    			return $this->getUDFValue($field_id) ? rawurlencode($this->getUDFValue($field_id)) : $this->txt("unknown_identity"); break;			
     		case $type === 'username':
     			return rawurlencode($ilUser->getPublicName()); break;
     		case $type === 'fullname':
