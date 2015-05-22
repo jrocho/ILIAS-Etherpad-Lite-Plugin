@@ -1,0 +1,28 @@
+	<script type="text/javascript">	
+	$(document).ready(function(){
+	    /**
+	     * dialog opener
+	     */
+		$( "#PrivacyPolicyMODAL_trigger" ).click(function() {
+			$('#ilPrivacyPolicyMODAL').modal('show');
+	    });
+		$( "#IPropPolicyMODAL_trigger" ).click(function() {
+			$('#ilIPropPolicyMODAL').modal('show');
+	    });
+		$( "#RulesMODAL_trigger" ).click(function() {
+			$('#ilRulesMODAL').modal('show');
+	    });
+	});
+	</script>
+
+<h1>Einsichtnahme</h1>
+<br/>
+<img src="templates/default/images/checkbox_checked.png"/>&nbsp;&nbsp;<a id="PrivacyPolicyMODAL_trigger">Datenschutzerklärung </a><br/><br/>
+<img src="templates/default/images/checkbox_checked.png"/>&nbsp;&nbsp;<a id="IPropPolicyMODAL_trigger">Urheberrechtserklärung </a><br/><br/>
+<img src="templates/default/images/checkbox_checked.png"/>&nbsp;&nbsp;<a id="RulesMODAL_trigger">c.t. Regeln</a><br/><br/>
+
+{PrivacyPolicyMODAL}
+{IPropPolicyMODAL}
+{RulesMODAL}
+
+<p align="right"><a href="{REVOKETLINK}">Einwilligung zurückziehen<br/>(! nur zu Demonstrationszwecken !)</a></p>

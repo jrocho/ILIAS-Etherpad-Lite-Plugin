@@ -45,6 +45,24 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         "default_show_colors"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_colors","options"=>null,"subelements"=>null),
         "conf_show_colors"          => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_colors","options"=>null,"subelements"=>null),
         
+        "author_identification_conf"	    => array("type"=>"ilCheckboxInputGUI","info"=>"info_author_identification_conf","options"=>null,"subelements"=>array(
+        		"author_identification_show_in_list"	    	=> array("type"=>"ilCheckboxInputGUI","info"=>"info_author_identification_show_in_list","options"=>null),
+        		"author_identification_no_re-identification"	=> array("type"=>"ilCheckboxInputGUI","info"=>"info_author_identification_no_re-identification","options"=>null),
+        	),
+        ),
+        
+        "policy_paths" => array("type"=>"ilCustomInputGUI", "info"=>"info_policy_paths", "options"=>null,"subelements"=>array(
+       			"privacy_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"privacy_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+
+       			"iprop_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"iprop_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			
+       			"rules_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"rules_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+        	),
+        ),
+        
         "allow_read_only"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_allow_read_only","options"=>null,"subelements"=>null),
 
         "default_show_controls"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_controls","options"=>null,"subelements"=>array(
@@ -64,7 +82,7 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
                 "conf_show_redo"                => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_redo","options"=>null),
                 "conf_show_coloring"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_coloring","options"=>null),
                 "conf_show_heading"             => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_heading","options"=>null),
-                "conf_show_import_export"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_import_export","options"=>null),
+                "conf_show_imp_exp"       => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_imp_exp","options"=>null),
                 "conf_show_timeline"            => array("type"=>"ilCheckboxInputGUI","info"=>"info_conf_show_timeline","options"=>null),
             ),
         ),
@@ -129,7 +147,7 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
         $this->object = new ilEtherpadLiteConfig();
 
-        include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
+        include_once("./Services/Form/classes/class.ilPropertyFormGUI.php");
         $this->form = new ilPropertyFormGUI();
 
 

@@ -35,11 +35,34 @@ xpdl_import#:#Etherpad importieren
 load_error#:#Beim Laden des Etherpads ist ein Fehler aufgetreten. Fehlermeldung:
 error_not_found_in_db#:#Dieses Etherpad konnte in der Datenbank nicht gefunden werden.
 read_only#:#Schreibrechte entziehen
-read_only_notice#:#Diese Etherpad ist schreibgeschützt.
+read_only_notice#:#Dieses Etherpad ist schreibgeschützt.
 allow_read_only#:#Schreibschutz für Etherpads zulassen
 info_allow_read_only#:#In den Einstellungen des Etherpads die Möglichkeit anbieten einen Schreibschutz zu aktivieren.
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Die verwendete Etherpad Lite Version auf dem Server
+
+author_identification#:#Autorenbezeichnung
+info_author_identification#:#HINWEIS: Die Autoren schreiben in der Standardeinstellung unter ihrem vollständigen Namen. 
+info_author_identification_selectable#:#Dies kann in den Einstellungen auf der folgenden Seite geändert werden.
+fullname#:#Name voll ausgeschrieben
+info_fullname#:#(z.B. Max Muster)
+username#:#Ilias-Nutzername
+info_username#:#(z.B. muster99)
+info_udf#:#Benutzerdefiniertes Textfeld.
+no_name_set#:#Kein Name gesetzt
+unknown_identity#:#Unbekannt
+at#:#unter
+
+policy_paths#:#Pfade der Einwilligungstexte (c.t.)
+info_policy_paths#:#Für das c.t. Projekt (Feature seit v1.1.4)
+policy_paths_privacy_html#:#Datenschutzerklärung (HTML)
+policy_paths_privacy_pdf#:#Datenschutzerklärung (PDF)
+policy_paths_iprop_html#:#Urheberrechtserklärung (HTML)
+policy_paths_iprop_pdf#:#Urheberrechtserklärung (PDF)
+policy_paths_rules_html#:#Regelwerk (HTML)
+policy_paths_rules_pdf#:#Regelwerk (PDF)
+info_relative_path#:#Relativer Pfad
+
 
 show_chat#:#Chat anzeigen
 info_show_chat#:#
@@ -109,11 +132,20 @@ default_show_colors#:#Autorenfarben standardmässig anzeigen
 info_default_show_colors#:#Die Auterenfarbe für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
 conf_show_colors#:#Autorenfarbe individuell konfigurierbar
 info_conf_show_colors#:#Bei aktivierung, kann für jedes einzelne Etherpadobjekt die Autorenfarbe aktiviert oder deaktiviert werden.
+    
+author_identification_conf#:#Auswahl der Autorenbezeichnung in den Pad-Einstellungen
+info_author_identification_conf#:#Aktivierung ermöglicht in den Pad-Einstellungen eine Auswahl, wie Autoren darin benannt werden. (Feature seit 1.1.3) Bei Deaktivierung wird standardmäßig der Vor- und Nachname aus dem Profil angezeigt.
+
+author_identification_conf_author_identification_show_in_list#:#Ausgewählte Autorenbezeichnung in der Objektliste anzeigen
+info_author_identification_show_in_list#:#Die Autorenbezeichnungseinstellung in der Liste der Objekte anzeigen.
+
+author_identification_conf_author_identification_no_re-identification#:#Unterbinde Re-Identifizierung
+info_author_identification_no_re-identification#:#Bei Aktivierung kann ein einmal ausgewähltes 'Benutzerdefiniertes Feld' (UDF) als Quelle für die Autorenbezeichnung nicht zurück gestellt werden. Zwischen UDFs kann jedoch gewechselt werden.   
 
 default_show_controls#:#Kontrollelemente standardmässig anzeigen
 info_default_show_controls#:#Die Kontrollemente für alle Etherpadobjekte standardmässig ein- oder ausgeblenden.
 conf_show_controls#:#Anzeige der Kontollelemente individuell konfigurierbar
-info_conf_show_controls#:#Bei aktivierung, können für jedes einzelne Etherpadobjekt die Kontrollelemente aktiviert oder deaktiviert werden.
+info_conf_show_controls#:#Bei Aktivierung können für jedes einzelne Etherpadobjekt die Kontrollelemente aktiviert oder deaktiviert werden.
 
 default_show_controls_default_show_style#:#Schriftformantierungselemente ein- oder ausblenden.
 info_default_show_style#:#Schriftformantierungselemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
