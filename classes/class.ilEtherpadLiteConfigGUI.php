@@ -51,6 +51,18 @@ class ilEtherpadLiteConfigGUI extends ilPluginConfigGUI
         	),
         ),
         
+        "policy_paths" => array("type"=>"ilCustomInputGUI", "info"=>"info_policy_paths", "options"=>null,"subelements"=>array(
+       			"privacy_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"privacy_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+
+       			"iprop_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"iprop_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			
+       			"rules_html"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+       			"rules_pdf"       => array("type"=>"ilTextInputGUI","info"=>"info_relative_path","options"=>null),
+        	),
+        ),
+        
         "allow_read_only"      => array("type"=>"ilCheckboxInputGUI","info"=>"info_allow_read_only","options"=>null,"subelements"=>null),
 
         "default_show_controls"     => array("type"=>"ilCheckboxInputGUI","info"=>"info_default_show_controls","options"=>null,"subelements"=>array(

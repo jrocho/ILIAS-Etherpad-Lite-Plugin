@@ -300,3 +300,43 @@ foreach($sql as $s)
 	$ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'author_identification_conf_author_identification_no_re-identification',true FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'author_identification_conf_author_identification_no_re-identification');");
 	
 ?>
+
+<#18>
+<?php
+	/**
+	 * online agreement to the policies
+	 */
+	if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','require_policy_consent'))
+	{
+		$ilDB->addTableColumn(
+			"rep_robj_xpdl_data",
+			"require_policy_consent",
+			array(
+				'type' => 'integer',
+				'length' => 1,
+				'notnull' => true,
+				'default' => 0
+			)
+		);
+	}
+	
+	$userTableFields = array(
+		'username' => array(
+			'type' => 'text',
+			'length' => 128,
+			'notnull' => false
+		),
+	    'policy_agreement' => array(
+			'type' => 'boolean'
+		),
+		'hashes' => array(
+				'type' => 'text',
+				'length' => 200
+		)
+	);
+	
+	$ilDB->createTable("rep_robj_xpdl_user", $userTableFields, true);
+	$ilDB->addPrimaryKey("rep_robj_xpdl_user", array("username"));
+
+
+?>
