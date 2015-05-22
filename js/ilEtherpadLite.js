@@ -24,6 +24,7 @@
         }
         repaintPad();
     }
+    
 
     /** Constructor actions **/
     this.resizePad();
@@ -61,6 +62,8 @@ $(function () {
     $(".labeFullscreenPad").click(function () {
         etherpadlite.toggleFullscreen();
     });
+    
+
 });
 
 

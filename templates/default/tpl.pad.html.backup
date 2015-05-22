@@ -1,34 +1,22 @@
 <div style="display:{POLICIESDIV};" class="alert alert-danger">
 
-	<script type="text/javascript">	
-	$(document).ready(function(){
-		$("#tac-form").submit(function(e) {
-	        var cnt = $("input[name='tac']:checked").length;
-	        if (cnt > 2) window.location = $('#url').val();
-			e.preventDefault();//prevent the form from actually submitting
-		});
-		
-	    /**
-	     * dialog opener
-	     */
-		$( "#PrivacyPolicyMODAL_trigger" ).click(function() {
-			$('#ilPrivacyPolicyMODAL').modal('show');
-	    });
-		$( "#IPropPolicyMODAL_trigger" ).click(function() {
-			$('#ilIPropPolicyMODAL').modal('show');
-	    });
-		$( "#RulesMODAL_trigger" ).click(function() {
-			$('#ilRulesMODAL').modal('show');
-	    });
-	});
+	<script type="text/javascript">
+		function taccheck(form)
+		{
+			if (form.privacy.checked == true && form.ip.checked == true && form.rules.checked == true) 
+		    {
+				window.location = form.url.value;    	
+		    }
+			return false;
+		}
 	</script>
 
-	<form id="tac-form" method="POST">
-		<input type="hidden" id="url" value="{CONSENTLINK}">
+	<form id="tac-form" onsubmit="return taccheck(this);" method="POST">
+		<input type="hidden" name="url" value="{CONSENTLINK}">
 		Ich willige ein in<br/>
-		<input required type="checkbox" name="tac" value="privacy" /> die <a id="PrivacyPolicyMODAL_trigger">Datenschutzerklärung </a><br/>
-		<input required type="checkbox" name="tac" value="ip" /> die <a id="IPropPolicyMODAL_trigger">Urheberrechtserklärung </a><br/>
-		<input required type="checkbox" name="tac" value="rules" /> die <a id="RulesMODAL_trigger">c.t. Regeln</a><br/>
+		<input required type="checkbox" name="privacy" value="privacy" /> die <a id="opener">Datenschutzerklärung </a><br/>
+		<input required type="checkbox" name="ip" value="ip" /> die <a href="{IPPOLICYLINK}">Urheberrechtserklärung </a><br/>
+		<input required type="checkbox" name="rules" value="rules" /> die <a href="{RULESPOLICYLINK}">c.t. Regeln</a><br/>
 		<br/><input class="btn btn-default btn-sm" type="SUBMIT" id="tac-submit" value="Speichern">
 	</form>
 </div>
@@ -42,6 +30,4 @@
         src="{PROTOCOL}://{HOST}:{PORT}{PATH}/p/{ETHERPADLITE_ID}?showControls={SHOW_CONTROLS}&showChat={SHOW_CHAT}&showLineNumbers={SHOW_LINE_NUMBERS}&useMonospaceFont={USE_MONOSPACE_FONT}&userName={USER_NAME}&noColors={NO_COLORS}&showStyleBlock={SHOW_STYLE_BLOCK}&showListBlock={SHOW_LIST_BLOCK}&showRedoBlock={SHOW_REDO_BLOCK}&showColorBlock={SHOW_COLOR_BLOCK}&showHeadingBlock={SHOW_HEADING_BLOCK}&showImportExportBlock={SHOW_IMPORT_EXPORT_BLOCK}&showTimelineBlock={SHOW_TIMELINE_BLOCK}&language={LANGUAGE}&padVersion={EPADL_VERSION}">
     </iframe>
 </div>
-{PrivacyPolicyMODAL}
-{IPropPolicyMODAL}
-{RulesMODAL}
+{MODAL}

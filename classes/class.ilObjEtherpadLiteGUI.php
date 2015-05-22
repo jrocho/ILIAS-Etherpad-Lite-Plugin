@@ -39,6 +39,7 @@ include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 */
 class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 {
+		
     /**
      * Initialisation
      */
@@ -64,13 +65,14 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         {
             case "editProperties": // list all commands that need write permission here
             case "updateProperties":
-                //case "...":
                 $this->checkPermission("write");
                 $this->$cmd();
                 break;
 
             case "showContent": // list all commands that need read permission here
-                //case "...":
+            case "agreePolicy":
+            case "revokeConsent":
+            case "inspectPolicies":
                 //case "...":
                 $this->checkPermission("read");
                 $this->$cmd();
@@ -122,6 +124,22 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
         // standard epermission tab
         $this->addPermissionTab();
+        
+        
+        // tab for the "policy agreements" command
+        if($this->object->getRequirePolicyConsent())
+        {
+        	include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteUser.php");
+        	$this->EtherpadLiteUser = new ilEtherpadLiteUser();
+        	if($this->EtherpadLiteUser->getPolicyAgreement())
+        	{
+        		if ($ilAccess->checkAccess("read", "", $this->object->getRefId()))
+        		{
+        			$ilTabs->addTab("agreement", "Einwilligungen (Einsicht)", $ilCtrl->getLinkTarget($this, "inspectPolicies"));
+        		}
+        	}        	
+        }
+
     }
 
 
@@ -141,6 +159,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $this->getPropertiesValues();
         $tpl->setContent($this->form->getHTML());
     }
+    
+
 
     /**
      * Init  form.
@@ -171,6 +191,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
         $this->form->addItem($cb);
         
+		// require policy consent?
+		$pc = new ilCheckboxInputGUI("&lt;c.t.&gt; Einwilligungen notwendig?", "require_policy_consent");
+		$pc->setInfo("&lt;c.t.&gt;: Einwilligung in die datenschutz- und urheberrechtlichen Erklärungen sowie in das Regelwerk notwendig?");
+        $this->form->addItem($pc);
+              
         // Show Elements depending on settings in the administration of the plugin
         include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
         $this->adminSettings = new ilEtherpadLiteConfig();
@@ -212,7 +237,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 		        // add radio section
 		        $this->form->addItem($av);
         	}
-
+        	
+        	
 			// read only
 		        if($this->adminSettings->getValue("allow_read_only"))
 		        {
@@ -358,6 +384,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         $values["show_timeline"]= $this->object->getShowTimeline();
         $values["read_only"]= $this->object->getReadOnly();
         $values["author_identification"]     = $this->object->getAuthorIdentification();
+        $values["require_policy_consent"]     = $this->object->getRequirePolicyConsent();
         
         $this->form->setValuesByArray($values);
     }
@@ -390,6 +417,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $this->object->setShowTimeline($this->form->getInput("show_timeline"));
             $this->object->setReadOnly($this->form->getInput("read_only"));
             $this->object->setAuthorIdentification($this->form->getInput("author_identification"));
+            $this->object->setRequirePolicyConsent($this->form->getInput("require_policy_consent"));
 
             $this->object->update();
             ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
@@ -401,6 +429,94 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     }
 
 //
+// Agree Policies
+//    
+    /**
+     * agree policy
+     */
+    function agreePolicy()
+    {
+    	global $lng, $ilCtrl;
+    	
+    	include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteUser.php");
+    	$this->EtherpadLiteUser = new ilEtherpadLiteUser();
+    	
+    	$hash = array();
+    	$policiesContent = $this->policiesContent();
+    	foreach($policiesContent as $type => $data)
+    	{
+    		$hash[$type] = hash('sha1', $data['content']);
+    	}
+    	
+    	if($this->EtherpadLiteUser->agreePolicy($hash))
+    	{
+    		// ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
+    	}
+    	else
+    	{
+    		ilUtil::sendFailure("error", true);
+    	}
+    	
+    	$ilCtrl->redirect($this, "showContent");
+    	
+    }
+
+//
+// revoke consent
+// !!! only for demonstration !!!
+//
+     function revokeConsent()
+     {
+     global $lng, $ilCtrl;
+       
+     	include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteUser.php");
+    	$this->EtherpadLiteUser = new ilEtherpadLiteUser();
+        	 
+        if($this->EtherpadLiteUser->revokeConsent())	{
+        	// ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
+        } else {
+        	ilUtil::sendFailure("error", true);
+        }
+		$ilCtrl->redirect($this, "showContent");
+    }
+
+    
+//
+// inspect policies
+//
+	function inspectPolicies()
+	{
+		global $tpl, $ilTabs, $ilCtrl;
+		$ilTabs->activateTab("agreement");
+		
+		$policiesTpl = new ilTemplate("tpl.policies.html", true, true, "Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite");
+		
+		/**
+		 * MODALs
+		 */
+		$policiesContent = $this->policiesContent();
+		foreach($policiesContent as $type => $data)
+		{
+			$policiesTpl->setVariable(
+				$type."MODAL", 
+				$this->buildModal(
+					$type."MODAL", 
+					$data['heading'], 
+					$data['content'],
+					$data['pdf']
+				)->getHTML()
+			);
+		}
+		
+		
+		// !only fr demonstration !
+		$policiesTpl->setVariable("REVOKETLINK",$ilCtrl->getLinkTarget($this, "revokeConsent"));
+		
+		$tpl->setContent($policiesTpl->get());
+	}
+   
+    
+//
 // Show content
 //
 
@@ -409,7 +525,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     function showContent()
     {
-        global $tpl, $ilTabs, $ilUser, $lng;
+        global $tpl, $ilTabs, $ilUser, $lng, $ilCtrl;
         
         try
         {
@@ -417,38 +533,72 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
             $ilTabs->activateTab("content");
             $tpl->addCss("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/templates/css/etherpad.css");
             $tpl->addJavaScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/js/ilEtherpadLite.js");
-
+            			            
+            // build javascript required to load the pad
+            $pad = new ilTemplate("tpl.pad.html", true, true, "Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite");
+            $pad->setVariable("POLICIESDIV","none");
+            
             // Show Elements depending on settings in the administration of the plugin
             include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
             $this->adminSettings = new ilEtherpadLiteConfig();
-
+            
+            include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteUser.php");
+            $this->EtherpadLiteUser = new ilEtherpadLiteUser();
+            
+            // writeable pad
+            $padID = $this->object->getEtherpadLiteID();
+            
 			if($this->object->getReadOnly()) 
 			{ 
 				$padID = $this->object->getReadOnlyID(); 
 				ilUtil::sendInfo($this->txt("read_only_notice"), true);
 			} 
-			else 
+			elseif($this->object->getRequirePolicyConsent() && !$this->EtherpadLiteUser->getPolicyAgreement())
 			{
-				$padID = $this->object->getEtherpadLiteID(); 
+				$padID = $this->object->getReadOnlyID();
 				
-				// UDF selected by admin, but no value was set by user?
-				if ($this->adminSettings->getValue("author_identification_conf")){
-					$authorVisibilityType = $this->object->getAuthorIdentification();
-					$field_id = substr($authorVisibilityType, strpos($authorVisibilityType, ":")+1);
-					if (stripos($authorVisibilityType,'UDF') !== false && !$this->getUDFValue($field_id)){	
-						include_once("./Services/User/classes/class.ilUserDefinedFields.php");
-						$user_defined_fields =& ilUserDefinedFields::_getInstance();
-						$field_definition = $user_defined_fields->getDefinition($field_id);
-						$profileSettingsLink = "<a href='ilias.php?baseClass=ilPersonalDesktopGUI&cmd=jumpToProfile'>".$lng->txt("personal_profile")."</a>";
-						$noNameMsg = $this->txt("no_name_set")."! ";
-						$noNameMsg .= $lng->txt("form_empty_fields")." <i>".$field_definition["field_name"]."</i> ".$this->txt("at")." $profileSettingsLink.";
-						ilUtil::sendFailure($noNameMsg, true);
-					}
+				$pad->setVariable("POLICIESDIV","block");
+				$pad->setVariable("CONSENTLINK",$ilCtrl->getLinkTarget($this, "agreePolicy"));
+				
+				ilUtil::sendFailure("Es liegen noch keine Einwilligung in die datenschutz- und urheberrechtlichen Erklärungen vor!
+						<br/>An dieser Klausur können Sie daher noch nicht teilnehmen.", true);
+			}
+			elseif($this->adminSettings->getValue("author_identification_conf"))
+			{	
+				// UDF selected by admin, but no value was set by user?						
+				$authorVisibilityType = $this->object->getAuthorIdentification();
+				$field_id = substr($authorVisibilityType, strpos($authorVisibilityType, ":")+1);
+				if (stripos($authorVisibilityType,'UDF') !== false && !$this->getUDFValue($field_id))
+				{	
+					$padID = $this->object->getReadOnlyID();
+					include_once("./Services/User/classes/class.ilUserDefinedFields.php");
+					$user_defined_fields =& ilUserDefinedFields::_getInstance();
+					$field_definition = $user_defined_fields->getDefinition($field_id);
+					$profileSettingsLink = "<a href='ilias.php?baseClass=ilPersonalDesktopGUI&cmd=jumpToProfile'>".$lng->txt("personal_profile")."</a>";
+					$noNameMsg = $this->txt("no_name_set")."! ";
+					$noNameMsg .= $lng->txt("form_empty_fields")." <i>".$field_definition["field_name"]."</i> ".$this->txt("at")." $profileSettingsLink.";
+					ilUtil::sendFailure($noNameMsg, true);
 				}
 			}
+				
+			/**
+			 * Modals
+			 */
+			$policiesContent = $this->policiesContent();
+			foreach($policiesContent as $type => $data)
+			{
+				$pad->setVariable(
+					$type."MODAL", 
+					$this->buildModal(
+						$type."MODAL", 
+						$data['heading'], 
+						$data['content'],
+						$data['pdf']
+					)->getHTML()
+				);
+			}
 
-            // build javascript required to load the pad
-            $pad = new ilTemplate("tpl.pad.html", true, true, "Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite");
+			
             $pad->setVariable("ENTER_FULLSCREEN",$this->txt("enter_fullscreen"));
             $pad->setVariable("LEAVE_FULLSCREEN",$this->txt("leave_fullscreen"));
             $pad->setVariable("PROTOCOL",($this->adminSettings->getValue("https") ? "https" : "http"));
@@ -487,6 +637,47 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         }
     }
 
+    
+    //
+    // MODAL
+    //
+    private function buildModal($tplvar, $heading, $content, $pdf)
+    {
+    	$link = "<p align='right'><a target='_blank' href='".$pdf."'>als PDF</a></p>";
+    	include_once("./Services/UIComponent/Modal/classes/class.ilModalGUI.php");
+    	$modal = ilModalGUI::getInstance();
+    	$modal->setHeading($heading);
+    	$modal->setId("il".$tplvar);
+    	$modal->setBody($content.$link);
+    	return $modal;
+    }
+    private function policiesContent()
+    {
+    	// Show texts depending on settings in the administration of the plugin
+    	include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite/classes/class.ilEtherpadLiteConfig.php");
+    	$this->adminSettings = new ilEtherpadLiteConfig();
+    	
+    	$rootdir = "./Customizing/global/plugins/Services/Repository/RepositoryObject/EtherpadLite";
+
+    	return array(
+    			"PrivacyPolicy" => array(
+    					"heading" => "Datenschutz und Privatsphäre",
+    					"content" => file_get_contents($rootdir.$this->adminSettings->getValue("policy_paths_privacy_html")),
+    					"pdf" => $rootdir.$this->adminSettings->getValue("policy_paths_privacy_pdf")
+    			),
+    			"IPropPolicy" => array(
+    					"heading" => "Urheberschaft",
+    					"content" => file_get_contents($rootdir.$this->adminSettings->getValue("policy_paths_iprop_html")),
+    					"pdf" => $rootdir.$this->adminSettings->getValue("policy_paths_iprop_pdf")
+    			),
+    			"Rules" => array(
+    					"heading" => "Regelwerk",
+    					"content" => file_get_contents($rootdir.$this->adminSettings->getValue("policy_paths_rules_html")),
+    					"pdf" => $rootdir.$this->adminSettings->getValue("policy_paths_rules_pdf")
+    			)
+    	);
+    }
+    
 
     private function constructAuthorIdentification($type)
     {
@@ -512,6 +703,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     }
     
 
+  /*
     public function initCreateForm($a_new_type)
     {
     	$form = parent::initCreateForm($a_new_type);
@@ -527,6 +719,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
     	return $form;
     }
+   */
 
 }
 ?>

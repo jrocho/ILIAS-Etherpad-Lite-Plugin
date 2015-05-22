@@ -35,7 +35,7 @@ xpdl_import#:#Etherpad importieren
 load_error#:#Beim Laden des Etherpads ist ein Fehler aufgetreten. Fehlermeldung:
 error_not_found_in_db#:#Dieses Etherpad konnte in der Datenbank nicht gefunden werden.
 read_only#:#Schreibrechte entziehen
-read_only_notice#:#Diese Etherpad ist schreibgeschützt.
+read_only_notice#:#Dieses Etherpad ist schreibgeschützt.
 allow_read_only#:#Schreibschutz für Etherpads zulassen
 info_allow_read_only#:#In den Einstellungen des Etherpads die Möglichkeit anbieten einen Schreibschutz zu aktivieren.
 epadl_version#:#Etherpad Lite Version
@@ -52,6 +52,17 @@ info_udf#:#Benutzerdefiniertes Textfeld.
 no_name_set#:#Kein Name gesetzt
 unknown_identity#:#Unbekannt
 at#:#unter
+
+policy_paths#:#Pfade der Einwilligungstexte (c.t.)
+info_policy_paths#:#Für das c.t. Projekt (Feature seit v1.1.4)
+policy_paths_privacy_html#:#Datenschutzerklärung (HTML)
+policy_paths_privacy_pdf#:#Datenschutzerklärung (PDF)
+policy_paths_iprop_html#:#Urheberrechtserklärung (HTML)
+policy_paths_iprop_pdf#:#Urheberrechtserklärung (PDF)
+policy_paths_rules_html#:#Regelwerk (HTML)
+policy_paths_rules_pdf#:#Regelwerk (PDF)
+info_relative_path#:#Relativer Pfad
+
 
 show_chat#:#Chat anzeigen
 info_show_chat#:#

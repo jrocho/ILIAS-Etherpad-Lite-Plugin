@@ -105,6 +105,39 @@
         $(".showTimeSlider").hide();
         $(".savedRevision").hide();
     }
+    
+        
+    /**
+     * <c.t.>
+     */
+    
+    // TOC on left hand
+   tableOfContents.enable = function(){
+    	$('#toc').show().css({"width" : "calc(15% - 10px)", "left" : "0"});
+    	$('#editorcontainer').css({"left" : "15%"});
+    	this.update();
+   }
+   tableOfContents.disable = function(){
+    	$('#toc').hide();
+    	$('#editorcontainer').css({"left" : "0"});
+   }
+   
+   // settings button and popup
+   $(".settings").show(function(){
+   		// hide line numbers checkbox
+	   	$("#options-linenoscheck").parent().hide();
+	   	// hide RTL checkbox
+	   	$("#options-rtlcheck").parent().hide();
+	   	// hide right section (e.g. export)
+	   	$("#settings .column").eq(1).hide();
+	   	// spread left section
+	   	$("#settings .column").eq(0).css({'width' : '100%'});
+	   	// scale down popup size 
+	   	$("#settings.popup").css('maxWidth', '300px');
+	   	// hide font selection
+	   	$("#settings .column table tr").eq(0).hide();
+   });
+   
 }
 
 function getUrlVars()
