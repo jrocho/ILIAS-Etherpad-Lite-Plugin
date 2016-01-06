@@ -11,6 +11,11 @@ include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php")
 */
 class ilEtherpadLitePlugin extends ilRepositoryObjectPlugin
 {
+
+	protected function uninstallCustom() {
+                // uninstall placeholder 
+        }
+
 	function getPluginName()
 	{
 		return "EtherpadLite";
