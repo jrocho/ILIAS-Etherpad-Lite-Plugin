@@ -1,4 +1,4 @@
-# Etherpad Lite Plugin for ILIAS 4.1 - 4.3 #
+# Etherpad Lite Plugin for ILIAS 4.1 - 5.1 #
 
 If you are using ILIAS 4.1 - 4.2 please use version 0.0.4 or the 'pre-43' branch: https://github.com/jrocho/ILIAS-Etherpad-Lite-Plugin/tags
 Refer to the README file contained in that version
@@ -90,6 +90,9 @@ As of Plugin v1.1.1 there is a new setting in the administration which sets the 
 As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.27
 
 ## Changelog ##
+
+### v1.2.0 ###
+* 5.1 compatibility 
 
 ### v1.1.2 ###
 * further CSS fix for 5.0
