@@ -91,6 +91,9 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.2.1 ###
+* 'Uninstall' now removes the EtherpadLite tables
+
 ### v1.2.0 ###
 * 5.1 compatibility 
 
