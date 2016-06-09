@@ -142,8 +142,8 @@ info_conf_show_heading#:#Titelelemente kann für jedes einzelne Etherpadobjekt e
 
 default_show_controls_default_show_imp_exp#:#Import- Exportelemente ein- oder ausblenden.
 info_default_show_imp_exp#:#Import- Exportelemente für alle Etherpadelemente standardmässig ein- oder ausblenden.
-conf_show_controls_conf_show_imp_exp#:#Import- Exportelemente individuell konfigurierbar.
-info_conf_show_imp_exp#:#Import- Exportelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
+conf_show_controls_conf_show_import_export#:#Import- Exportelemente individuell konfigurierbar.
+info_conf_show_import_export#:#Import- Exportelemente können für jedes einzelne Etherpadobjekt ein- oder ausgeblendet werden.
 
 default_show_controls_default_show_timeline#:#Timeline ein- oder ausblenden.
 info_default_show_timeline#:#Timeline für alle Etherpadelemente standardmässig ein- oder ausblenden.
