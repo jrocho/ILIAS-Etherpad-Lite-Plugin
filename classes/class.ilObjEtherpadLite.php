@@ -103,11 +103,17 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		
 		if ($r->numRows() == 1)
 		{
-			$rec = $r->fetchRow(DB_FETCHMODE_OBJECT);
+			if(class_exists('ilDBConstants')) 
+			{
+				$rec = $r->fetchRow(ilDBConstants::FETCHMODE_ASSOC);
+			}
+			else
+			{
+				$rec = $r->fetchRow(DB_FETCHMODE_OBJECT);
+			}
 			return $rec->old_pad;
 		}
-		
-		
+				
 		return false;
     }
     
