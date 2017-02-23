@@ -79,7 +79,7 @@ Please be sure to update the settings.json of Etherpad-Lite and add
   "sessionKey" : "",
 </code></pre>
 
-if you are updating from a EtherpadLite version pre v1.27. You of course need to add a random string.
+if you are updating from a EtherpadLite version pre v1.2.7. You of course need to add a random string.
 
 ### Updating to Etherpad Lite Server to >v1.4 ###
 
@@ -87,7 +87,7 @@ Please replace your <EtherpadLiteServer>/src/static/custom/pad.js with the one p
 
 As of Plugin v1.1.1 there is a new setting in the administration which sets the version of the Etherpad-Lite Server. Please choose the right version.
 
-As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.27
+As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.2.7
 
 ## Changelog ##
 
@@ -138,7 +138,7 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ### v1.0.1 ###
 
-* patches the API library for EtherpadLite v1.27
+* patches the API library for EtherpadLite v1.2.7
 * fixed database bug when creating Etherpads with the chat function disabled
 * added language variables
 
