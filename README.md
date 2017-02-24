@@ -12,7 +12,7 @@ If your are updating from a previous version, please refer to the update section
 
    Please refer to the Etherpad Lite [installation instructions](https://github.com/ether/etherpad-lite)
 
-*IMPORTANT: Before you start the Etherpad Lite service turn of "minify" in the settings.json otherwise the the JavaScript modifications (see section 2 of this documentation) won't take effect.*
+*IMPORTANT: Before you start the Etherpad Lite service, turn off "minify" in the settings.json otherwise the JavaScript modifications (see section 2 of this documentation) won't take effect.*
    
    Some recommendations on this: place the Etherpad Lite server behind a reverse proxy, move it from 
    SQLite to MySQL, setup an Init script (to start the Etherpad Lite server automatically), install abiword
@@ -49,7 +49,7 @@ admin user in your *settings.json* (in the Etherpad-Lite folder) and then open t
 
 ### 4. Enable Plugin in ILIAS 
 
-Login to your ILIAS installation as a administrator and visit Administration -> Modules, Services and Plugins -> Administrate (on the "RepositoryObject" row (the second column of that row should already list the plugin as "EtherpadLite").
+Login to your ILIAS installation as an administrator and visit Administration -> Modules, Services and Plugins -> Administrate (on the "RepositoryObject" row [the second column of that row should already list the plugin as "EtherpadLite"]).
 
 Click on "Update" and the on "Activate". The plugin should now be available and you can start to add Etherpads in you courses. You might need to  allow the creation of "Etherpad Lite" objects in your role administration.
 
@@ -79,7 +79,7 @@ Please be sure to update the settings.json of Etherpad-Lite and add
   "sessionKey" : "",
 </code></pre>
 
-if you are updating from a EtherpadLite version pre v1.27. You of course need to add a random string.
+if you are updating from a EtherpadLite version pre v1.2.7. You—of course—need to add a random string.
 
 ### Updating to Etherpad Lite Server to >v1.4 ###
 
@@ -87,7 +87,7 @@ Please replace your <EtherpadLiteServer>/src/static/custom/pad.js with the one p
 
 As of Plugin v1.1.1 there is a new setting in the administration which sets the version of the Etherpad-Lite Server. Please choose the right version.
 
-As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.27
+As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.2.7
 
 ## Changelog ##
 
@@ -138,7 +138,7 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ### v1.0.1 ###
 
-* patches the API library for EtherpadLite v1.27
+* patches the API library for EtherpadLite v1.2.7
 * fixed database bug when creating Etherpads with the chat function disabled
 * added language variables
 
