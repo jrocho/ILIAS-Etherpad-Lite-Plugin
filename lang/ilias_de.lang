@@ -38,6 +38,11 @@ read_only#:#Schreibrechte entziehen
 read_only_notice#:#Diese Etherpad ist schreibgeschützt.
 allow_read_only#:#Schreibschutz für Etherpads zulassen
 info_allow_read_only#:#In den Einstellungen des Etherpads die Möglichkeit anbieten einen Schreibschutz zu aktivieren.
+allow_read_only_readonly_disable_export#:#Bei Etherpads mit Schreibschutz Export deaktivieren.
+info_readonly_disable_export#:#Workaround für einen Etherpad Lite Bug, der beim Exportieren schreibgeschützter Pads eine Fehlermeldung anzeigt.
+ 
+Workaround für einen E
+
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Die verwendete Etherpad Lite Version auf dem Server
 

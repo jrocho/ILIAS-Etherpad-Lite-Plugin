@@ -38,6 +38,8 @@ read_only#:#Revoke write permission
 read_only_notice#:#This Etherpad is write protected.
 allow_read_only#:#Activate write protection for Etherpads
 info_allow_read_only#:#Allow an Etherpad to be set to read only mode in the settings.
+allow_read_only_readonly_disable_export#:#Disable export of Etherpads when they are set to read-only.
+info_readonly_disable_export#:#Workaround for an Etherpad Lite bug, which displays an error when trying to export read-only pads.
 epadl_version#:#Etherpad Lite Version
 info_epadl_version#:#Please select which Etherpad Lite server version you are using on the server.
 
