@@ -1,0 +1,3 @@
+[submodule "libs/etherpad-lite-client"]
+	path = libs/etherpad-lite-client
+	url = git@github.com:jrocho/etherpad-lite-client.git
