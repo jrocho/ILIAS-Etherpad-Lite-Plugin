@@ -39,7 +39,7 @@ admin user in your *settings.json* (in the Etherpad-Lite folder) and then open t
    
 ### 2. Copy pad.js to Etherpad Lite installation
 
-   Copy the file pad.js.sample to *"static/custom/pad.js"* within your etherpad-lite (server) folder. It add the functionality
+   Copy the file pad.js.sample to *"src/static/custom/pad.js"* within your etherpad-lite (server) folder. It adds the functionality
    to add/remove individual functions from within ILIAS.
 
 ### 3. Copy Plugin to ILIAS
@@ -90,6 +90,12 @@ As of Plugin v1.1.1 there is a new setting in the administration which sets the 
 As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher than v1.2.7
 
 ## Changelog ##
+
+### v1.3.1 ###
+* fixed errors in README [Rillke]
+* fixed typo in language file
+* switch from boolean to int in database (only affects new installations) [theodortruffer]
+* added option to globally disable the export/import button on read-only Etherpads due to a problem how Etherpad Lite handles session based pads
 
 ### v1.3.0 ###
 * compatibility with ILIAS 5.2

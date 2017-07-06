@@ -82,47 +82,47 @@ if($ilDB->tableColumnExists("rep_robj_xpdl_data", "use_color"))
 <?php
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_chat'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_chat",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_chat",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','monospace_font'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","monospace_font",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","monospace_font",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_controls'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_controls",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_controls",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_style'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_style",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_style",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_list'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_list",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_list",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_redo'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_redo",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_redo",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_coloring'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_coloring",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_coloring",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_heading'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_heading",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_heading",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_import_export'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_import_export",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_import_export",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','show_timeline'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","show_timeline",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","show_timeline",array("type"=>"integer", "length"=>1));
     }
     if(!$ilDB->tableColumnExists('rep_robj_xpdl_data','old_pad'))
 	{
-        $ilDB->addTableColumn("rep_robj_xpdl_data","old_pad",array("type"=>"boolean"));
+        $ilDB->addTableColumn("rep_robj_xpdl_data","old_pad",array("type"=>"integer", "length"=>1));
     }
 ?>
 <#6>
@@ -284,4 +284,9 @@ foreach($sql as $s)
 <?php
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'en'");	
 	$res = $ilDB->query("UPDATE `lng_data` set `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_imp_expo' where `identifier` = 'rep_robj_xpdl_default_show_controls_default_show_import_expo' and `lang_key` = 'de'");	
+?>
+
+<#17>
+<?php
+	$res = $ilDB->query("INSERT INTO `rep_robj_xpdl_adm_set` (epkey, epvalue) SELECT 'allow_read_only_readonly_disable_export',0 FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM rep_robj_xpdl_adm_set WHERE epkey = 'allow_read_only_readonly_disable_export');");	
 ?>
