@@ -283,9 +283,8 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	function doDelete()
 	{
 		global $ilDB,$ilLog;
-		$this->connectToEtherpad();
-		
-		
+
+		// fetch etherpad ID
 		$set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
 			);
@@ -293,21 +292,20 @@ class ilObjEtherpadLite extends ilObjectPlugin
 		{
 			$this->setEtherpadLiteID($rec["epadl_id"]);
 		}
-		
-		//echo $this->getEtherpadLiteID();
+
+		// (try to) delete pad on etherpad server
 		$ilLog->write("Delete Pad ID: ".$this->getEtherpadLiteID());
-		
-		if($this->getEtherpadLiteConnection()->deletePad($this->getEtherpadLiteID()))
-		{
-			$ilDB->manipulate("DELETE FROM rep_robj_xpdl_data WHERE ".
+		try {
+			$this->connectToEtherpad();
+			$this->getEtherpadLiteConnection()->deletePad($this->getEtherpadLiteID());
+		} catch (Exception $e) {
+			$ilLog->write("Pad could not be deleted: " . $e->getMessage());
+		}
+
+		// delete data from db
+		$ilDB->manipulate("DELETE FROM rep_robj_xpdl_data WHERE ".
 			" id = ".$ilDB->quote($this->getId(), "integer")
-			);
-		}
-		else
-		{
-			return false;
-		}
-		
+		);
 	}
 		
 	
