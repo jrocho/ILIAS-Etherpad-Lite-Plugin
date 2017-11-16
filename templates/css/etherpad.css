@@ -6,6 +6,7 @@
     border:thin;
     border-style:solid;
     border-color:#a5a5a5;
+    min-height:400px;
 }
 #etherpad-lite
 {
