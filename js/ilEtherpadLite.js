@@ -20,7 +20,7 @@
             height = $(window).height();
         }
         else {
-            height = $(window).height() - ($("#fsxMainHeader").height() + $("div.il_Header").height() + $("div.ilLocator.xsmall").height()+150);
+            height = $(window).height() - ($("div.ilMainHeader").height() + $("div.ilTopBar").height() + $("div.il_HeaderInner").height() + 100);            
         }
         repaintPad();
     }

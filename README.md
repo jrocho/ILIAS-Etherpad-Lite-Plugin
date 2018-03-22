@@ -91,6 +91,9 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.4.0 ###
+* compatibility with ILIAS 5.3 (use v1.3.1 for older versions)
+
 ### v1.3.1 ###
 * fixed errors in README [Rillke]
 * fixed typo in language file
