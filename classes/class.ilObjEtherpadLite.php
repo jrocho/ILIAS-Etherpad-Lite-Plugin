@@ -160,7 +160,7 @@ class ilObjEtherpadLite extends ilObjectPlugin
                 $sessionID  = $this->getEtherpadLiteConnection()->createSession($this->getEtherpadLiteGroupMapper(), $this->getEtherpadLiteUserMapper(), $validUntil);
                 $sessionID  = $sessionID->sessionID;
             }
-            setcookie('sessionID', $sessionID, 0, '/', $this->adminSettings->getValue("domain"));
+            setcookie('sessionID', $sessionID, 0, '/', $this->adminSettings->getValue("domain"), $this->adminSettings->getValue("https") ? "secure" : "");
         }
         catch (Exception $e)
         {
