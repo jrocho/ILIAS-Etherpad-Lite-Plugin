@@ -91,6 +91,12 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.4.2 ###
+* fix for small display sizes and iPad
+
+### v1.4.1 ###
+* secure session cookie support (Databay)
+
 ### v1.4.0 ###
 * compatibility with ILIAS 5.3 (use v1.3.1 for older versions)
 

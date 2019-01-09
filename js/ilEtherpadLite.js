@@ -20,7 +20,7 @@
             height = $(window).height();
         }
         else {
-            height = $(window).height() - ($("div.ilMainHeader").height() + $("div.ilTopBar").height() + $("div.il_HeaderInner").height() + 100);            
+            height = $(window).height() - ($("div.ilMainHeader").height() + $("div.ilTopBar").height() + $("footer.ilFooter").height() + $("div.il_HeaderInner").height() + 300);
         }
         repaintPad();
     }
@@ -45,6 +45,7 @@
             $("#leaveFullscreenPad").hide();
         }
         $("#etherpad-lite").css({'height':height + "px"});
+        //$("#etherpad-liteFrame").css({'height':$("#etherpad-lite").height()});
         $("#etherpad-liteFrame").css({'height':$("#etherpad-lite").height() - $(".labeFullscreenPad").height()-1 + "px"});
     }
 

@@ -1,19 +1,22 @@
 #etherpad-liteFrame
 {
     width:100%;
-    height:95%;
+    height:100%;
     clear: both;
     border:thin;
     border-style:solid;
     border-color:#a5a5a5;
-    min-height:400px;
+    min-height: 215px;
 }
+
 #etherpad-lite
 {
     top:0;
     left:0;
     width:100%;
+    min-height: 215px;
 }
+
 .etherpad-liteFullscreen
 {
     position:fixed;
@@ -50,3 +53,4 @@ img.etherpad-FullScreen-Leave {
 	padding:5px;
 	box-sizing: content-box;
 }
+
