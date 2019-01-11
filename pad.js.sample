@@ -7,6 +7,9 @@
 
  function customStart()
 {
+	if(is_iOS_Safari() == true)
+    	$("#editorcontainer").addClass("etherpad-lite-ios");
+
     /** Get Params from URL **/
     var parameters = getUrlVars();
 
@@ -52,11 +55,7 @@
     
 	$( "#myusernameedit" ).prop('readonly', true);
 
-
-
-
-
-    /** Always hide Button for embedLinks (direct Link in Ilias should be used instaed) **/
+    /** Always hide Button for embedLinks (direct Link in Ilias should be used instead) **/
     $(".embed").hide();
     /** Hide Settings Button (Settings are made in Ilias with tab settings) **/
     $(".settings").hide();
@@ -115,4 +114,11 @@ function getUrlVars()
         vars[hash[0]] = hash[1];
     }
     return vars;
+}
+
+function is_iOS_Safari() {
+	var ua = window.navigator.userAgent;
+	var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+	var webkit = !!ua.match(/WebKit/i);
+	return iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 }

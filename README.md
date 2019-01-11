@@ -37,9 +37,9 @@ e.g.
 As of v1.0.0 the Etherpad-Lite Plugin contains support for the EtherpadLite *ep_headings* plugin. To install Etherpad-Lite Plugins in Etherpad-Lite please configure an
 admin user in your *settings.json* (in the Etherpad-Lite folder) and then open the URL http://YOUR-PAD-SERVER/admin/plugins
    
-### 2. Copy pad.js to Etherpad Lite installation
+### 2. Copy pad.js / pad.css to Etherpad Lite installation
 
-   Copy the file pad.js.sample to *"src/static/custom/pad.js"* within your etherpad-lite (server) folder. It adds the functionality
+   Copy the file pad.js.sample to *"src/static/custom/pad.js"* and pad.css.sample to *"src/static/custom/pad.css"* within your etherpad-lite (server) folder. It adds the functionality
    to add/remove individual functions from within ILIAS.
 
 ### 3. Copy Plugin to ILIAS
@@ -92,7 +92,8 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 ## Changelog ##
 
 ### v1.4.2 ###
-* fix for small display sizes and iPad
+* fix for small display sizes
+* improved iPad support (please see step 2 in the instructions - you need to replace your old pad.js file and add the new pad.css to your Etherpad Lite server folder for the iPad support to work)
 
 ### v1.4.1 ###
 * secure session cookie support (Databay)

@@ -1,0 +1,10 @@
+@media (max-width:600px) {
+  #sidediv {
+    display: none !important;
+  }
+}
+
+.etherpad-lite-ios {
+	-webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+}
