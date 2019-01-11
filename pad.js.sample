@@ -55,7 +55,7 @@
     
 	$( "#myusernameedit" ).prop('readonly', true);
 
-    /** Always hide Button for embedLinks (direct Link in Ilias should be used instead) **/
+    /** Always hide Button for embedLinks (direct Link in Ilias should be used instaed) **/
     $(".embed").hide();
     /** Hide Settings Button (Settings are made in Ilias with tab settings) **/
     $(".settings").hide();
@@ -65,6 +65,7 @@
     $(".showTimeSlider a").removeClass("grouped-middle").addClass("grouped-left");
     $("li[data-key='import_export']").after("<li class='separator'></li><li class='separator'></li>");
 
+    
     if(parameters["showStyleBlock"] != "true")
     {
         $(".bold").hide();
@@ -72,6 +73,7 @@
         $(".underline").hide();
         $(".strikethrough").hide();
     }
+    
     if(parameters["showListBlock"] != "true")
     {
         $(".insertorderedlist").hide();
@@ -107,12 +109,22 @@ function getUrlVars()
 {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
+    
+    var cookies = getCookiesArray();
+    
+    if(hashes.length < 2 && cookies["showChat"] != '')
     {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
+    	var vars = cookies;
+    } else {
+    
+		for(var i = 0; i < hashes.length; i++)
+		{
+			hash = hashes[i].split('=');
+			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+			document.cookie = hash[0] + "=" + hash[1] + "; path=/";
+		}
+	}
     return vars;
 }
 
@@ -121,4 +133,23 @@ function is_iOS_Safari() {
 	var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
 	var webkit = !!ua.match(/WebKit/i);
 	return iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+}
+
+function getCookiesArray() {
+
+    var cookies = { };
+
+    if (document.cookie && document.cookie != '') {
+        
+        var split = document.cookie.split(';');
+        for (var i = 0; i < split.length; i++) {
+        	
+            var name_value = split[i].split("=");
+            name_value[0] = name_value[0].replace(/^ /, '');
+            cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
+        }
+    }
+    
+    return cookies;
+   
 }
