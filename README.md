@@ -91,6 +91,9 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.4.3 ###
+* updated for ILIAS 5.4 (this version supports ILIAS 5.3 - 5.4)
+
 ### v1.4.2 ###
 * fix for small display sizes
 * improved iPad support (please see step 2 in the instructions - you need to replace your old pad.js file and add the new pad.css to your Etherpad Lite server folder for the iPad support to work)
