@@ -248,8 +248,35 @@ class ilObjEtherpadLite extends ilObjectPlugin
         }
         
     }
-	
-	/**
+    // fau: copyPad - new function doCloneObject
+    /**
+     * Do Cloning
+     * @var ilObjEtherpadLite $new_obj
+     * @var int $a_target_id
+     * @var int $a_copy_id
+     */
+    protected function doCloneObject($new_obj, $a_target_id, $a_copy_id = null)
+    {
+        $new_obj->setOnline($this->getOnline());
+        $new_obj->setShowControls($this->getShowControls());
+        $new_obj->setLineNumbers($this->getLineNumbers());
+        $new_obj->setShowColors($this->getShowColors());
+        $new_obj->setShowChat($this->getShowChat());
+        $new_obj->setMonospaceFont($this->getMonospaceFont());
+        $new_obj->setShowStyle($this->getShowStyle());
+        $new_obj->setShowList($this->getShowList());
+        $new_obj->setShowRedo($this->getShowRedo());
+        $new_obj->setShowColoring($this->GetShowColoring());
+        $new_obj->setShowHeading($this->getShowHeading());
+        $new_obj->setShowImportExport($this->getShowImportExport());
+        $new_obj->setShowTimeline($this->getShowTimeline());
+        $new_obj->setReadOnly($this->getReadOnly());
+        $new_obj->update();
+    }
+    // fau.
+
+
+    /**
      * Update data
      */
     protected function doUpdate()

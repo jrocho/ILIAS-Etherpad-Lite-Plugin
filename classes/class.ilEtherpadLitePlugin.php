@@ -27,5 +27,18 @@ class ilEtherpadLitePlugin extends ilRepositoryObjectPlugin
 	{
 		return "EtherpadLite";
 	}
+
+	// fau: copyPad - new function allowCopy
+	/**
+	 * decides if this repository plugin can be copied
+	 *
+	 * @return bool
+	 */
+	public function allowCopy()
+	{
+		return true;
+	}
+	// fau.
+
 }
 ?>
