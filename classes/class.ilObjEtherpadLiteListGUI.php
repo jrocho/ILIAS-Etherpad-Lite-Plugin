@@ -39,6 +39,9 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 	function initType()
 	{
 		$this->setType("xpdl");
+		// fau: copyPad - enable copy in list
+		$this->copy_enabled = true;
+		// fau.
 	}
 	
 	/**
