@@ -103,7 +103,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     function setTabs()
     {
-        global $ilTabs, $ilCtrl, $ilAccess;
+        global $DIC;
+        
+        $ilTabs = $DIC['ilTabs'];
+        $ilCtrl = $DIC['ilCtrl'];
+        $ilAccess = $DIC['ilAccess'];
 
         // tab for the "show content" command
         if ($ilAccess->checkAccess("read", "", $this->object->getRefId()))
@@ -134,7 +138,10 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     function editProperties()
     {
-        global $tpl, $ilTabs;
+        global $DIC;
+        
+        $tpl = $DIC['tpl'];
+        $ilTabs = $DIC['ilTabs'];
 
         $ilTabs->activateTab("properties");
         $this->initPropertiesForm();
@@ -150,7 +157,9 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     public function initPropertiesForm()
     {
 
-        global $ilCtrl;
+        global $DIC;
+        
+        $ilCtrl = $DIC['ilCtrl'];
 
         include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
         $this->form = new ilPropertyFormGUI();
@@ -328,7 +337,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     public function updateProperties()
     {
-        global $tpl, $lng, $ilCtrl;
+        global $DIC;
+        
+        $tpl = $DIC['tpl'];
+        $lng = $DIC['lng'];
+        $ilCtrl = $DIC['ilCtrl'];
 
         $this->initPropertiesForm();
         if ($this->form->checkInput())
@@ -369,7 +382,13 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
      */
     function showContent()
     {
-        global $tpl, $ilTabs, $ilUser, $lng;
+        global $DIC;
+        
+        $tpl = $DIC['tpl'];
+        $ilTabs = $DIC['ilTabs'];
+        $ilUser = $DIC['ilUser'];
+        $lng = $DIC['lng'];
+        
         try
         {
 

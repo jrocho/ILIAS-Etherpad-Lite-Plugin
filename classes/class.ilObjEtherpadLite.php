@@ -61,7 +61,10 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     protected function connectToEtherpad()
     {
-        global $ilUser;
+        
+        global $DIC;
+        
+        $ilUser = $DIC['ilUser'];
 
         try
         {
@@ -95,7 +98,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     protected function isOldEtherpad()
     {
-    	global $ilDB;
+    	global $DIC;
+    	
+    	$ilDB = $DIC['ilDB'];
     
     	$r = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".
 			" WHERE id = ".$ilDB->quote($this->getId(), "integer")
@@ -182,7 +187,10 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	*/
 	protected function doCreate()
     {
-        global $ilDB;
+        global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
+        
         $this->connectToEtherpad();
         $tempID = $this->getEtherpadLiteConnection()->createGroupPad($this->getEtherpadLiteGroupMapper(), $this->genRandomString(), $this->adminSettings->getValue("defaulttext"));
         $this->setEtherpadLiteID($tempID->padID);
@@ -221,7 +229,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     protected function doRead()
     {
-        global $ilDB;
+        global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
 
         $set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data " .
                 " WHERE id = " . $ilDB->quote($this->getId(), "integer")
@@ -281,7 +291,9 @@ class ilObjEtherpadLite extends ilObjectPlugin
      */
     protected function doUpdate()
     {
-        global $ilDB;
+        global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
 
         $ilDB->manipulate($up = "UPDATE rep_robj_xpdl_data SET " .
                 " is_online = " . $ilDB->quote($this->getOnline(), "integer") . "," .
@@ -309,7 +321,10 @@ class ilObjEtherpadLite extends ilObjectPlugin
 	*/
 	function doDelete()
 	{
-		global $ilDB,$ilLog;
+		global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
+		$ilLog = $DIC['ilLog'];
 
 		// fetch etherpad ID
 		$set = $ilDB->query("SELECT * FROM rep_robj_xpdl_data ".

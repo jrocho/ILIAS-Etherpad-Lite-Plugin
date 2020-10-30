@@ -7,14 +7,15 @@
     border:thin;
     border-style:solid;
     border-color:#a5a5a5;
-    min-height: 215px;
+    min-height: 200px;
+    margin-bottom:10px;
 }
 
 #etherpad-lite
 {
     top:0;
     left:0;
-    min-height: 215px;
+    min-height: 200px;
 }
 
 .etherpad-liteFullscreen
