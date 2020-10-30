@@ -13,34 +13,46 @@ If your are updating from a previous version, please refer to the update section
    Please refer to the Etherpad Lite [installation instructions](https://github.com/ether/etherpad-lite)
 
 *IMPORTANT: Before you start the Etherpad Lite service, turn off "minify" in the settings.json otherwise the JavaScript modifications (see section 2 of this documentation) won't take effect.*
-   
+
    Some recommendations on this: place the Etherpad Lite server behind a reverse proxy, move it from 
    SQLite to MySQL, setup an Init script (to start the Etherpad Lite server automatically), install abiword
    for PDF/Word/OpenOffice import/export. Everything is described in the Etherpad Lite wiki on GitHub.
 
    This was tested with Debian 5 (using the Debian 6 script) and Debian 6 with nginx and Apache reverse proxy
    setups. 
-   
+
    If you want to only allow access to your pad server to ILIAS user with a session (no direct access to you pad domain)
    set
-   
+
 `"requireSession" : true,`
-   
+
 in the settings.json of Etherpad Lite
-   
+
 Set the IP address in the settings.json to 0.0.0.0
-   
+
 e.g.
-   
+
 `"ip": "0.0.0.0",`
 
-As of v1.0.0 the Etherpad-Lite Plugin contains support for the EtherpadLite *ep_headings* plugin. To install Etherpad-Lite Plugins in Etherpad-Lite please configure an
-admin user in your *settings.json* (in the Etherpad-Lite folder) and then open the URL http://YOUR-PAD-SERVER/admin/plugins
-   
+As of v1.0.0 the Etherpad-Lite Plugin contains support for the EtherpadLite *ep_headings* plugin. To install Etherpad-Lite Plugins in Etherpad-Lite please configure an admin user in your *settings.json* (in the Etherpad-Lite folder) and then open the URL http://YOUR-PAD-SERVER/admin/plugins
+
 ### 2. Copy pad.js / pad.css to Etherpad Lite installation
 
-   Copy the file pad.js.sample to *"src/static/custom/pad.js"* and pad.css.sample to *"src/static/custom/pad.css"* within your etherpad-lite (server) folder. It adds the functionality
-   to add/remove individual functions from within ILIAS.
+#### Etherpad < v1.7.5
+
+Copy the file pad.js.sample to *"src/static/custom/pad.js"* and pad.css.sample to *"src/static/custom/pad.css"* within your etherpad-lite (server) folder. It adds the functionality to add/remove individual functions from within ILIAS.
+
+#### Etherpad >= v1.7.5
+
+Copy the file pad.js.sample to *"src/static/skins/no-skin/pad.js"* and pad.css.sample to *"src/static/skins/no-skin/pad.css"* within your etherpad-lite (server) folder. It adds the functionality to add/remove individual functions from within ILIAS.
+
+**Please note:** You have to add the 
+
+```
+"skinName": "no-skin",
+```
+
+to your Etherpad settings.js if is not already there and change it from the standard "colibris" to "no-skin".
 
 ### 3. Copy Plugin to ILIAS
 
@@ -81,7 +93,7 @@ Please be sure to update the settings.json of Etherpad-Lite and add
 
 if you are updating from a EtherpadLite version pre v1.2.7. You—of course—need to add a random string.
 
-### Updating to Etherpad Lite Server to >v1.4 ###
+### Updating to Etherpad Lite Server to >v1.4 and <v1.7.5 ###
 
 Please replace your <EtherpadLiteServer>/src/static/custom/pad.js with the one provided in pad.js.sample. Otherwise the hiding/showing of buttons in the toolbar will not work anymore.
 
@@ -91,7 +103,14 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.4.4
+
+*supports ILIAS 5.3 - 5.4*
+
+- Added object copy support - copy is a new empty EtherPad (provided by Fred Neumann, FAU)
+
 ### v1.4.3 ###
+
 * updated for ILIAS 5.4 (this version supports ILIAS 5.3 - 5.4)
 
 ### v1.4.2 ###

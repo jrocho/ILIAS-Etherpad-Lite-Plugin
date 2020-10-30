@@ -4,7 +4,7 @@
 $id = "xpdl";
  
 // code version; must be changed for all code changes
-$version = "1.4.3";
+$version = "1.4.4";
  
 // ilias min and max version; must always reflect the versions that should
 // run with the plugin
