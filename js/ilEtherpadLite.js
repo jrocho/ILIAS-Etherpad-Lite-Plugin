@@ -20,7 +20,7 @@
             height = $(window).height();
         }
         else {
-            height = $(window).height() - ($("div.ilMainHeader").height() + $("div.ilTopBar").height() + $("footer.ilFooter").height() + $("div.il_HeaderInner").height() + 300);
+            height = $(window).height() - $('header').height() - $('div.breadcrumbs').height() - $('footer').height() - $('div.il_HeaderInner').height() - $('ul.nav-tabs').height() - 100;
         }
         repaintPad();
     }

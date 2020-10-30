@@ -3,6 +3,7 @@
 /**
  * EtherpadLite configuration user interface class
  * @author  Timon Amstutz <timon.amstutz@ilub.unibe.ch>
+ * @author	Jan Rocho <jan.rocho@fh-dortmund.de>
  * @version $Id$
  *
  */
@@ -14,7 +15,9 @@ class ilEtherpadLiteConfig
      */
     public function setValue($key, $value)
     {
-        global $ilDB;
+        global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
 
         if(!is_string($this->getValue($key)))
         {
@@ -35,7 +38,10 @@ class ilEtherpadLiteConfig
      */
     public function getValue($key)
     {
-        global $ilDB;
+        global $DIC;
+        
+        $ilDB = $DIC['ilDB'];
+        
         $result = $ilDB->query("SELECT epvalue FROM rep_robj_xpdl_adm_set WHERE epkey = " . $ilDB->quote($key, "text"));
         if($result->numRows() == 0)
         {

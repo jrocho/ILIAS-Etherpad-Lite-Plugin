@@ -28,7 +28,7 @@ include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
 * handles the presentation in container items (categories, courses, ...)
 * together with the corresponfing ...Access class.
 *
-* @author 		Jan Rocho <jan@rocho.eu>
+* @author 		Jan Rocho <jan.rocho@fh-dortmund.de>
 */
 class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 {
@@ -81,7 +81,10 @@ class ilObjEtherpadLiteListGUI extends ilObjectPluginListGUI
 	*/
 	function getProperties()
 	{
-		global $lng, $ilUser;
+		global $DIC;
+		
+		$lng = $DIC['lng'];
+		$ilUser = $DIC['ilUser'];
 
 		$props = array();
 		

@@ -5,7 +5,7 @@ include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php")
 /**
 * EtherpadLite repository object plugin
 *
-* @author Jan Rocho <jan@rocho.eu>
+* @author Jan Rocho <jan.rocho@fh-dortmund.de>
 * @version $Id$
 *
 */
@@ -13,7 +13,9 @@ class ilEtherpadLitePlugin extends ilRepositoryObjectPlugin
 {
 
 	protected function uninstallCustom() {
-                global $ilDB;
+                global $DIC;
+                
+                $ilDB = $DIC['ilDB'];
 
 				// removes plugin tables if they exist                
                 if($ilDB->tableExists('rep_robj_xpdl_data'))
