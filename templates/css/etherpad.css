@@ -55,3 +55,6 @@ img.etherpad-FullScreen-Leave {
 	box-sizing: content-box;
 }
 
+.icon.outlined.xpdl {
+    background-image: url(../images/outlined/icon_xpdl.svg);
+}
