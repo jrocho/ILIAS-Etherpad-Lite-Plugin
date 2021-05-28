@@ -103,6 +103,12 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### v1.6.0
+
+*supports ILIAS 6 - 7*
+
+- updated for ILIAS 7
+
 ### v1.5.2
 
 *supports ILIAS 6*

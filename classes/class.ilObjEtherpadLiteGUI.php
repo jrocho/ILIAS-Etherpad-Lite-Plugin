@@ -64,14 +64,11 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
         {
             case "editProperties": // list all commands that need write permission here
             case "updateProperties":
-                //case "...":
                 $this->checkPermission("write");
                 $this->$cmd();
                 break;
 
             case "showContent": // list all commands that need read permission here
-                //case "...":
-                //case "...":
                 $this->checkPermission("read");
                 $this->$cmd();
                 break;
