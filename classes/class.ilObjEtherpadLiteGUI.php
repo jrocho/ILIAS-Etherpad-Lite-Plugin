@@ -303,7 +303,7 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
     function getPropertiesValues()
     {
         $values["title"]    = $this->object->getTitle();
-        $values["desc"]     = $this->object->getDescription();
+        $values["desc"]     = $this->object->getLongDescription();
         $values["online"]   = $this->object->getOnline();
         $values["epadl_id"] = $this->object->getEtherpadLiteID();
         $values["show_chat"]= $this->object->getShowChat();
