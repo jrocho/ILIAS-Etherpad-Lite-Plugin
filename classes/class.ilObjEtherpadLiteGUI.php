@@ -445,9 +445,8 @@ class ilObjEtherpadLiteGUI extends ilObjectPluginGUI
 
 
             // Add Permalink
-            include_once './Services/PermanentLink/classes/class.ilPermanentLinkGUI.php';
-            $permalink = new ilPermanentLinkGUI('xpdl', $this->object->getRefId());
-            $this->tpl->setVariable('PRMLINK', $permalink->getHTML());
+            $tpl->setPermanentLink('xpdl', $this->ref_id);
+            
         } catch (Exception $e)
         {
             $ilTabs->activateTab("content");

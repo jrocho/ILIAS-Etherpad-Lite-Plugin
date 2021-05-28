@@ -103,6 +103,12 @@ As of v1.0.1 of this ILIAS plugin it is recommended to use Etherpad-Lite higher 
 
 ## Changelog ##
 
+### V1.5.1
+
+*supports ILIAS 6*
+
+- fixed permanent link in footer
+
 ### V1.5.0
 
 *supports ILIAS 6*
