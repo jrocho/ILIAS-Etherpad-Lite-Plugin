@@ -15,6 +15,7 @@ xpdl_write#:#Edit Etherpad
 xpdl_delete#:#Delete Etherpad
 xpdl_visible#:#Etherpad is visible
 xpdl_edit_permission#:#Change permission settings
+xpdl_copy#:#Copy Etherpad
 crs_create_xpdl#:#Create Etherpad
 grp_create_xpdl#:#Create Etherpad
 fold_create_xpdl#:#Create Etherpad
